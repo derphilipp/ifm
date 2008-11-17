@@ -1,0 +1,589 @@
+Start of a transcript of
+"The Path to Fortune"
+Volume One of "The Windhall Chronicles"
+Created using Unix Inform 5.5
+Copyright (c) 1995, 1996 by Jeff Cassidy and C.E. Forman. All rights reserved.
+(Type HELP for instructions and registration info.)
+Release 4 / Serial number 960326 / Inform v1502 Library 5/11
+Interpreter 1 Version B / Library serial number 950703
+
+>l
+
+Central Windhall
+     You stand in the midst of the small city of Windhall. The road runs along
+north and south from here. To the west is Sir Gunther's small house, and to the
+east lies Baezil's Bakery. You can almost taste all the delicious pastries that
+Baezil bakes fresh every day.
+
+>n
+
+Northern Windhall
+     You stand on the northern edge of the city of Windhall. To the west is
+Creston's potion shop, which is more often than not bare of products, and to the
+north you can see the small confines of Kytan's shop and house. It seems to
+create a dark and gloomy mood in all who look at it, much like its owner. To the
+east the road ends abruptly on the outskirts of town. On the distant horizon lie
+the mires and wet marshes of the eastern swamplands.
+
+>e
+
+West of Swamp
+     You are directly west of the swamps near town. The ground here is muddy and
+little grows here but gyal grass and jhaka bushes, making the landscape very
+unpleasant. Back to the west, the road into town picks up and winds on to the
+horizon, where it meets with Kytan's house. To the east the swamp thickens,
+growing more wet and more dangerous. Off to the northeast, you think you hear
+the rushing of the Lyndra River.
+
+>w
+
+Northern Windhall
+     You stand on the northern edge of the city of Windhall. To the west is
+Creston's potion shop, which is more often than not bare of products, and to the
+north you can see the small confines of Kytan's shop and house. It seems to
+create a dark and gloomy mood in all who look at it, much like its owner. To the
+east the road ends abruptly on the outskirts of town. On the distant horizon lie
+the mires and wet marshes of the eastern swamplands.
+
+>w
+(opening the door to Creston's potion shop first)
+
+Creston's Shop
+     You never did like Creston's potion shop, and now you remember why. It is a
+dark, dusty, and very unpleasant place. Cobwebs hang from the ceiling and drape
+the shelves and counter. The shop lies, as usual, empty. Creston attributes this
+to the difficulties of making a potion, but you think he's just lazy.
+
+"Hey, Aerin," Creston smiles, "I have just the thing to help you on your quest."
+Seeing your unenthusiastic expression, he adds, "No, really. Look here."
+
+From below the counter, the alchemist produces a small vial full of a green
+liquid. "I've spent a whole week working on this. It's a potion for plant
+growth. Great, huh?"
+
+You don't answer. Creston stares lovingly at his potion.
+
+>get vial
+You can't see any such thing.
+
+>get liquid
+You can't see any such thing.
+
+>item "Creston"
+That's not a verb I recognize.
+
+>e
+
+Northern Windhall
+     You stand on the northern edge of the city of Windhall. To the west is
+Creston's potion shop, which is more often than not bare of products, and to the
+north you can see the small confines of Kytan's shop and house. It seems to
+create a dark and gloomy mood in all who look at it, much like its owner. To the
+east the road ends abruptly on the outskirts of town. On the distant horizon lie
+the mires and wet marshes of the eastern swamplands.
+
+>n
+The door to Kytan's trading post seems to be locked.
+
+>open door
+Which do you mean, Creston's potion shop or Kytan's trading post?
+
+>kytan
+You can't see any such thing.
+
+>open post
+It seems to be locked.
+
+>l
+
+Northern Windhall
+     You stand on the northern edge of the city of Windhall. To the west is
+Creston's potion shop, which is more often than not bare of products, and to the
+north you can see the small confines of Kytan's shop and house. It seems to
+create a dark and gloomy mood in all who look at it, much like its owner. To the
+east the road ends abruptly on the outskirts of town. On the distant horizon lie
+the mires and wet marshes of the eastern swamplands.
+
+>nw
+You can't go that way.
+
+>knock on post
+You give the door a few good raps, but no one answers.
+
+>e
+
+West of Swamp
+     You are directly west of the swamps near town. The ground here is muddy and
+little grows here but gyal grass and jhaka bushes, making the landscape very
+unpleasant. Back to the west, the road into town picks up and winds on to the
+horizon, where it meets with Kytan's house. To the east the swamp thickens,
+growing more wet and more dangerous. Off to the northeast, you think you hear
+the rushing of the Lyndra River.
+
+>ne
+
+Near Lyndra River
+     This is the small path north of the swamps which takes you to the Lyndra
+River, where most of the town's fresh water comes from. A bridge spans the small
+river to the northeast, permitting access to the Ivy Coast. Southwestward, the
+path ends in the small field east of town. To the south lies one of the many
+bogs of the swamplands, blocking your way through.
+
+>s
+You'd sink into the bog if you went that way.
+
+>ne
+
+River Bridge
+     This is the old but sturdy bridge that spans the Lyndra River. The water
+below runs clear and cool, flowing into the dark swamp to the south. The swamp
+itself lies dark and dangerous, in wait for another victim. On one side of the
+bridge, a path forks off in two directions, the northeastern heading for
+Denvil's house, the southeastern bound for the Ivy Coast. To the north all you
+can make out are scattered forests and plains, which you have never explored
+before, and don't wish to now.
+
+>ne
+
+Small Hollow
+     You stand in a small hollow in a diminutive outcropping of trees. The path
+here ends at the doorstep of Denvil the wood elf's house, or, more accurately,
+his tree. This rather large tree has a door protruding from its huge trunk, and
+windows line the trunk all the way to the top. How the tree still continues to
+grow, you have no idea. To the southwest you can hear the rushing waters of the
+Lyndra River.
+
+A patch of wild flowers grows by the path.
+
+>item "flowers"
+That's not a verb I recognize.
+
+>x door
+It amazes you how this house was created. Denvil carved it out of a very large
+tree, the type of which you've never seen anywhere else. The tree is even now
+budding, but you can see that it is hollow through the windows in the trunk. A
+door, carved directly into the tree, leads inside. It is currently closed.
+
+>look through window
+Windows line the outside of the tree and give you glimpses into the homely
+little living place of Denvil.
+
+>l
+
+Small Hollow
+     You stand in a small hollow in a diminutive outcropping of trees. The path
+here ends at the doorstep of Denvil the wood elf's house, or, more accurately,
+his tree. This rather large tree has a door protruding from its huge trunk, and
+windows line the trunk all the way to the top. How the tree still continues to
+grow, you have no idea. To the southwest you can hear the rushing waters of the
+Lyndra River.
+
+A patch of wild flowers grows by the path.
+
+>u
+Denvil must've cut away the lower branches when he put in windows. There's no
+way up.
+
+>sw
+
+River Bridge
+     This is the old but sturdy bridge that spans the Lyndra River. The water
+below runs clear and cool, flowing into the dark swamp to the south. The swamp
+itself lies dark and dangerous, in wait for another victim. On one side of the
+bridge, a path forks off in two directions, the northeastern heading for
+Denvil's house, the southeastern bound for the Ivy Coast. To the north all you
+can make out are scattered forests and plains, which you have never explored
+before, and don't wish to now.
+
+>se
+
+Ivy Coast (1)
+     The Ivy Coast is one of the natural wonders of Rysch, so named because, all
+around you, ivy covers almost everything you can see until it plummets right
+into the ocean. All that lies to the west is a wall of ivy, blocking out your
+view of everything beyond. To the east is the Mydar Ocean. The fragrance of salt
+assaults your senses.
+
+Your sharp eyes detect a bleached skeleton entangled in the thick ivy.
+
+>x skeleton
+From the clothes, it appears the skeleton was once an adventurer. All but the
+clothing and bones have rotted away, and ivy has wrapped itself around the
+remains, almost totally ensnarling it.
+
+>item "skeleton"
+That's not a verb I recognize.
+
+>x clothes
+You can't see any such thing.
+
+>x bones
+From the clothes, it appears the skeleton was once an adventurer. All but the
+clothing and bones have rotted away, and ivy has wrapped itself around the
+remains, almost totally ensnarling it.
+
+>l
+
+Ivy Coast (1)
+     The Ivy Coast is one of the natural wonders of Rysch, so named because, all
+around you, ivy covers almost everything you can see until it plummets right
+into the ocean. All that lies to the west is a wall of ivy, blocking out your
+view of everything beyond. To the east is the Mydar Ocean. The fragrance of salt
+assaults your senses.
+
+Your sharp eyes detect a bleached skeleton entangled in the thick ivy.
+
+>s
+
+Ivy Coast (2)
+     You stand on the beaches of the Ivy Coast. The ivy here grows out of
+control, running even into the ocean itself. To the west is a wall of ivy,
+blocking out any movement that way. The sound of gulls can be heard over the
+crashing of the ocean's waves, and you feel the moist sea air on your skin. To
+the far east, you can make out the coastline of the neighboring continent of
+Tharkin.
+
+>s
+
+Ivy Coast (3)
+     You are walking along the beaches of the Ivy Coast, so named because of the
+uncontrollable growth of ivy in this area. The ivy runs down the shore and even
+into the ocean. You feel the moist air coming off the ocean to the east. To the
+west the Ivy Coast grows impenetrable, but it eases up to the south, where a
+small lake can be seen. The ivy ends its growth to the southwest, as it meets up
+with the emergence of the eastern swamps.
+
+A large pelican is resting atop the ivy here. A fat worm dangles limply from its
+beak.
+
+>item "pelican"
+That's not a verb I recognize.
+
+>s
+
+Lyndra Lake (1)
+     You are on the banks of the legendary Lyndra Lake, named after a story
+about two lovers that Idah once told you. The lake's beauty is overpowering. It
+is very still, only disturbed as its same-named river empties into it. The Ivy
+Coast begins north of here, and to the west tall gyal grass blows in the gentle
+winds. You think you can make your way around the magnificent lake to the south.
+
+>s
+
+South of Lake
+     Here you can see the Lyndra Lake's still waters through the small plants
+and bushes that grow here. You can make your way north through the bushes, and a
+steep incline leads northeast to a cliff above the lake. Fields of tall gyal
+grass rustle in the wind to the northwest.
+
+>ne
+
+Lyndra Lake (2)
+     This small cliff overlooks the legendary Lyndra Lake. Below you the gentle
+lake lies calm, except for where the Lyndra River flows into it. You can see to
+the north the Ivy Coast, though the dense growth of ivy makes the way
+impassable. The hill descends to the southwest, and to the east you see the
+rocky outcroppings of the Cliffs of Mydar as they skirt the coastline of the
+Mydar Ocean.
+
+>w
+The only way down is to the southwest.
+
+>e
+The only way down is to the southwest.
+
+>x lake
+The Lyndra Lake is a majestic sight from here. It is named after a legend Idah
+once told you about two star-crossed lovers who eventually met their end in the
+swamp. The lake and river are some sort of blessing that was called about in
+their honor.
+
+>sw
+
+South of Lake
+     Here you can see the Lyndra Lake's still waters through the small plants
+and bushes that grow here. You can make your way north through the bushes, and a
+steep incline leads northeast to a cliff above the lake. Fields of tall gyal
+grass rustle in the wind to the northwest.
+
+>nw
+
+Swampy Grasslands
+     The reeds of gyal grass here are almost twice as tall as you. You push and
+shove a path, but the grass just springs back up after you, making backtracking
+impossible. The ground here is wet, and it seems to grow worse to the north. To
+the east, southeast, and northeast you can hear the sound of water.
+
+>n
+
+Deep Swamp
+     You are now dredging through waist-deep waters in the eastern swamp. Bugs
+assault you, and you think you feel things against your legs. The mossy trees
+hang low, blocking any sunlight from reaching this place of despair. You think
+there is higher ground to the northwest, and to the south you see tall
+grasslands.
+
+>nw
+
+Shallow Swamp
+     You are trekking through the endless swamplands, trying to stay above the
+now-boggy ground. Your way is filled with detours and sinking pits of quicksand
+and bog mud. To the west the swamp lightens up, while to the southeast lies the
+very heart of it. You can see the mossy trees and tall gyal grass beckoning you
+to your doom. To the east lie endless mires, waiting patiently for their next
+victim to attempt to navigate a path through them.
+
+>w
+
+West of Swamp
+     You are directly west of the swamps near town. The ground here is muddy and
+little grows here but gyal grass and jhaka bushes, making the landscape very
+unpleasant. Back to the west, the road into town picks up and winds on to the
+horizon, where it meets with Kytan's house. To the east the swamp thickens,
+growing more wet and more dangerous. Off to the northeast, you think you hear
+the rushing of the Lyndra River.
+
+>e
+
+Shallow Swamp
+     You are trekking through the endless swamplands, trying to stay above the
+now-boggy ground. Your way is filled with detours and sinking pits of quicksand
+and bog mud. To the west the swamp lightens up, while to the southeast lies the
+very heart of it. You can see the mossy trees and tall gyal grass beckoning you
+to your doom. To the east lie endless mires, waiting patiently for their next
+victim to attempt to navigate a path through them.
+
+>e
+
+Mires
+     You are lost in the deep mires of the eastern swamplands. You think you
+might be near the ocean, but you can't see through the low fog. More than once
+you've almost stepped into one of the deadly mires, only to notice it at the
+last moment. The way out apparently lies somewhere to the west, but the fog
+makes seeing that far impossible. You feel as though you're going around in
+circles.
+
+A strange feline creature sits atop a patch of dry land nearby. As you approach,
+it addresses you:
+
+            "I'm known as the Mire Cat, in tales of Olde.
+             Answer my riddle and acquire my gold.
+             But be ye forewarned: One must learn how I think,
+             And the meanings of words must be stretched to the brink."
+
+The Mire Cat pauses, then recites:
+
+            "Lots of human beings ponder this thought.
+             It is found within the center of each life.
+             For an inquiry 'tis infinite yet simple,
+             Except if questioned is a double-bladed knife."
+
+The Mire Cat looks at you expectantly.
+
+You begin to feel a bit hungry.
+
+You decide that you should have something to eat before going on. Sitting down,
+making yourself as comfortable as possible, you open your pack and eat your
+fill.
+
+(The pack is a little emptier now.)
+
+>l
+
+Mires
+     You are lost in the deep mires of the eastern swamplands. You think you
+might be near the ocean, but you can't see through the low fog. More than once
+you've almost stepped into one of the deadly mires, only to notice it at the
+last moment. The way out apparently lies somewhere to the west, but the fog
+makes seeing that far impossible. You feel as though you're going around in
+circles.
+
+The elusive Mire Cat rests on its perch, watching you with an evil grin.
+
+>w
+
+Shallow Swamp
+     You are trekking through the endless swamplands, trying to stay above the
+now-boggy ground. Your way is filled with detours and sinking pits of quicksand
+and bog mud. To the west the swamp lightens up, while to the southeast lies the
+very heart of it. You can see the mossy trees and tall gyal grass beckoning you
+to your doom. To the east lie endless mires, waiting patiently for their next
+victim to attempt to navigate a path through them.
+
+>e
+
+Mires
+     You are lost in the deep mires of the eastern swamplands. You think you
+might be near the ocean, but you can't see through the low fog. More than once
+you've almost stepped into one of the deadly mires, only to notice it at the
+last moment. The way out apparently lies somewhere to the west, but the fog
+makes seeing that far impossible. You feel as though you're going around in
+circles.
+
+The elusive Mire Cat rests on its perch, watching you with an evil grin.
+
+Upon your return, the Mire Cat speaks:
+
+             "So it seems you've returned with fresh resolution.
+              I take it that you have discerned the solution?"
+
+Again, the Mire Cat recites:
+
+            "Lots of human beings ponder this thought.
+             It is found within the center of each life.
+             For an inquiry 'tis infinite yet simple,
+             Except if questioned is a double-bladed knife."
+
+The Mire Cat looks at you expectantly.
+
+>item "mire cat"
+That's not a verb I recognize.
+
+>w
+
+Shallow Swamp
+     You are trekking through the endless swamplands, trying to stay above the
+now-boggy ground. Your way is filled with detours and sinking pits of quicksand
+and bog mud. To the west the swamp lightens up, while to the southeast lies the
+very heart of it. You can see the mossy trees and tall gyal grass beckoning you
+to your doom. To the east lie endless mires, waiting patiently for their next
+victim to attempt to navigate a path through them.
+
+>s
+Tall reeds block your path.
+
+>se
+
+Deep Swamp
+     You are now dredging through waist-deep waters in the eastern swamp. Bugs
+assault you, and you think you feel things against your legs. The mossy trees
+hang low, blocking any sunlight from reaching this place of despair. You think
+there is higher ground to the northwest, and to the south you see tall
+grasslands.
+
+>w
+The mossy trees block your path.
+
+>sw
+The mossy trees block your path.
+
+>s
+
+Swampy Grasslands
+     The reeds of gyal grass here are almost twice as tall as you. You push and
+shove a path, but the grass just springs back up after you, making backtracking
+impossible. The ground here is wet, and it seems to grow worse to the north. To
+the east, southeast, and northeast you can hear the sound of water.
+
+>ne
+
+Ivy Coast (3)
+     You are walking along the beaches of the Ivy Coast, so named because of the
+uncontrollable growth of ivy in this area. The ivy runs down the shore and even
+into the ocean. You feel the moist air coming off the ocean to the east. To the
+west the Ivy Coast grows impenetrable, but it eases up to the south, where a
+small lake can be seen. The ivy ends its growth to the southwest, as it meets up
+with the emergence of the eastern swamps.
+
+A large pelican is resting atop the ivy here. A fat worm dangles limply from its
+beak.
+
+>sw
+
+Swampy Grasslands
+     The reeds of gyal grass here are almost twice as tall as you. You push and
+shove a path, but the grass just springs back up after you, making backtracking
+impossible. The ground here is wet, and it seems to grow worse to the north. To
+the east, southeast, and northeast you can hear the sound of water.
+
+>e
+
+Lyndra Lake (1)
+     You are on the banks of the legendary Lyndra Lake, named after a story
+about two lovers that Idah once told you. The lake's beauty is overpowering. It
+is very still, only disturbed as its same-named river empties into it. The Ivy
+Coast begins north of here, and to the west tall gyal grass blows in the gentle
+winds. You think you can make your way around the magnificent lake to the south.
+
+>e
+The lake blocks your path.
+
+>se
+Trees block your path.
+
+>ne
+Trees block your path.
+
+>s
+
+South of Lake
+     Here you can see the Lyndra Lake's still waters through the small plants
+and bushes that grow here. You can make your way north through the bushes, and a
+steep incline leads northeast to a cliff above the lake. Fields of tall gyal
+grass rustle in the wind to the northwest.
+
+>s
+Trees block your path.
+
+>sw
+Trees block your path.
+
+>w
+Trees block your path.
+
+>nw
+
+Swampy Grasslands
+     The reeds of gyal grass here are almost twice as tall as you. You push and
+shove a path, but the grass just springs back up after you, making backtracking
+impossible. The ground here is wet, and it seems to grow worse to the north. To
+the east, southeast, and northeast you can hear the sound of water.
+
+>w
+The gyal grass is too dense in that direction.
+
+>n
+
+Deep Swamp
+     You are now dredging through waist-deep waters in the eastern swamp. Bugs
+assault you, and you think you feel things against your legs. The mossy trees
+hang low, blocking any sunlight from reaching this place of despair. You think
+there is higher ground to the northwest, and to the south you see tall
+grasslands.
+
+>nw
+
+Shallow Swamp
+     You are trekking through the endless swamplands, trying to stay above the
+now-boggy ground. Your way is filled with detours and sinking pits of quicksand
+and bog mud. To the west the swamp lightens up, while to the southeast lies the
+very heart of it. You can see the mossy trees and tall gyal grass beckoning you
+to your doom. To the east lie endless mires, waiting patiently for their next
+victim to attempt to navigate a path through them.
+
+>n
+Tall reeds block your path.
+
+>w
+
+West of Swamp
+     You are directly west of the swamps near town. The ground here is muddy and
+little grows here but gyal grass and jhaka bushes, making the landscape very
+unpleasant. Back to the west, the road into town picks up and winds on to the
+horizon, where it meets with Kytan's house. To the east the swamp thickens,
+growing more wet and more dangerous. Off to the northeast, you think you hear
+the rushing of the Lyndra River.
+
+>w
+
+Northern Windhall
+     You stand on the northern edge of the city of Windhall. To the west is
+Creston's potion shop, which is more often than not bare of products, and to the
+north you can see the small confines of Kytan's shop and house. It seems to
+create a dark and gloomy mood in all who look at it, much like its owner. To the
+east the road ends abruptly on the outskirts of town. On the distant horizon lie
+the mires and wet marshes of the eastern swamplands.
+
+>unscript
+
+End of transcript.

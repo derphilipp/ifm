@@ -1,0 +1,275 @@
+Here begins a transcript with Ballyhoo.
+BALLYHOO
+Infocom interactive fiction
+Copyright (c) 1986 by Infocom, Inc. All rights reserved.
+Release 97 / Serial number 851218
+
+>verbose
+Maximum verbosity.
+
+Connection
+This area of matted-down crabgrass lies between the vaulted big top entrance to
+the north and the enticements of the midway to the east, where a sagging banner
+hangs crookedly above a turnstile. There is a drinking fountain near the side
+wall of the tent. You can enter the night to the west and south.
+
+>l
+Connection
+This area of matted-down crabgrass lies between the vaulted big top entrance to
+the north and the enticements of the midway to the east, where a sagging banner
+hangs crookedly above a turnstile. There is a drinking fountain near the side
+wall of the tent. You can enter the night to the west and south.
+
+>i
+You have a gorilla suit, your ticket, a clown mask, a balloon and $12.81 to your
+name.
+
+>punch blue
+You perforate the blue dot.
+
+>put ticket in turnstile
+You feed your ticket into the slot and hear all kinds of internal computations
+being made, then the ticket rolls out into your hand.
+
+>task "Punch blue dot" need Ticket
+[I don't know the word "task."]
+
+>task "Put ticket in turnstile" after last
+[I don't know the word "task."]
+
+>e
+You pass through the creaky turnstile.
+
+Midway Entrance
+To the west is the turnstile exit from the midway, which continues east. The
+side of the big top borders on the north. A soiled, sagging banner beckons
+south.
+
+Next to the big top, the detective is talking to a pitchman who's carrying an
+open trunk that's strapped to his upper body.
+
+>save
+Ok.
+
+>listen
+[What do you want to listen to?]
+
+>detective
+The scratchy recording of a calliope, blaring out from unseen speakers, is
+drowning out the voices.
+
+>n
+You bump into the side wall of the big top.
+
+The detective examines the label of the flask that he's holding then takes a
+slug.
+
+>z
+Time passes...
+
+The pitchman gives the detective a final slap on the back and leads him through
+the turnstile.
+
+>z
+Time passes...
+
+>l
+Midway Entrance
+To the west is the turnstile exit from the midway, which continues east. The
+side of the big top borders on the north. A soiled, sagging banner beckons
+south.
+
+>s
+Menagerie
+This scrawny patch of dirt offers a square cage on its west side; an open tent
+giving off a dank, earthy smell on its east side; and a well-worn path along the
+tent to the southeast. A soiled, sagging banner beckons north.
+
+The slow-moving sound of massive chains from inside the tent is heard.
+
+>e
+With upraised tusks and flailing trunk, the elephant backs you off.
+
+>se
+Menagerie Nook
+You are standing outside of the elephant tent. Along its side wall to the north
+sits a cage with straw poking out of it. The menagerie is northwest of here.
+
+Facing you on the east side there is a big old plywood sideshow front, faded
+beyond recognition. It serves as the barrier wall of an enclosed structure
+behind the elephant tent.
+
+>n
+The cage door is closed.
+
+>item "cage"
+[I don't know the word "item."]
+
+>examine front
+The sideshow front is warped and faded beyond recognition.
+
+>move it
+You can't move the sideshow front.
+
+>nw
+Menagerie
+This scrawny patch of dirt offers a square cage on its west side; an open tent
+giving off a dank, earthy smell on its east side; and a well-worn path along the
+tent to the southeast. A soiled, sagging banner beckons north.
+
+>n
+Midway Entrance
+To the west is the turnstile exit from the midway, which continues east. The
+side of the big top borders on the north. A soiled, sagging banner beckons
+south.
+
+>e
+Midway of Midway
+This is about midway along the midway. Your eyes soak in the lavishly painted
+sideshow fronts -- Andrew Jenny's to the south and Rimshaw's to the north. 
+
+>s
+Jennifer's Boudoir
+This is a cozy little drawing room where guests are received. On the gloomy west
+side of the room, a spiral staircase leads upward.
+
+Andrew Jenny is the attraction of this sideshow. He appears standoffish, she's
+looking bored.
+
+>item "Andrew Jenny"
+[I don't know the word "item."]
+
+>w
+You can't go that way.
+
+>u
+Andrew goose-steps to a position in front of the spiral staircase, dragging
+Jenny's high heel across the ground. There Andrew stands blocking your way up.
+Stiffly, he pats his holster a couple of times and you hear its leather crinkle.
+
+>jenny, hello
+"Hello."
+
+>n
+Midway of Midway
+This is about midway along the midway. Your eyes soak in the lavishly painted
+sideshow fronts -- Andrew Jenny's to the south and Rimshaw's to the north. 
+
+>n
+Hypnotist's Parlor
+The parlor, with its tufted black leather sofa, softly lighted chandelier and
+darkly varnished paneling strives for a subdued turn-of-the-century motif and is
+purposefully dimmed -- thus setting the mood for conveyance, for squinting.
+
+Standing here, attired in an immaculate black tuxedo, is none other than Rimshaw
+himself.
+
+>item "Rimshaw"
+[I don't know the word "item."]
+
+>s
+Midway of Midway
+This is about midway along the midway. Your eyes soak in the lavishly painted
+sideshow fronts -- Andrew Jenny's to the south and Rimshaw's to the north. 
+
+>e
+Far End of Midway
+You've reached the far end of the midway. A sideshow front to the north
+advertises the "827 Pounds of Feminine Charm" that is Tina.
+
+>n
+West Half of Fat Lady
+Dominating this once spacious room, geographic in her enormity, mountainous in
+her irreducibility, the fat lady sits (though no chair is visible)
+breathtakingly to the east. Paths around the attraction lead northeast and
+southeast. The exit is south.
+
+>ne
+It's a long haul, the scenery changing little. Eventually you arrive at ...
+
+East Half of Fat Lady
+The fat lady sits (though no chair is visible) breathtakingly to the west. Paths
+around the attraction lead northwest and southwest.
+
+There's a stool here.
+
+>item "stool"
+[I don't know the word "item."]
+
+>get stool
+Taken.
+
+>nw
+It's a long haul, the scenery changing little. Eventually you arrive at ...
+
+West Half of Fat Lady
+Dominating this once spacious room, geographic in her enormity, mountainous in
+her irreducibility, the fat lady sits (though no chair is visible)
+breathtakingly to the east. Paths around the attraction lead northeast and
+southeast. The exit is south.
+
+>se
+It's a long haul, the scenery changing little. Eventually you arrive at ...
+
+East Half of Fat Lady
+The fat lady sits (though no chair is visible) breathtakingly to the west. Paths
+around the attraction lead northwest and southwest.
+
+>sw
+It's a long haul, the scenery changing little. Eventually you arrive at ...
+
+West Half of Fat Lady
+Dominating this once spacious room, geographic in her enormity, mountainous in
+her irreducibility, the fat lady sits (though no chair is visible)
+breathtakingly to the east. Paths around the attraction lead northeast and
+southeast. The exit is south.
+
+>e
+You can't go that way.
+
+>se
+It's a long haul, the scenery changing little. Eventually you arrive at ...
+
+East Half of Fat Lady
+The fat lady sits (though no chair is visible) breathtakingly to the west. Paths
+around the attraction lead northwest and southwest.
+
+>fat lady, hello
+She appears oblivious to both sight and sound.
+
+>w
+You can't go that way.
+
+>examine lady
+The fat lady is wearing a big top, and the expression on her face is sad and
+distant, almost Rushmorean. 
+
+>sw
+It's a long haul, the scenery changing little. Eventually you arrive at ...
+
+West Half of Fat Lady
+Dominating this once spacious room, geographic in her enormity, mountainous in
+her irreducibility, the fat lady sits (though no chair is visible)
+breathtakingly to the east. Paths around the attraction lead northeast and
+southeast. The exit is south.
+
+>s
+Far End of Midway
+You've reached the far end of the midway. A sideshow front to the north
+advertises the "827 Pounds of Feminine Charm" that is Tina.
+
+>s
+You can't go that way.
+
+>e
+You can't go that way.
+
+>save
+Ok.
+
+>unscript
+Here ends a transcript with Ballyhoo.
+BALLYHOO
+Infocom interactive fiction
+Copyright (c) 1986 by Infocom, Inc. All rights reserved.
+Release 97 / Serial number 851218

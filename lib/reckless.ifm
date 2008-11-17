@@ -1,0 +1,5 @@
+# Reckless game solving.
+
+style reckless;
+  all_tasks_safe = true;
+endstyle reckless;

@@ -1,0 +1,388 @@
+
+Here begins a transcript of interaction with
+
+TRINITY
+An Interactive Fantasy
+Copyright (C)1986 Infocom, Inc. All rights reserved.
+Trinity is a trademark of Infocom, Inc.
+Interpreter 1 Version B
+Release 12 / Serial Number 860926
+
+>l
+Palace Gate
+
+A tide of perambulators surges north along the crowded Broad Walk. Shaded glades
+stretch away to the northeast, and a hint of color marks the western edge of the
+Flower Walk.
+
+>n
+The east wind makes it difficult to walk straight.
+
+Broad Walk
+
+A brooding statue of Queen Victoria faces east, where the waters of the Round
+Pond sparkle in the afternoon sun. Your eyes follow the crowded Broad Walk north
+and south until its borders are lost amid the bustle of perambulators. Small
+paths curve northeast and southeast, between the trees.
+
+A cloud of pigeons fills the air! They circle overhead and congregate around a
+nearby bench, where an aged woman is selling bags of crumbs.
+
+"Feed the birds! Thirty p!" Her voice quavers with heartbreak.
+
+>e
+"Thirty p! Thirty p a bag!"
+
+Round Pond
+
+Ducks and swans bob on the sparkling surface of the Round Pond. They share the
+water with an impressive fleet of toy boats, directed by the excited shouts of
+children.
+
+Crowded paths radiate from the Pond in many directions.
+
+>se
+A surge of offended nannies blocks your path.
+
+>n
+Inverness Terrace
+
+Crowded walkways lead east and west along an iron fence. Narrow paths wander
+south into the Gardens.
+
+A young boy sits nearby, listening to a pair of headphones and idly blowing soap
+bubbles. There's a dish full of soapy water by his side.
+
+The boy dips the bubble wand in the dish and swishes it around.
+
+>e
+Lancaster Gate
+
+A crooked old tree shades the perambulators as they roll south down the
+Lancaster Walk. Shady paths lead west along an iron fence, and southwest between
+the trees.
+
+There's an old woman under the tree, struggling to open an umbrella. The stiff
+east wind isn't making it easy for her.
+
+>e
+A surge of haughty nannies blocks your path.
+
+>s
+You begin to walk past the old woman, but stop in your tracks.
+
+Her face is wrong.
+
+You look a little closer and shudder to yourself. The entire left side of her
+head is scarred with deep red lesions, twisting her oriental features into a
+hideous mask. She must have been in an accident or something.
+
+A strong gust of wind snatches the umbrella out of the old woman's hands and
+sweeps it into the branches of the tree.
+
+The woman circles the tree a few times, gazing helplessly upward. That umbrella
+obviously means a lot to her, for a wistful tear is running down her cheek. But
+nobody except you seems to notice her loss.
+
+After a few moments, the old woman dries her eyes, gives the tree a vicious
+little kick and shuffles away down the Lancaster Walk.
+
+>s
+Lancaster Walk
+
+An impressive sculpture of a horse and rider dominates this bustling
+intersection. The Walk continues north and south; lesser paths curve off in many
+directions.
+
+A broad field of grass, meticulously manicured, extends to the east. Beyond it
+you can see the Long Water glittering between the trees.
+
+A printed notice is stuck into the grass.
+
+>s
+Flower Walk
+
+Gaily colored flower beds line the walks bending north and west, filling the air
+with a gentle fragrance. A little path leads northwest, between the trees.
+
+You can see a soccer ball half-hidden among the blossoms.
+
+The spires of the Albert Memorial are all too visible to the south. Passing
+tourists hoot with laughter at the dreadful sight; nannies hide their faces and
+roll quickly away.
+
+>s
+You're already as close as anyone wants to get to the Albert Memorial.
+
+>e
+A surge of gawking tourists blocks your path.
+
+>w
+Palace Gate
+
+>verbose
+[Maximum verbosity.]
+
+Palace Gate
+
+A tide of perambulators surges north along the crowded Broad Walk. Shaded glades
+stretch away to the northeast, and a hint of color marks the western edge of the
+Flower Walk.
+
+>w
+The iron fence blocks your path.
+
+>n
+Broad Walk
+
+A brooding statue of Queen Victoria faces east, where the waters of the Round
+Pond sparkle in the afternoon sun. Your eyes follow the crowded Broad Walk north
+and south until its borders are lost amid the bustle of perambulators. Small
+paths curve northeast and southeast, between the trees.
+
+An aged woman is selling crumbs nearby.
+
+>w
+The statue of Queen Victoria blocks your path.
+
+>l
+Broad Walk
+
+A brooding statue of Queen Victoria faces east, where the waters of the Round
+Pond sparkle in the afternoon sun. Your eyes follow the crowded Broad Walk north
+and south until its borders are lost amid the bustle of perambulators. Small
+paths curve northeast and southeast, between the trees.
+
+An aged woman is selling crumbs nearby.
+
+"Feed the hungry birds!" cries the bird woman.
+
+>nw
+The iron fence blocks your path.
+
+>ne
+"Thirty p for the starving birds!"
+
+Inverness Terrace
+
+Crowded walkways lead east and west along an iron fence. Narrow paths wander
+south into the Gardens.
+
+A young boy sits nearby, listening to a pair of headphones and idly blowing soap
+bubbles. There's a dish full of soapy water by his side.
+
+The boy dips the bubble wand in the dish and swishes it around.
+
+>s
+Round Pond
+
+Ducks and swans bob on the sparkling surface of the Round Pond. They share the
+water with an impressive fleet of toy boats, directed by the excited shouts of
+children.
+
+Crowded paths radiate from the Pond in many directions.
+
+One of the toy boats on the Round Pond catches your eye. The east wind blows it
+closer, and you realize that the white sails are actually wings. It's a folded
+paper bird, floating just within reach.
+
+>s
+The Wabe
+
+This grassy clearing is only twenty feet across, and perfectly circular. Paths
+wander off in many directions through the surrounding thicket.
+
+A shaft of golden sunlight falls across a handsome antique sundial, erected at
+the exact center of the clearing.
+
+>w
+The thicket blocks your path.
+
+>sw
+A noise makes you hesitate.
+
+For a moment, nothing happens. Then the east wind puffs through the clearing,
+and the gnomon on the sundial wobbles with a faint scrape.
+
+>l
+The Wabe
+
+This grassy clearing is only twenty feet across, and perfectly circular. Paths
+wander off in many directions through the surrounding thicket.
+
+A shaft of golden sunlight falls across a handsome antique sundial, erected at
+the exact center of the clearing.
+
+>sw
+Palace Gate
+
+A tide of perambulators surges north along the crowded Broad Walk. Shaded glades
+stretch away to the northeast, and a hint of color marks the western edge of the
+Flower Walk.
+
+>n
+Broad Walk
+
+A brooding statue of Queen Victoria faces east, where the waters of the Round
+Pond sparkle in the afternoon sun. Your eyes follow the crowded Broad Walk north
+and south until its borders are lost amid the bustle of perambulators. Small
+paths curve northeast and southeast, between the trees.
+
+An aged woman is selling crumbs nearby.
+
+>se
+"Thirty p!" hollers the bird woman.
+
+The Wabe
+
+This grassy clearing is only twenty feet across, and perfectly circular. Paths
+wander off in many directions through the surrounding thicket.
+
+A shaft of golden sunlight falls across a handsome antique sundial, erected at
+the exact center of the clearing.
+
+>se
+Flower Walk
+
+Gaily colored flower beds line the walks bending north and west, filling the air
+with a gentle fragrance. A little path leads northwest, between the trees.
+
+You can see a soccer ball half-hidden among the blossoms.
+
+The spires of the Albert Memorial are all too visible to the south. Passing
+tourists hoot with laughter at the dreadful sight; nannies hide their faces and
+roll quickly away.
+
+>n
+Lancaster Walk
+
+An impressive sculpture of a horse and rider dominates this bustling
+intersection. The Walk continues north and south; lesser paths curve off in many
+directions.
+
+A broad field of grass, meticulously manicured, extends to the east. Beyond it
+you can see the Long Water glittering between the trees.
+
+A printed notice is stuck into the grass.
+
+>sw
+The Wabe
+
+This grassy clearing is only twenty feet across, and perfectly circular. Paths
+wander off in many directions through the surrounding thicket.
+
+A shaft of golden sunlight falls across a handsome antique sundial, erected at
+the exact center of the clearing.
+
+>n
+Round Pond
+
+Ducks and swans bob on the sparkling surface of the Round Pond. They share the
+water with an impressive fleet of toy boats, directed by the excited shouts of
+children. You also see a paper bird floating within reach.
+
+Crowded paths radiate from the Pond in many directions.
+
+>ne
+Lancaster Gate
+
+A crooked old tree shades the perambulators as they roll south down the
+Lancaster Walk. Shady paths lead west along an iron fence, and southwest between
+the trees.
+
+An umbrella is wedged in the branches overhead.
+
+>w
+Inverness Terrace
+
+Crowded walkways lead east and west along an iron fence. Narrow paths wander
+south into the Gardens.
+
+A young boy sits nearby, listening to a pair of headphones and idly blowing soap
+bubbles. There's a dish full of soapy water by his side.
+
+The boy dips the bubble wand in the dish and swishes it around.
+
+>w
+Black Lion Gate
+
+Nannies and tourists hurry through the Lancaster Gate to join the perambulators
+rolling south down the Broad Walk. Less crowded paths wind east along an iron
+fence, and southeast between the trees.
+
+A careless nanny has left her perambulator unattended.
+
+>se
+Round Pond
+
+Ducks and swans bob on the sparkling surface of the Round Pond. They share the
+water with an impressive fleet of toy boats, directed by the excited shouts of
+children. You also see a paper bird floating within reach.
+
+Crowded paths radiate from the Pond in many directions.
+
+>w
+Broad Walk
+
+A brooding statue of Queen Victoria faces east, where the waters of the Round
+Pond sparkle in the afternoon sun. Your eyes follow the crowded Broad Walk north
+and south until its borders are lost amid the bustle of perambulators. Small
+paths curve northeast and southeast, between the trees.
+
+An aged woman is selling crumbs nearby.
+
+>n
+"Feed the birds!" calls the bird woman.
+
+Black Lion Gate
+
+Nannies and tourists hurry through the Lancaster Gate to join the perambulators
+rolling south down the Broad Walk. Less crowded paths wind east along an iron
+fence, and southeast between the trees.
+
+A careless nanny has left her perambulator unattended.
+
+>s
+Broad Walk
+
+A brooding statue of Queen Victoria faces east, where the waters of the Round
+Pond sparkle in the afternoon sun. Your eyes follow the crowded Broad Walk north
+and south until its borders are lost amid the bustle of perambulators. Small
+paths curve northeast and southeast, between the trees.
+
+An aged woman is selling crumbs nearby.
+
+>s
+"Thirty p! Thirty p a bag!"
+
+Palace Gate
+
+A tide of perambulators surges north along the crowded Broad Walk. Shaded glades
+stretch away to the northeast, and a hint of color marks the western edge of the
+Flower Walk.
+
+>s
+A surge of babbling tourists blocks your path.
+
+>e
+Flower Walk
+
+Gaily colored flower beds line the walks bending north and west, filling the air
+with a gentle fragrance. A little path leads northwest, between the trees.
+
+You can see a soccer ball half-hidden among the blossoms.
+
+The spires of the Albert Memorial are all too visible to the south. Passing
+tourists hoot with laughter at the dreadful sight; nannies hide their faces and
+roll quickly away.
+
+>unscript
+
+Here ends a transcript of interaction with
+
+TRINITY
+An Interactive Fantasy
+Copyright (C)1986 Infocom, Inc. All rights reserved.
+Trinity is a trademark of Infocom, Inc.
+Interpreter 1 Version B
+Release 12 / Serial Number 860926

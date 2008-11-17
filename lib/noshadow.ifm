@@ -1,0 +1,6 @@
+# No room shadows.
+
+style noshadow;
+  room_shadow_xoff = 0;
+  room_shadow_yoff = 0;
+endstyle noshadow;

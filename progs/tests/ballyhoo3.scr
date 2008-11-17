@@ -1,0 +1,522 @@
+Here begins a transcript with Ballyhoo.
+BALLYHOO
+Infocom interactive fiction
+Copyright (c) 1986 by Infocom, Inc. All rights reserved.
+Release 97 / Serial number 851218
+
+>l
+Standing Room Only
+You're in the "blues," sitting high above the arena floor. You know the exit
+from the grandstand to be vaguely eastward and down. All around you the crowd is
+in a state of pandemonium.
+
+You hear a loud growl nearby.
+
+>listen
+[What do you want to listen to?]
+
+>growl
+"Rrrrr...grrrrr."
+
+You hear a loud roar nearby.
+
+>w
+But you are seated.
+
+You realize the noise is your own stomach.
+
+>stand
+As you rise, your row scrunches into the empty space.
+
+A hawker appears at the west end of your row, calling out in a sing-song manner,
+"Get your tofu here. Get your yogurt here."
+
+>e
+The row of legs pivots away as you scissor awkwardly past.
+
+Standing Room Only
+All around you the crowd is in a state of pandemonium. The paths of least
+resistance are up, down and west.
+
+Trudging downward, the hawker disappears into the crowd.
+
+>w
+The row of legs pivots away as you scissor awkwardly past.
+
+Standing Room Only
+All around you the crowd is in a state of pandemonium. The paths of least
+resistance are down and east.
+
+The bank of people above you shouts, in chorus, "Down in front!"
+
+>d
+You plow your way downward through the crowd.
+
+Standing Room Only
+All around you the crowd is in a state of pandemonium. The paths of least
+resistance are up and east.
+
+The bank of people above you shouts, in chorus, "Hey, park it!"
+
+A hawker appears at the west end of your row, calling out in a sing-song manner,
+"Get your cotton candy here. Get your peanuts here."
+
+>e
+The row of legs pivots away as you scissor awkwardly past.
+
+Standing Room Only
+All around you the crowd is in a state of pandemonium. The paths of least
+resistance are up and west.
+
+The bank of people above you shouts, in chorus, "We can't see!"
+
+Trudging upward, the hawker disappears into the crowd.
+
+>u
+You plow your way upward through the crowd.
+
+Standing Room Only
+All around you the crowd is in a state of pandemonium. The paths of least
+resistance are up, down and west.
+
+The bank of people above you shouts, in chorus, "Move it!"
+
+>w
+The row of legs pivots away as you scissor awkwardly past.
+
+Standing Room Only
+All around you the crowd is in a state of pandemonium. The paths of least
+resistance are down and east.
+
+>d
+You plow your way downward through the crowd.
+
+Standing Room Only
+All around you the crowd is in a state of pandemonium. The paths of least
+resistance are up and east.
+
+>e
+The row of legs pivots away as you scissor awkwardly past.
+
+Standing Room Only
+All around you the crowd is in a state of pandemonium. The paths of least
+resistance are up and west.
+
+The bank of people above you shouts, in chorus, "Hey, park it!"
+
+>u
+You plow your way upward through the crowd.
+
+Standing Room Only
+All around you the crowd is in a state of pandemonium. The paths of least
+resistance are up, down and west.
+
+The bank of people above you shouts, in chorus, "Down in front!"
+
+>u
+You plow your way upward through the crowd.
+
+Standing Room Only
+All around you the crowd is in a state of pandemonium. The paths of least
+resistance are down and east.
+
+>e
+The row of legs pivots away as you scissor awkwardly past.
+
+Standing Room Only
+All around you the crowd is in a state of pandemonium. The paths of least
+resistance are down and west.
+
+The bank of people above you shouts, in chorus, "Move it!"
+
+A hawker appears at the east end of your row, calling out in a sing-song manner,
+"Get your granola bars here. Get your New Coke here."
+
+>d
+You plow your way downward through the crowd.
+
+Standing Room Only
+All around you the crowd is in a state of pandemonium. The paths of least
+resistance are up, down and east.
+
+Trudging downward, the hawker disappears into the crowd.
+
+>e
+The row of legs pivots away as you scissor awkwardly past.
+
+Standing Room Only
+All around you the crowd is in a state of pandemonium. The paths of least
+resistance are up, down and west.
+
+The bank of people above you shouts, in chorus, "We can't see!"
+
+A hawker appears at the east end of your row, calling out in a sing-song manner,
+"Get your Old Coke here. Get your popcorn here."
+
+>d
+You plow your way downward through the crowd.
+
+Standing Room Only
+All around you the crowd is in a state of pandemonium. The paths of least
+resistance are up and west.
+
+Trudging downward, the hawker disappears into the crowd.
+
+>w
+The row of legs pivots away as you scissor awkwardly past.
+
+Standing Room Only
+All around you the crowd is in a state of pandemonium. The paths of least
+resistance are up and east.
+
+>u
+You plow your way upward through the crowd.
+
+Standing Room Only
+All around you the crowd is in a state of pandemonium. The paths of least
+resistance are up, down and east.
+
+>e
+The row of legs pivots away as you scissor awkwardly past.
+
+Standing Room Only
+All around you the crowd is in a state of pandemonium. The paths of least
+resistance are up, down and west.
+
+The bank of people above you shouts, in chorus, "We can't see!"
+
+>u
+You plow your way upward through the crowd.
+
+Standing Room Only
+All around you the crowd is in a state of pandemonium. The paths of least
+resistance are down and east.
+
+The bank of people above you shouts, in chorus, "Down in front!"
+
+>e
+The row of legs pivots away as you scissor awkwardly past.
+
+Standing Room Only
+All around you the crowd is in a state of pandemonium. The paths of least
+resistance are down and west.
+
+Suddenly a hawker appears at the end of the row and you flag him down. The
+hawker can barely hear you above the crowd noise. He flashes one finger, then
+eight fingers, then five fingers at you, and gestures to pass the money through
+the crowd.
+
+Your $1.85 is passed from hand to hand all the way down the row. As the hawker
+pockets your money, he's suddenly engulfed by the crowd, which erupts into a
+standing ovation. The state of riot panic continues for several anxious moments.
+
+>i
+You have $16.56 to your name.
+
+The bank of people above you shouts, in chorus, "Hey, park it!"
+
+The audience settles back down to a state of pandemonium.
+
+>l
+Standing Room Only
+All around you the crowd is in a state of pandemonium. The paths of least
+resistance are down and west.
+
+The bank of people above you shouts, in chorus, "Move it!"
+
+>d
+You plow your way downward through the crowd all the way into the wings.
+
+In the Wings
+The big top can be entered to the north and exited to the south. To the
+northeast, the grandstand begins its precipitous rise.
+
+As you exhale a sigh of relief, a smallish and hairy animal inexplicably plops
+down upon you from the upper reaches of the big top.
+
+>l
+In the Wings
+The big top can be entered to the north and exited to the south. To the
+northeast, the grandstand begins its precipitous rise.
+
+>i
+You have a monkey on your back and $16.56 to your name.
+
+The monkey on your back breathes its jungle breath down your neck.
+
+>get monkey
+The animal darts over to your opposite shoulder, piercing your ear with a
+shriek.
+
+>lie down
+There's no time for that.
+
+The monkey on your back idly grooms areas of your scalp.
+
+>jump
+Your feet barely leave the ground.
+
+>l
+In the Wings
+The big top can be entered to the north and exited to the south. To the
+northeast, the grandstand begins its precipitous rise.
+
+>n
+You are immediately driven out of the ring by a rousing chorus of boos.
+
+>s
+Connection
+This area of matted-down crabgrass lies between the vaulted big top entrance to
+the north and the enticements of the midway to the east, where a sagging banner
+hangs crookedly above a turnstile. There is a drinking fountain near the side
+wall of the tent. 
+
+Stretching away from a small concession stand is a long line of suckers.
+
+>examine line
+You see nothing unusual about the long line.
+
+>join it
+[I don't know the word "join."]
+
+>enter line
+You are now standing at the tail end of the long line.
+
+>wait
+Time passes...
+
+>z
+Time passes...
+
+Right next to the long line a much shorter line begins to form.
+
+>z
+Time itself, let alone the long line, has ground to an agonizing halt.
+
+>enter short line
+You'll have to get out of the long line first.
+
+>stands
+[There was no verb in that sentence!]
+
+>stand
+You are already standing.
+
+>leave line
+[Which line do you mean, the short line or the long line?]
+
+>long
+You get out of the long line.
+
+The monkey on your back vocalizes excitedly in your ear.
+
+>enter short
+You are now standing at the tail end of the short line.
+
+>z
+Time passes...
+
+The face of the man ahead of you lights up as he spots something. "Hey, guys!
+It's ME, Jerry," he yells to a sizable group nearby, and they approach.
+
+>z
+Time passes...
+
+"Haven't seen you turkeys in years. Howda hell are you guys?" They all
+reintroduce themselves. "Hey -- you clowns thirsty? Get in here, I'll buy y'all
+beer."
+
+"You sure it's not a problem?" asks the catcher.
+
+"Heck no, just scoot in right here."
+
+With both your resolve and your heaving bosom firm against the crush of
+interlopers, you are nevertheless forced to backpedal.
+
+>z
+Time passes...
+
+Jerry continues reminiscing with the right fielder.
+
+>z
+Time passes...
+
+Jerry continues glad-handing the third baseman.
+
+>z
+Time passes...
+
+Jerry continues backslapping the right fielder.
+
+>l
+Connection, standing at the tail end of a long line
+This area of matted-down crabgrass lies between the vaulted big top entrance to
+the north and the enticements of the midway to the east, where a sagging banner
+hangs crookedly above a turnstile. There is a drinking fountain near the side
+wall of the tent. 
+
+Stretching away from a small concession stand are a short line and a long line
+of suckers.
+
+Jerry continues ribbing the right fielder.
+
+>leave long line
+You hear an inner voice whisper, "Do I really want to forfeit my position in the
+long line?" To which you answer:
+
+>y
+You nonchalantly walk away from the long line.
+
+>enter long line
+A lot of other people must not have had the same idea as you, as they defect
+nearly en masse over to the short line. Steaming to the front of the line, you
+get a two-dollar-and-25-cent frozen banana pushed at you and are whisked to the
+side before you can even count your change.
+
+The monkey on your back nervously bounces its weight up and down.
+
+>i
+You have a two-dollar-and-25-cent frozen banana, a monkey on your back and
+$12.81 to your name.
+
+>show banana to monkey
+The monkey doesn't seem interested in the two-dollar-and-25-cent frozen banana.
+
+The monkey on your back breathes its jungle breath down your neck.
+
+>eat it
+As the monkey on your back catches a whiff of the tangy fruit beneath the
+chocolate, you feel its primal heart begin to race and, on the back of your
+neck, its warm breath quicken.
+
+The monkey on your back vocalizes excitedly in your ear.
+
+>l
+Connection
+This area of matted-down crabgrass lies between the vaulted big top entrance to
+the north and the enticements of the midway to the east, where a sagging banner
+hangs crookedly above a turnstile. There is a drinking fountain near the side
+wall of the tent. 
+
+Stretching away from a small concession stand are a short line and a long line
+of suckers.
+
+The monkey on your back nervously bounces its weight up and down.
+
+>z
+Time passes...
+
+>z
+Time passes...
+
+The monkey on your back idly grooms areas of your scalp.
+
+>e
+Agitated by your choice of direction, the monkey steers you away from it.
+
+>w
+Agitated by your choice of direction, the monkey steers you away from it.
+
+The monkey on your back nervously bounces its weight up and down.
+
+>n
+In the Wings
+The big top can be entered to the north and exited to the south. To the
+northeast, the grandstand begins its precipitous rise.
+
+One lone hawker stands waiting in the wings, taking his break.
+
+>examine hawker
+Yup, it's the same guy you encountered in the stands. He's empty-handed and his
+uniform resembles modern art, a besplattered canvas of condiments.
+
+The monkey on your back idly grooms areas of your scalp.
+
+>s
+Connection
+This area of matted-down crabgrass lies between the vaulted big top entrance to
+the north and the enticements of the midway to the east, where a sagging banner
+hangs crookedly above a turnstile. There is a drinking fountain near the side
+wall of the tent. 
+
+Stretching away from a small concession stand are a short line and a long line
+of suckers.
+
+>examine fountain
+It's your standard drinking fountain, with a button next to the spout.
+
+The monkey on your back breathes its jungle breath down your neck.
+
+>press button
+A jet of water hits you square in the eye.
+
+The monkey on your back vocalizes excitedly in your ear.
+
+>throw banana
+Following its jungle appetite, the monkey dismounts your back, pounces on the
+banana, and saunters away with it.
+
+>l
+Connection
+This area of matted-down crabgrass lies between the vaulted big top entrance to
+the north and the enticements of the midway to the east, where a sagging banner
+hangs crookedly above a turnstile. There is a drinking fountain near the side
+wall of the tent. 
+
+Stretching away from a small concession stand are a short line and a long line
+of suckers.
+
+>e
+That's not the way you remember it.
+
+>ne
+That's not the way you remember it.
+
+>w
+That's not the way you remember it.
+
+>s
+That's not the way you remember it.
+
+>l
+Connection
+This area of matted-down crabgrass lies between the vaulted big top entrance to
+the north and the enticements of the midway to the east, where a sagging banner
+hangs crookedly above a turnstile. There is a drinking fountain near the side
+wall of the tent. 
+
+Stretching away from a small concession stand are a short line and a long line
+of suckers.
+
+>n
+In the Wings
+The big top can be entered to the north and exited to the south. To the
+northeast, the grandstand begins its precipitous rise.
+
+One lone hawker stands waiting in the wings, taking his break.
+
+>ne
+You forge ahead and up the steps.
+
+Standing Room Only
+All around you the crowd is in a state of pandemonium. The paths of least
+resistance are down and west.
+
+>d
+You plow your way downward through the crowd all the way into the wings.
+
+In the Wings
+The big top can be entered to the north and exited to the south. To the
+northeast, the grandstand begins its precipitous rise.
+
+One lone hawker stands waiting in the wings, taking his break.
+
+>save
+Ok.
+
+>unscript
+Here ends a transcript with Ballyhoo.
+BALLYHOO
+Infocom interactive fiction
+Copyright (c) 1986 by Infocom, Inc. All rights reserved.
+Release 97 / Serial number 851218

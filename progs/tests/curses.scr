@@ -1,0 +1,272 @@
+Start of a transcript of
+CURSES
+An Interactive Diversion
+Copyright (c) 1993, 1994, 1995 by Graham Nelson.
+Release 16 / Serial number 951024 / Inform v1600 Library 5/12
+Interpreter 1 Version B / Library serial number 951024
+
+>l
+
+Attic
+The attics, full of low beams and awkward angles, begin here in a relatively
+tidy area which extends north, south and east. The wooden floorboards seem
+fairly sound, just as well considering how heavy all these teachests are. But
+the old wiring went years ago, and there's no electric light.
+
+A hinged trapdoor in the floor stands open, and light streams in from below.
+
+>d
+Yes, probably just as well to give up looking, and heaven knows there's enough
+packing to do, what with the rest of the family in uproar. Oh well.
+
+
+    *** You have missed the point entirely ***
+
+
+In that game you scored 0 out of a possible 550, in 3 turns, giving you the rank
+of hapless Tourist.
+
+Would you like to RESTART, RESTORE a saved game, give the FULL score for that
+game or QUIT?
+> undo
+Attic
+[Previous turn undone.]
+
+>l
+
+Attic
+The attics, full of low beams and awkward angles, begin here in a relatively
+tidy area which extends north, south and east. The wooden floorboards seem
+fairly sound, just as well considering how heavy all these teachests are. But
+the old wiring went years ago, and there's no electric light.
+
+A hinged trapdoor in the floor stands open, and light streams in from below.
+
+>e
+
+Servant's Room
+Once upon a time, servants in great houses lived in awful little crevices and
+excuses for rooms like this one. They must have been in permanent danger of
+suffocation, for there are no windows and only a doorway to the west. A bed is
+still kept here, and the sight of it brings on drowsiness in all this warm
+stuffy air. All you want to do is curl up and sleep.
+
+There's a little book on the tiny bedside table.
+
+An old striped scarf hangs up behind the doorway.
+
+>n
+You can't go that way.
+
+>w
+
+Attic
+
+A hinged trapdoor in the floor stands open, and light streams in from below.
+
+>verbose
+CURSES is now in its "verbose" mode, which always gives long descriptions of
+locations (even if you've been there before).
+
+>s
+
+Old Furniture
+Scruffy old furniture is piled up here: armchairs with springs coming out,
+umbrella stands, a badly scratched cupboard, a table with one leg missing... You
+try to remember why you keep all this rubbish, and fail. Anyway the attic
+continues to the southeast.
+
+>se
+
+Over the East Wing
+The air is dusty and warm, almost making you choke in this rather empty area.
+The attic turns from northwest to east, and there is also a tight doorway
+leading west. A short flight of wooden steps leads down and to the south.
+
+Austin, your incorrigible ginger cat, lounges around here.
+
+>s
+
+Disused Observatory
+Once upon a time, this small circular room had a dome and a telescope, but it
+leaked dreadfully and so now there's a proper roof.
+
+A circular mural painted with the signs of the zodiac is interrupted by a short
+flight of stairs leading up to the north, a smoke detector, a west doorway to a
+shadowy alcove and the continuation of the stairs down and to the south.
+
+Mounted on the old telescope stand is what looks like a solid glass ball.
+
+>s
+
+Souvenirs Room
+This is where you ought to have left the wretched map, in the family lumber-room
+of souvenirs and holiday snaps. You checked it thoroughly earlier, and can't
+bear the thought of searching it all again. A slide projector is aimed at the
+whitewashed south wall, one of the outside walls of the house. The only way to
+go is back up to the observatory.
+
+>n
+
+Disused Observatory
+Once upon a time, this small circular room had a dome and a telescope, but it
+leaked dreadfully and so now there's a proper roof.
+
+A circular mural painted with the signs of the zodiac is interrupted by a short
+flight of stairs leading up to the north, a smoke detector, a west doorway to a
+shadowy alcove and the continuation of the stairs down and to the south.
+
+Mounted on the old telescope stand is what looks like a solid glass ball.
+
+>n
+
+Over the East Wing
+The air is dusty and warm, almost making you choke in this rather empty area.
+The attic turns from northwest to east, and there is also a tight doorway
+leading west. A short flight of wooden steps leads down and to the south.
+
+Austin, your incorrigible ginger cat, lounges around here.
+
+Austin ambles away to the furniture store.
+
+>nw
+
+Old Furniture
+Scruffy old furniture is piled up here: armchairs with springs coming out,
+umbrella stands, a badly scratched cupboard, a table with one leg missing... You
+try to remember why you keep all this rubbish, and fail. Anyway the attic
+continues to the southeast.
+
+Austin, your incorrigible ginger cat, lounges around here.
+
+>w
+The attic turns from north to southeast here.
+
+Austin yawns.
+
+>n
+
+Attic
+The attics, full of low beams and awkward angles, begin here in a relatively
+tidy area which extends north, south and east. The wooden floorboards seem
+fairly sound, just as well considering how heavy all these teachests are. But
+the old wiring went years ago, and there's no electric light.
+
+A hinged trapdoor in the floor stands open, and light streams in from below.
+
+>n
+
+Old Winery
+This small cavity at the north end of the attic once housed all manner of
+home-made wine paraphernalia, now lost and unlamented. Steps, provided with a
+good strong banister rail, lead down and to the west, and the banister rail
+continues along a passage east.
+
+You can see a labelled glass demijohn (which is closed) (in which are a
+nasty-looking red battery and a tourist map) here.
+
+As you disturb the still air, the attic key, which was balanced on top of the
+demijohn, slips onto the floor and disappears into a crack in the floorboards.
+Your spirits sink as it does, rattling down some distance. How on earth are you
+going to get it back?
+
+>e
+
+Storage Room
+A disused storage room off the winery. In one wall is an opening onto an ominous
+dark shaft, and beside it is a big Victorian-steam-engine style wheel with a
+handle on.
+
+Inside the dark shaft is the old dumbwaiter.
+
+A steel wrench gathers dust in the corner.
+
+>w
+
+Old Winery
+This small cavity at the north end of the attic once housed all manner of
+home-made wine paraphernalia, now lost and unlamented. Steps, provided with a
+good strong banister rail, lead down and to the west, and the banister rail
+continues along a passage east.
+
+You can see a labelled glass demijohn (which is closed) (in which are a
+nasty-looking red battery and a tourist map) here.
+
+>w
+
+Aunt Jemima's Lair
+This used to be called the Conservatory, before Aunt Jemima took it over to
+potter about with plants, painting and indeed (on occasion) pottery. She has
+filled the place with objets trouves and bric-a-brac, and hung up a home-made
+calendar of watercolours. Even the old airing cupboard to the south is
+cluttered.
+
+An open doorway leads back southwest onto the upstairs landing, and you can hear
+the chaotic noise of suitcases being manhandled about - good thing nobody's seen
+you. A narrow staircase leads up and to the east into the attic.
+
+Jemima herself seems to be in the potting room to the west.
+
+>w
+
+Potting Room
+This light room is full of pot plants, flowers, seeds, ornamental trowels and
+other miscellaneous garden implements.
+
+A pair of yellow rubber gloves hangs from a hook on one wall.
+
+Aunt Jemima, who has for years collected varieties of daisy, is engaged in her
+regular annual pastime of deciding which species make the best chains.
+
+>e
+
+Aunt Jemima's Lair
+This used to be called the Conservatory, before Aunt Jemima took it over to
+potter about with plants, painting and indeed (on occasion) pottery. She has
+filled the place with objets trouves and bric-a-brac, and hung up a home-made
+calendar of watercolours. Even the old airing cupboard to the south is
+cluttered.
+
+An open doorway leads back southwest onto the upstairs landing, and you can hear
+the chaotic noise of suitcases being manhandled about - good thing nobody's seen
+you. A narrow staircase leads up and to the east into the attic.
+
+Jemima herself seems to be in the potting room to the west.
+
+>s
+
+Airing Cupboard
+A space about six feet square. The old drying racks now contain odd ceramic
+sculptures almost but not quite unrecognisable as coffee mugs. One corner is
+filled with an enormous pile of tie-dyed sheets, from Aunt Jemima's infamous
+Sixties Revival period of last October.
+
+>n
+
+Aunt Jemima's Lair
+This used to be called the Conservatory, before Aunt Jemima took it over to
+potter about with plants, painting and indeed (on occasion) pottery. She has
+filled the place with objets trouves and bric-a-brac, and hung up a home-made
+calendar of watercolours. Even the old airing cupboard to the south is
+cluttered.
+
+An open doorway leads back southwest onto the upstairs landing, and you can hear
+the chaotic noise of suitcases being manhandled about - good thing nobody's seen
+you. A narrow staircase leads up and to the east into the attic.
+
+Jemima herself seems to be in the potting room to the west.
+
+>e
+
+Old Winery
+This small cavity at the north end of the attic once housed all manner of
+home-made wine paraphernalia, now lost and unlamented. Steps, provided with a
+good strong banister rail, lead down and to the west, and the banister rail
+continues along a passage east.
+
+You can see a labelled glass demijohn (which is closed) (in which are a
+nasty-looking red battery and a tourist map) here.
+
+>unscript
+
+End of transcript.
