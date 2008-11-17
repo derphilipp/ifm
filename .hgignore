@@ -4,6 +4,7 @@ Makefile
 Makefile.in
 
 configure
+*.m4
 
 doc/conf.py
 doc/examples/ruins-*.txt
@@ -24,8 +25,8 @@ ifm.1
 src/ifm-parse.[ch]
 src/ifm-scan.c
 
-vars-*-lex.*
-vars-*-yacc.*
+vars-*-lex.[ch]
+vars-*-yacc.[ch]
 
 tests/*.list
 tests/*.out
