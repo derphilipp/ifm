@@ -6,6 +6,8 @@
  :program:`scr2ifm`: convert transcripts to IFM map
 ====================================================
 
+.. program:: scr2ifm
+
 :program:`scr2ifm` reads one or more transcripts of an Interactive Fiction
 game and produces a map of it in IFM format. It works on Infocom-style
 transcripts---those produced by Inform- and TADS-generated games (and of

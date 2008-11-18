@@ -4,6 +4,8 @@
  :program:`ifm2web` -- convert IFM map to Web image
 ====================================================
 
+.. program:: ifm2web
+
 .. versionadded:: 5.3
 
 :program:`ifm2web` converts an IFM map to an image file suitable for

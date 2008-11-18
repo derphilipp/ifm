@@ -9,6 +9,8 @@
 Running the program
 ===================
 
+.. program:: ifm
+
 IFM is run from the command line.  The general form of the command is::
 
     ifm [options] [file...]
@@ -378,7 +380,7 @@ IFM comes with a few predefined style files, as shown in the table below:
 If you create any generally useful or nice-looking styles, you might want
 to send me a copy so I can include them with the next version of IFM.  The
 **Scope** field indicates which type of IFM object it applies to.  Styles
-that have global scope can meaningfully be used by the :option:`-style`
+that have global scope can meaningfully be used by the :option:`--style`
 command-line option.
 
 Environment variables

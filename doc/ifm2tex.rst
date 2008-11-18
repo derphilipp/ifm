@@ -4,6 +4,8 @@
  :program:`ifm2tex`: convert IFM maps to LaTeX
 ===============================================
 
+.. program:: ifm2tex
+
 .. versionadded:: 5.0
 
 :program:`ifm2tex` is a program for creating a summary file in LaTeX

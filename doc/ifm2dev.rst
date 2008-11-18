@@ -4,6 +4,8 @@
  :program:`ifm2dev`: convert IFM maps to various other formats
 ===============================================================
 
+.. program:: ifm2dev
+
 .. include:: refs.rst
 
 .. versionadded:: 5.0
