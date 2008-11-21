@@ -3,7 +3,7 @@
 =====================
 
 Well, it's been over 2 years and the changes have been slowly accumulating,
-to the point where it's worth another release.
+to the point where it's worth another release.  Here's a mini-FAQ:
 
 What is IFM?
 ============
@@ -27,21 +27,34 @@ print different styles of walkthrough for the game.
 Er... yeah, whatever.  So what's new?
 =====================================
 
-Take a look at http://fluffybunny.memebot.com/ifm-docs/changes.html
+Take a look here:
 
-Where do I find it?
-===================
+   http://fluffybunny.memebot.com/ifm-docs/changes.html
 
-You can find the IFM sources in the IF archive:
+That's all fine and dandy, but where do I find it?
+==================================================
+
+At the moment, it's here:
+
+   http://www.ifarchive.org/if-archive/unprocessed/ifm-5.3.tar.gz
+
+Or if it's not, it'll have moved here:
 
    http://www.ifarchive.org/if-archive/mapping-tools
+
+Can I run it on Windows?
+========================
+
+Er... no.  Not yet.
 
 As a result of not having a Windows machine (or the inclination to get one)
 there currently isn't a Windows IFM v5.3 distribution.  If you want to use
 IFM on Windows, you must build it from sources using Cygwin:
-
-   http://www.cygwin.com
+http://www.cygwin.com.
 
 If anyone is interested in maintaining a Windows port (or any other port,
 for that matter) let me know and I'll keep you informed whenever another
-version gets released.
+version gets released.  Or alternatively, you could just go ahead: the
+current sources are always available (as of, er, last week) at Bitbucket:
+
+   http://www.bitbucket.org/zondo/ifm
