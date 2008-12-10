@@ -67,10 +67,11 @@ the two tasks above could be done in the same room, you could say::
 Alternatively, you could merge the two into a single task---the simplicity
 or complexity of tasks is up to you.
 
-The after clause only says that a task will come after another---it doesn't
-specify how soon after.  But in some situations it is essential that a task
-immediately follows a specific previous task, without deviation.  You can
-use the task :keyword:`follow` clause to specify this.  For example::
+The :keyword:`after` clause only says that a task will come after
+another---it doesn't specify how soon after.  But in some situations it is
+essential that a task immediately follows a specific previous task, without
+deviation.  You can use the task :keyword:`follow` clause to specify this.
+For example::
 
     room "Mission Control";
     task "Activate launch sequence" tag activate;
@@ -81,11 +82,11 @@ use the task :keyword:`follow` clause to specify this.  For example::
     task "Fasten seat belt" follow activate;
 
 The :keyword:`follow` clause creates a chain of tasks that must be done one
-after the other.  The game solver will not attempt the first task in the
-chain until it knows that all the tasks are possible (i.e., all the
-prerequisites for each task in the chain are satisfied).  Also, if one of
-the tasks in the chain is unsafe, then all previous tasks in the chain are
-also marked unsafe.
+after the other, with only movement commands allowed in between.  The game
+solver will not attempt the first task in the chain until it knows that all
+the tasks are possible (i.e., all the prerequisites for each task in the
+chain are satisfied).  Also, if one of the tasks in the chain is unsafe,
+then *all* previous tasks in the chain are also marked unsafe.
 
 Of course, you can only have a single task in a :keyword:`follow`
 clause---the immediately preceding task.  It is an error for two or more
@@ -102,8 +103,8 @@ You can indicate this by using the :keyword:`need` clause, like this::
 
     task "Put the fluffy bunny in the incinerator" need bunny;
 
-Here, bunny is the tag name of the corresponding item.  You can list more
-than one item tag---e.g., :keyword:`need bunny asbestos_gloves`.
+Here, ``bunny`` is the tag name of the corresponding item.  You can list
+more than one item tag---e.g., :keyword:`need bunny asbestos_gloves`.
 
 Note that you don't need to add tasks to get required items yourself---the
 game solver does that automatically.  It knows it has to get all the items
