@@ -38,7 +38,7 @@ IFMDEFS += -DINITFILE=\"$(INITFILE)\"
 
 INCLUDES = -I$(FIG_SRC) -I$(VARS_SRC) $(IFMDEFS)
 
-$(bin_PROGRAMS): $(FIG_BIN)/libfig.a
+$(bin_PROGRAMS): $(VARS_BIN)/libvars.a $(FIG_BIN)/libfig.a
 
 ifm-parse.h: ifm-parse.c
 
