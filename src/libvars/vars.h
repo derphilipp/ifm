@@ -11,20 +11,12 @@
 #include <vars-config.h>
 
 /* Object types */
-#include <vars-array.h>
 #include <vars-buffer.h>
-#include <vars-database.h>
-#include <vars-func.h>
 #include <vars-graph.h>
 #include <vars-hash.h>
-#include <vars-image.h>
 #include <vars-list.h>
-#include <vars-matrix.h>
-#include <vars-parser.h>
 #include <vars-queue.h>
-#include <vars-regex.h>
 #include <vars-scalar.h>
-#include <vars-vector.h>
 
 /* Other stuff */
 #include <vars-copy.h>

@@ -12,20 +12,12 @@
 #include "vars-config.h"
 #include "vars-macros.h"
 
-#include "vars-array.h"
 #include "vars-buffer.h"
-#include "vars-database.h"
-#include "vars-func.h"
 #include "vars-graph.h"
 #include "vars-hash.h"
-#include "vars-image.h"
 #include "vars-list.h"
-#include "vars-matrix.h"
-#include "vars-parser.h"
 #include "vars-queue.h"
-#include "vars-regex.h"
 #include "vars-scalar.h"
-#include "vars-vector.h"
 
 /* Vars magic number */
 #define MAGIC 0xff00ee11
@@ -133,20 +125,12 @@ v_declare(void)
     static int flag = 0;
 
     if (!flag++) {
-        va_declare();
         vb_declare();
-        vd_declare();
-        vf_declare();
         vg_declare();
         vh_declare();
-        vi_declare();
         vl_declare();
-        vm_declare();
-        vp_declare();
         vq_declare();
-        vr_declare();
         vs_declare();
-        vv_declare();
     }
 }
 

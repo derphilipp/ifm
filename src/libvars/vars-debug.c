@@ -84,7 +84,6 @@
 #include "vars-list.h"
 #include "vars-macros.h"
 #include "vars-memory.h"
-#include "vars-regex.h"
 
 #ifdef HAVE_SYS_TIMES_H
 #include <sys/times.h>

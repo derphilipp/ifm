@@ -176,9 +176,9 @@ v_freeze_file(void *ptr, char *file)
     int ok = 0;
     FILE *fp;
 
-    if ((fp = v_open(file, "w")) != NULL) {
+    if ((fp = fopen(file, "w")) != NULL) {
         ok = v_freeze(ptr, fp);
-        v_close(fp);
+        fclose(fp);
     }
 
     if (!ok)
@@ -436,11 +436,11 @@ v_thaw_file(char *file)
     void *ptr = NULL;
     FILE *fp;
 
-    if ((fp = v_open(file, "r")) != NULL) {
+    if ((fp = fopen(file, "r")) != NULL) {
         filename = file;
         ptr = v_thaw(fp);
         filename = NULL;
-        v_close(fp);
+        fclose(fp);
     } else {
         v_thaw_err("can't open %s: %s", file, strerror(errno));
     }

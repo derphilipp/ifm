@@ -47,14 +47,11 @@ enum v_testtype {
 extern "C" {
 #endif
 
-extern int v_close(FILE *fp);
 extern char *v_dirname(char *path);
 extern vhash *v_environ(void);
 extern char *v_filename(char *path);
 extern vlist *v_glob(char *dir, char *pat);
 extern int v_lock(FILE *fp, enum v_locktype locktype, int wait);
-extern FILE *v_open(char *path, char *mode);
-extern int v_open_with(char *regexp, char *mode, char *pipe);
 extern time_t v_parse_date(char *string);
 extern vlist *v_procinfo(void);
 extern void v_signal(int signal, void (*func)(int signal));

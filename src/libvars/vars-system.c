@@ -28,7 +28,6 @@
 #include "vars-buffer.h"
 #include "vars-hash.h"
 #include "vars-macros.h"
-#include "vars-regex.h"
 #include "vars-system.h"
 
 #include <sys/types.h>
@@ -63,46 +62,11 @@
 #define GLOB_ABORTED GLOB_ABEND
 #endif
 
-/* Currently open pipes */
-static vhash *pipes = NULL;
-
-/* I/O pipe data */
-static vhash *pipedata = NULL;
-static vlist *pipelist = NULL;
-
 /* File stat buffer */
 static struct stat statbuf;
 
 /* Whether last stat was successful */
 static int statok = 0;
-
-/*!
-  @brief Close a stream that was opened with v_open().
-  @ingroup system_io
-
-  @param fp Stream to close.
-
-  @return Whether successful.
-*/
-int
-v_close(FILE *fp)
-{
-#ifdef HAVE_POPEN
-    char buf[V_HEXSTRING_SIZE], *key;
-
-    INIT_IO;
-
-    key = vh_pkey_buf(fp, buf);
-    if (!vh_exists(pipes, key))
-        return fclose(fp);
-
-    vh_delete(pipes, key);
-    return pclose(fp);
-#else
-    v_unavailable("v_close()");
-    return 0;
-#endif
-}
 
 /*!
   @brief   Return the directory part of a path.
@@ -295,136 +259,6 @@ v_lock(FILE *fp, enum v_locktype locktype, int wait)
 #else
     return 0;
 #endif
-}
-
-/*!
-  @brief   Open a file.
-  @ingroup system_io
-  @param   path Pathname to open.
-  @param   mode Mode string.
-  @return  Stream pointer (or NULL if it failed).
-
-  Opens a file in the manner of fopen(3), possibly using piped commands on
-  file names that match specially recognized input/output regexps -- see
-  v_open_with() below. You should always use v_close() to close streams
-  opened with v_open().
-*/
-FILE *
-v_open(char *path, char *mode)
-{
-#ifdef HAVE_POPEN
-    char buf[V_HEXSTRING_SIZE];
-    vhash *data;
-    V_BUF_DECL;
-    viter iter;
-    vregex *r;
-    FILE *fp;
-
-    INIT_IO;
-
-    v_iterate(pipelist, iter) {
-        data = vl_iter_pval(iter);
-        if (!V_STREQ(mode, vh_sgetref(data, "MODE")))
-            continue;
-
-        if ((r = vh_pget(data, "REGEXP")) == NULL)
-            continue;
-
-        if (!vr_match(path, r))
-            continue;
-
-        V_BUF_SET1(vh_sgetref(data, "PIPE"), path);
-        if ((fp = popen(V_BUF_VAL, mode)) != NULL)
-            vh_istore(pipes, vh_pkey_buf(fp, buf), 1);
-
-        return fp;
-    }
-
-    return fopen(path, mode);
-#else
-    v_unavailable("v_open()");
-    return NULL;
-#endif
-}
-
-/*!
-  @brief   Declare an I/O pipe command.
-  @ingroup system_io
-  @param   regexp File name match regexp.
-  @param   mode Mode to open with.
-  @param   pipe Piped command.
-  @return  See below.
-
-  Add a regexp and associated pipe command to the set of recognized file
-  names used when opening files with the given mode using v_open().  \c
-  pipe is a format string which should contain a single \c \%s -- this is
-  replaced by the name of the file to be read or written. If \c pipe is \c
-  NULL, then that regexp is removed if it existed, and the return code is
-  whether it existed or not. If not, then the return code indicates whether
-  \c regexp was a valid regular expression.
-
-  When v_open() tries to open a file in a given mode, and the file name
-  matches a known regexp for that mode, the corresponding pipe is
-  opened. If not, but the file exists, it is opened normally. If both of
-  these fail, \c NULL is returned. Regexp matches are tried in order of
-  declaration. For example, if you do the following:
-
-  @verbatim
-  v_open_with("\\.gz$", "r", "gzip -qcd %s");
-  v_open_with("\\.gz$", "w", "gzip -qc > %s");
-  @endverbatim
-
-  and then later do this:
-
-  @verbatim
-  fp = v_open("foo.gz", "r");
-  @endverbatim
-
-  then a pipe to the \c gzip command will be opened in order to read the
-  file. Similarly, if you do:
-
-  @verbatim
-  fp = v_open("bar.gz", "w");
-  @endverbatim
-
-  then \c gzip will be opened to compress the output.
-*/
-int
-v_open_with(char *regexp, char *mode, char *pipe)
-{
-    vregex *r, *old;
-    vhash *data;
-
-    INIT_IO;
-
-    if (regexp != NULL)
-        data = vh_pget(pipedata, regexp);
-    else
-        return 0;
-
-    if (pipe != NULL) {
-        if ((r = vr_create(regexp)) == NULL)
-            return 0;
-
-        if (data == NULL) {
-            data = vh_create();
-            vl_ppush(pipelist, data);
-        }
-
-        if ((old = vh_pget(data, "REGEXP")) != NULL)
-            vr_destroy(old);
-
-        vh_pstore(data, "REGEXP", r);
-        vh_sstore(data, "PIPE", pipe);
-        vh_sstore(data, "MODE", mode);
-    } else if (data != NULL && ((r = vh_pget(data, "REGEXP")) != NULL)) {
-        vr_destroy(r);
-        vh_delete(data, "REGEXP");
-    } else {
-        return 0;
-    }
-
-    return 1;
 }
 
 /*!
