@@ -18,14 +18,14 @@
 #include "vars-system.h"
 #include "vars-utils.h"
 
-#define freezewrap() 1
-
 int start_line = 1;             /* Starting line number */
 int last_line_number;           /* Last line number */
 int line_number;                /* Current line number */
 
 static vbuffer *sbuf = NULL;    /* String buffer */
 %}
+
+%option noyywrap
 
 SIGN            [-+]
 DIGIT		[0-9]
