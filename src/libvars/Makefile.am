@@ -21,12 +21,10 @@ INCLUDES = -DHAVE_MKSTEMP
 noinst_HEADERS = $(HDRS)
 noinst_LIBRARIES = libvars.a
 
-LEX_PREFIX = `echo $< | sed -e 's/vars-//' -e 's/-lex.l$$//'`
-
+LEX_PREFIX = freeze
+LEX_OUTPUT_ROOT = lex.$(LEX_PREFIX)
 AM_LFLAGS = -CFa -8 -P$(LEX_PREFIX)
 AM_YFLAGS = -v -d
-
-LEX_OUTPUT_ROOT = lex.$(LEX_PREFIX)
 
 VARS_SRCS = $(SRCS) $(NOINST_SRCS) $(HDRS) $(NOINST_HDRS) vars-config.h
 
