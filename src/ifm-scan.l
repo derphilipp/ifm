@@ -15,11 +15,11 @@
 #include "ifm-util.h"
 #include "ifm-parse.h"
 
-#define yywrap() 1
-
 /* Internal string buffer */
 static vbuffer *sbuf = NULL;
 %}
+
+%option noyywrap
 
 LETTER		[A-Za-z_]
 DIGIT		[0-9]
