@@ -1,0 +1,10 @@
+# Helvetica font settings.
+
+style helvetica;
+  page_title_font = "Helvetica-Bold";
+  map_title_font  = "Helvetica-Bold";
+  room_text_font  = "Helvetica-Bold";
+  item_text_font  = "Helvetica-Oblique";
+  link_text_font  = "Helvetica";
+  task_graph_font = "Helvetica";
+endstyle helvetica;

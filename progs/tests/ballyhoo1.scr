@@ -1,0 +1,708 @@
+Here begins a transcript with Ballyhoo.
+BALLYHOO
+Infocom interactive fiction
+Copyright (c) 1986 by Infocom, Inc. All rights reserved.
+Release 97 / Serial number 851218
+
+>l
+In the Wings
+The big top can be entered to the north and exited to the south. To the
+northeast, the grandstand begins its precipitous rise.
+
+>ne
+Climbing up into the deserted and littered grandstands produces a disorienting
+sense of deja vu. You make a headachy descent down the steps.
+
+>s
+You emerge into the warm night air of summer.
+
+Connection
+This area of matted-down crabgrass lies between the vaulted big top entrance to
+the north and the enticements of the midway to the east, where a sagging banner
+hangs crookedly above a turnstile. There is a drinking fountain near the side
+wall of the tent. You can enter the night to the west and south.
+
+The last of the crowd just now trickles eastward through the turnstile.
+
+A midget decked out in a Russian general's uniform is standing before the
+drinking fountain.
+
+>item "midget"
+[I don't know the word "item."]
+
+>lift midget
+Once elevated, Comrade Thumb slurps his fill of water. He then plops down, gives
+you a quick salute, and waddles off into the darkness.
+
+>l
+Connection
+This area of matted-down crabgrass lies between the vaulted big top entrance to
+the north and the enticements of the midway to the east, where a sagging banner
+hangs crookedly above a turnstile. There is a drinking fountain near the side
+wall of the tent. You can enter the night to the west and south.
+
+>examine fountain
+It's your standard drinking fountain, with a button next to the spout.
+
+>press button
+The sip of water is refreshing on this hot night.
+
+>i
+You have $12.81 to your name.
+
+>read banner
+
+"TO SIDESHOWS"
+
+>e
+The turnstile won't budge.
+
+>item "turnstile"
+[I don't know the word "item."]
+
+>l
+Connection
+This area of matted-down crabgrass lies between the vaulted big top entrance to
+the north and the enticements of the midway to the east, where a sagging banner
+hangs crookedly above a turnstile. There is a drinking fountain near the side
+wall of the tent. You can enter the night to the west and south.
+
+>x tent
+[I don't know the word "x."]
+
+>examine tent
+Soiled by endless miles of travel and heavily patched in places, the wide
+blue-and-white stripes nevertheless rise up to the black sky above.
+
+>lift it
+Playing in this way with the big top has no desirable effect.
+
+>l
+Connection
+This area of matted-down crabgrass lies between the vaulted big top entrance to
+the north and the enticements of the midway to the east, where a sagging banner
+hangs crookedly above a turnstile. There is a drinking fountain near the side
+wall of the tent. You can enter the night to the west and south.
+
+>w
+Beside the Big Top
+You're standing next to the big top, which is gently flapping in the warm
+breeze.
+
+A cheap plastic clown mask, having been carelessly dropped here, is lying
+face-up on the ground.
+
+About waist-high, a barred passage for wild animals extends several yards out
+from the big top.
+
+>item "clown mask" tag Mask
+[I don't know the word "item."]
+
+>get mask
+Taken.
+
+>save
+Ok.
+
+>l
+Beside the Big Top
+You're standing next to the big top, which is gently flapping in the warm
+breeze.
+
+About waist-high, a barred passage for wild animals extends several yards out
+from the big top.
+
+>n
+You bump into the side wall of the big top.
+
+>lift tent
+Playing in this way with the big top accomplishes nothing.
+
+>touch it
+Fiddling with the big top doesn't do anything.
+
+>w
+It's too dark and unfamiliar out there.
+
+>l
+Beside the Big Top
+You're standing next to the big top, which is gently flapping in the warm
+breeze.
+
+About waist-high, a barred passage for wild animals extends several yards out
+from the big top.
+
+>s
+Back Yard
+You're standing in front of the turnstile entrance to a fenced-in area, which is
+south. To the west stands a droopy tent, and the field continues north and east.
+
+A tall and lanky clown in baggy pants trudges out of the tent and toward the
+turnstile. Comrade Thumb follows behind.
+
+Adjacent to the turnstile to your south is a vertical cage.
+
+>z
+Time passes...
+
+The tall clown, whom you now recognize as Chuckles, barks a hello into the cage.
+You hear an electronic buzz from the turnstile and Chuckles passes through.
+
+>examine cage
+The fire-damaged cage, perhaps once the home of some big jungle cat, has been
+converted into some kind of vertical booth.
+
+Comrade Thumb performs an impromptu handstand.
+
+>item "cage"
+[I don't know the word "item."]
+
+>l
+Back Yard
+You're standing in front of the turnstile entrance to a fenced-in area, which is
+south. To the west stands a droopy tent, and the field continues north and east.
+
+Adjacent to the turnstile to your south is a vertical cage.
+
+Comrade Thumb belts out a few verses of a Russian folk song in his high-pitched,
+squeaky voice while standing on his head.
+
+>w
+Inside Prop Tent
+This dimly lighted tent houses a ragtag collection of outrageous props and wacky
+devices, including a midget automobile that's garaged in here.
+
+Lying here in a heap is a gorilla suit.
+
+President William Howard Taft is here.
+
+You can hear muffled voices coming from outside and see two ominous shadows cast
+against the side wall of the tent.
+
+>item "gorilla suit" tag Suit
+[I don't know the word "item."]
+
+>item "cardboard cutout" tag Cutout
+[I don't know the word "item."]
+
+>hide behind taft
+You crouch behind the cardboard character.
+
+From behind the figure of President Taft you hear footsteps enter the tent, a
+pause, then hushed conversation.
+
+>listen
+[What do you want to listen to?]
+
+>conversation
+"So, Munrab, what is it? Why have you called me here?"
+  
+"Listen, Detective, I've had a terrible day in your lousy little town, so let me
+be brief. Receipts have been down all month, tonight's concession stand sales
+were especially small, the towners were tightfisted, they nearly leveled my
+grandstand, and on top of that somebody's kidnapped my daughter, Chelsea. That's
+where you come in. Here's the most recent picture of her -- a pretty good
+likeness in my opinion."
+
+"Mr. Munrab, why are we whispering?"
+
+>task "Hide behind cutout" tag Hide
+[I don't know the word "task."]
+
+>task "Listen to conversation" tag Listen after last
+[I don't know the word "task."]
+
+>z
+Time passes...
+
+"I don't know, because it's a mystery I guess. Anyhow, it's not because I
+suspect any of my own people here on the lot." There's a pause. "I've got a
+pretty loyal crew here. Sure, I work the guys a fair amount, but hey, no one
+joins the circus expecting a holiday."
+
+Lacking all passion and professionalism, the detective replies, "I'll suspect
+who you want me to suspect. You're paying the bill."
+
+"Here, see, the language of this ransom note clearly shows that it's not an
+inside job. Detective, I don't know what kind of crazies are running loose in
+this town, but I'm afraid harm might come to my daughter if the police were to
+show up. God knows this circus doesn't need that kind of publicity, anyway. So
+I'm relying on you and you alone."
+
+"I'd better hold on to that note, Munrab."
+
+"Alright, then get going."
+
+You can hear Mr. Munrab and the detective hustle out of the tent. You stand up.
+
+>l
+Inside Prop Tent
+This dimly lighted tent houses a ragtag collection of outrageous props and wacky
+devices, including a midget automobile that's garaged in here.
+
+Lying here in a heap is a gorilla suit.
+
+President William Howard Taft is here.
+
+>get suit
+Taken.
+
+>x car
+[I don't know the word "x."]
+
+>examine car
+The tiny car, just a slice of lemon, is in pretty bad shape. It smells of
+gasoline and burnt oil.
+
+>item "tiny car"
+[I don't know the word "item."]
+
+>drive car
+Only a basket case or a child would fit in there.
+
+>l
+Inside Prop Tent
+This dimly lighted tent houses a ragtag collection of outrageous props and wacky
+devices, including a midget automobile that's garaged in here.
+
+President William Howard Taft is here.
+
+>e
+Back Yard
+You're standing in front of the turnstile entrance to a fenced-in area, which is
+south. To the west stands a droopy tent, and the field continues north and east.
+
+Adjacent to the turnstile to your south is a vertical cage.
+
+>s
+The turnstile won't budge.
+
+>say hello 
+[Please consult your manual for the correct way to talk to characters.]
+
+>shout
+You begin to get a sore throat.
+
+>e
+Near White Wagon
+You are standing on a gentle upslope of the grassy field, next to a rather
+imposing trailer whose door is closed to the east. In dark panorama, the field
+continues north and west -- and south, where a large banner has been erected.
+
+Part of a narrow pole is sticking out from under the wagon.
+
+>examine pole
+You see nothing special about the fiberglass pole.
+
+>item "pole"
+[I don't know the word "item."]
+
+>n
+Connection
+This area of matted-down crabgrass lies between the vaulted big top entrance to
+the north and the enticements of the midway to the east, where a sagging banner
+hangs crookedly above a turnstile. There is a drinking fountain near the side
+wall of the tent. You can enter the night to the west and south.
+
+>s
+Near White Wagon
+You are standing on a gentle upslope of the grassy field, next to a rather
+imposing trailer whose door is closed to the east. In dark panorama, the field
+continues north and west -- and south, where a large banner has been erected.
+
+Part of a narrow pole is sticking out from under the wagon.
+
+>read banner
+
+"THIS WAY TO THE EGRESS"
+
+>s
+Are you sure you're mentally and otherwise prepared to meet up with an egress?
+
+>y
+Then you're fully aware of the ferociousness of this rare mammalian species,
+right?
+
+>y
+Then you'd be helpless against this dangerous beast.
+
+>s
+Are you sure you're mentally and otherwise prepared to meet up with an egress?
+
+>l
+Near White Wagon
+You are standing on a gentle upslope of the grassy field, next to a rather
+imposing trailer whose door is closed to the east. In dark panorama, the field
+continues north and west -- and south, where a large banner has been erected.
+
+Part of a narrow pole is sticking out from under the wagon.
+
+>get pole
+Taken.
+
+>examine it
+You see nothing interesting about the fiberglass pole.
+
+>n
+Connection
+This area of matted-down crabgrass lies between the vaulted big top entrance to
+the north and the enticements of the midway to the east, where a sagging banner
+hangs crookedly above a turnstile. There is a drinking fountain near the side
+wall of the tent. You can enter the night to the west and south.
+
+>e
+The turnstile won't budge.
+
+>n
+In the Wings
+The big top can be entered to the north and exited to the south. 
+
+To the northeast, the grandstand has been retracted slightly, revealing a
+passage.
+
+A roustabout who is wearing a pair of headphones and carrying a large net over
+his shoulder passes you and exits the big top.
+
+>ne
+Under the Bleachers
+You're standing between the underside of the grandstand and the side wall of the
+big top. Not unexpectedly, the ground here is strewn with garbage. The only exit
+is southwest.
+
+>item "garbage"
+[I don't know the word "item."]
+
+>search garbage
+Your foray into garbage reclamation pays off, as you turn up the unmarked ticket
+of some luckless circus-goer.
+
+>task "Search garbage" tag Search
+[I don't know the word "task."]
+
+>i
+You have a fiberglass pole, a gorilla suit, a clown mask and $12.81 to your
+name.
+
+>l
+Under the Bleachers
+You're standing between the underside of the grandstand and the side wall of the
+big top. Not unexpectedly, the ground here is strewn with garbage. The only exit
+is southwest.
+
+Your ticket lies here.
+
+>get ticket
+Taken.
+
+>examine it
+[A replica of your ticket is included in your Ballyhoo package.]
+
+>item "ticket" hidden after last
+[I don't know the word "item."]
+
+>sw
+In the Wings
+The big top can be entered to the north and exited to the south. 
+
+To the northeast, the grandstand has been retracted slightly, revealing a
+passage.
+
+>s
+You emerge into the warm night air of summer.
+
+Connection
+This area of matted-down crabgrass lies between the vaulted big top entrance to
+the north and the enticements of the midway to the east, where a sagging banner
+hangs crookedly above a turnstile. There is a drinking fountain near the side
+wall of the tent. You can enter the night to the west and south.
+
+>e
+The turnstile won't budge.
+
+>put ticket in turnstile
+You feed your ticket into the slot but it's immediately rejected. Perhaps you
+didn't follow the directions on the ticket.
+
+>punch ticket
+You'll have to be more specific.
+
+>punch blue hole
+[You can't see any blue hole here.]
+
+>punch male
+[I don't know the word "male."]
+
+>punch hole in ticket
+[That sentence isn't one I recognize.]
+
+>punch green hole
+[You can't see any green hole here.]
+
+>n
+In the Wings
+The big top can be entered to the north and exited to the south. 
+
+To the northeast, the grandstand has been retracted slightly, revealing a
+passage.
+
+>n
+Performance Ring
+This is the arena's oval-shaped performance ring which appears deathly quiet
+without its circus atmosphere. Also missing is its safety net. A rope ladder
+dangles to within a foot of the ground.
+
+Just west lies the entrance to a large, round cage that completely encircles the
+second of the two rings. To the south the big top's vaulted wing leads out into
+the open air. The arena's rickety grandstands rise steeply north and east.
+
+>e
+Climbing up into the deserted and littered grandstands produces a disorienting
+sense of deja vu. You make a headachy descent down the steps.
+
+>w
+The cage door is closed.
+
+>open door
+The cage door is locked.
+
+>l
+Performance Ring
+This is the arena's oval-shaped performance ring which appears deathly quiet
+without its circus atmosphere. Also missing is its safety net. A rope ladder
+dangles to within a foot of the ground.
+
+Just west lies the entrance to a large, round cage that completely encircles the
+second of the two rings. To the south the big top's vaulted wing leads out into
+the open air. The arena's rickety grandstands rise steeply north and east.
+
+>item "cage"
+[I don't know the word "item."]
+
+>u
+Trying to grip the ladder, you fumble away your ticket.
+
+>l
+Performance Ring
+This is the arena's oval-shaped performance ring which appears deathly quiet
+without its circus atmosphere. Also missing is its safety net. A rope ladder
+dangles to within a foot of the ground.
+
+Just west lies the entrance to a large, round cage that completely encircles the
+second of the two rings. To the south the big top's vaulted wing leads out into
+the open air. The arena's rickety grandstands rise steeply north and east.
+
+Your ticket lies here.
+
+>u
+Trying to grip the ladder, you fumble away the fiberglass pole.
+
+>l
+Performance Ring
+This is the arena's oval-shaped performance ring which appears deathly quiet
+without its circus atmosphere. Also missing is its safety net. A rope ladder
+dangles to within a foot of the ground.
+
+Just west lies the entrance to a large, round cage that completely encircles the
+second of the two rings. To the south the big top's vaulted wing leads out into
+the open air. The arena's rickety grandstands rise steeply north and east.
+
+Your ticket lies here.
+
+There's a fiberglass pole here.
+
+>i
+You have a gorilla suit, a clown mask and $12.81 to your name.
+
+>drop all
+gorilla suit: Dropped.
+clown mask: Dropped.
+
+>u
+You grasp the ladder firmly and climb up ...
+
+Platform
+You're standing on a small, unstable platform which is suspended high above the
+arena floor by guy wires converging on it from all directions. A rope ladder
+dangles from the platform and the tightrope stretches east to the opposite
+platform.
+
+>d
+You grasp the ladder firmly and climb down ...
+
+Performance Ring
+This is the arena's oval-shaped performance ring which appears deathly quiet
+without its circus atmosphere. Also missing is its safety net. A rope ladder
+dangles to within a foot of the ground.
+
+Just west lies the entrance to a large, round cage that completely encircles the
+second of the two rings. To the south the big top's vaulted wing leads out into
+the open air. The arena's rickety grandstands rise steeply north and east.
+
+Lying here in a heap is a gorilla suit.
+
+Your ticket lies here.
+
+You can see a clown mask and a fiberglass pole here.
+
+>get pole
+Taken.
+
+>u
+You grasp the ladder firmly and climb up ...
+
+Platform
+You're standing on a small, unstable platform which is suspended high above the
+arena floor by guy wires converging on it from all directions. A rope ladder
+dangles from the platform and the tightrope stretches east to the opposite
+platform.
+
+>e
+You are standing, poised high above the arena floor, a couple of baby steps
+across the tightrope.
+
+>e
+You take a couple of tentative steps across the wire ...
+You are standing, poised high above the arena floor, just part of the way across
+the tightrope.
+
+>e
+You take a couple of tentative steps across the wire, reaching the halfway point
+...
+You are standing, poised high above the arena floor, about midway across the
+tightrope.
+
+>e
+You take a couple of tentative steps across the wire ...
+You are standing, poised high above the arena floor, most of the way across the
+tightrope.
+
+>e
+You take a couple of tentative steps across the wire ...
+You are standing, poised high above the arena floor, nearly all the way across
+the tightrope.
+
+>e
+"Ta Daaaaaaaaaaa." Those familiar notes from tonight's show reverberate through
+your body in triumph.
+
+Platform
+You're standing on a small, unstable platform which is suspended high above the
+arena floor by guy wires converging on it from all directions. The tightrope
+stretches west to the opposite platform.
+
+Floating against the ceiling of the big top is a helium balloon.
+
+>item "balloon"
+[I don't know the word "item."]
+
+>get balloon
+You grab the helium-filled balloon at the frill where it is tied. The balloon
+gives a constant upward tug at your fingertips.
+
+>w
+You are standing, poised high above the arena floor, a couple of baby steps
+across the tightrope.
+
+>w
+You take a couple of tentative steps across the wire ...
+You are standing, poised high above the arena floor, just part of the way across
+the tightrope.
+
+>w
+You take a couple of tentative steps across the wire, reaching the halfway point
+...
+You are standing, poised high above the arena floor, about midway across the
+tightrope.
+
+>w
+You take a couple of tentative steps across the wire ...
+You are standing, poised high above the arena floor, most of the way across the
+tightrope.
+
+>w
+You take a couple of tentative steps across the wire ...
+You are standing, poised high above the arena floor, nearly all the way across
+the tightrope.
+
+>w
+Platform
+You're standing on a small, unstable platform which is suspended high above the
+arena floor by guy wires converging on it from all directions. A rope ladder
+dangles from the platform and the tightrope stretches east to the opposite
+platform.
+
+>d
+Trying to grip the ladder, you fumble away the fiberglass pole and it falls to
+the ground below.
+
+>d
+You grasp the ladder firmly and climb down ...
+
+Performance Ring
+This is the arena's oval-shaped performance ring which appears deathly quiet
+without its circus atmosphere. Also missing is its safety net. A rope ladder
+dangles to within a foot of the ground.
+
+Just west lies the entrance to a large, round cage that completely encircles the
+second of the two rings. To the south the big top's vaulted wing leads out into
+the open air. The arena's rickety grandstands rise steeply north and east.
+
+Lying here in a heap is a gorilla suit.
+
+Your ticket lies here.
+
+You can see a fiberglass pole and a clown mask here.
+
+>get mask
+Taken.
+
+>get ticket
+Taken.
+
+>get suit
+Taken.
+
+>save
+Ok.
+
+>l
+Performance Ring
+This is the arena's oval-shaped performance ring which appears deathly quiet
+without its circus atmosphere. Also missing is its safety net. A rope ladder
+dangles to within a foot of the ground.
+
+Just west lies the entrance to a large, round cage that completely encircles the
+second of the two rings. To the south the big top's vaulted wing leads out into
+the open air. The arena's rickety grandstands rise steeply north and east.
+
+There's a fiberglass pole here.
+
+>i
+You have a gorilla suit, your ticket, a clown mask, a balloon and $12.81 to your
+name.
+
+>s
+In the Wings
+The big top can be entered to the north and exited to the south. 
+
+To the northeast, the grandstand has been retracted slightly, revealing a
+passage.
+
+>s
+You emerge into the warm night air of summer.
+
+Connection
+This area of matted-down crabgrass lies between the vaulted big top entrance to
+the north and the enticements of the midway to the east, where a sagging banner
+hangs crookedly above a turnstile. There is a drinking fountain near the side
+wall of the tent. You can enter the night to the west and south.
+
+>save
+Ok.
+
+>unscript
+Here ends a transcript with Ballyhoo.
+BALLYHOO
+Infocom interactive fiction
+Copyright (c) 1986 by Infocom, Inc. All rights reserved.
+Release 97 / Serial number 851218

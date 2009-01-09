@@ -1,0 +1,385 @@
+verbose
+Ok 
+>l
+On The Path 
+You are on a gravel path leading north to two snow capped mountains. To
+the west is a dying forest. Eastward is a vast, grassy plain and the path
+also continues southward. 
+>s
+On The Path 
+You are on the gravel path. To the east is a vast, grassy wilderness and
+the dying forest is westward. The path also continues south. 
+>s
+On The Path 
+You are on the gravel path. To the east is a vast, grassy plain and the
+dying forest is westward. The path also continues south to a dotted red
+line on the ground, beyond which is a dense, swirling fog. Just in front
+of the line is a notice board. 
+>w
+Rank Forest 
+You are in the dying forest; a damp, gloomy place worn by the ravages of
+time. The atmosphere is very humid causing the trees to be covered in moss
+and fungus. Looking east, you can see a path running along the edge of the
+forest. To the south, there is a dotted red line on the ground with dense,
+swirling fog beyond. Just in front of the line is a notice board. 
+>n
+Rank Forest 
+You are in a rank, decaying forest, the floor of which is littered with
+dead leaves. The atmosphere is very humid causing the trees to be wet and
+slippery. Looking east, you can see a pathway running along the edge of
+the forest. 
+>n
+Rank Forest 
+You find yourself in the murky gloom of the dying forest. Northward, just
+out of the forest you can see an area of moorland and to the east there
+is a gravel path running along the edge of the forest. 
+>w
+Rank Forest 
+This is a particularly dark and dreary part of the forest where the undergrowth
+is very thick and the trees more densely populated, especially westward,
+in which direction any further movement would be impossible. 
+>s
+Rank Forest 
+You find yourself in a cold, dark part of the forest where the sinister
+shadows fill you with misgivings. Westward, the undergrowth becomes thick
+and impenetrable. To the south, there is a dotted red line on the ground
+with dense, swirling fog beyond. Just in front of the line is a notice board.
+
+>s
+You cannot cross the line as the items you are carrying seem to hold you
+back.
+>e
+Rank Forest 
+This is a part of the forest where the humidity has caused the undergrowth
+to be covered in a thin layer of mildew. The overpowering odour fills your
+nostrils, prompting nausea. Looking southward, you can see a dotted red
+line on the ground, beyond which is a dense, swirling fog. Just in front
+of the line is a notice board. There is also a large tree here that looks
+climbable. 
+>e
+Rank Forest 
+You are in the dying forest; a damp, gloomy place worn by the ravages of
+time. The atmosphere is very humid causing the trees to be covered in moss
+and fungus. Looking east, you can see a path running along the edge of the
+forest. To the south, there is a dotted red line on the ground with dense,
+swirling fog beyond. Just in front of the line is a notice board. 
+>n
+Rank Forest 
+You are in a rank, decaying forest, the floor of which is littered with
+dead leaves. The atmosphere is very humid causing the trees to be wet and
+slippery. Looking east, you can see a pathway running along the edge of
+the forest. 
+>w
+Forest Clearing 
+You have stumbled upon a clearing in the forest, the middle of which is
+covered in a vibrant, green turf. However, the trees around the edge of
+the clearing have no leaves and all seem dead or dying. 
+There is a tree stump here.
+>w
+Rank Forest 
+This is a particularly dark and dreary part of the forest where the undergrowth
+is very thick and the trees more densely populated, especially westward,
+in which direction any further movement would be impossible. 
+>w
+Can't you read? I've already told you that the undergrowth is far too thick
+and tangled to go that way.
+>s
+Rank Forest 
+You find yourself in a cold, dark part of the forest where the sinister
+shadows fill you with misgivings. Westward, the undergrowth becomes thick
+and impenetrable. To the south, there is a dotted red line on the ground
+with dense, swirling fog beyond. Just in front of the line is a notice board.
+
+>n
+Rank Forest 
+This is a particularly dark and dreary part of the forest where the undergrowth
+is very thick and the trees more densely populated, especially westward,
+in which direction any further movement would be impossible. 
+>s
+Rank Forest 
+You find yourself in a cold, dark part of the forest where the sinister
+shadows fill you with misgivings. Westward, the undergrowth becomes thick
+and impenetrable. To the south, there is a dotted red line on the ground
+with dense, swirling fog beyond. Just in front of the line is a notice board.
+
+>e
+Rank Forest 
+This is a part of the forest where the humidity has caused the undergrowth
+to be covered in a thin layer of mildew. The overpowering odour fills your
+nostrils, prompting nausea. Looking southward, you can see a dotted red
+line on the ground, beyond which is a dense, swirling fog. Just in front
+of the line is a notice board. There is also a large tree here that looks
+climbable. 
+>n
+Forest Clearing 
+You have stumbled upon a clearing in the forest, the middle of which is
+covered in a vibrant, green turf. However, the trees around the edge of
+the clearing have no leaves and all seem dead or dying. 
+There is a tree stump here.
+>n
+Rank Forest 
+You find yourself in the murky gloom of the dying forest. Northward, just
+out of the forest you can see an area of moorland and to the east there
+is a gravel path running along the edge of the forest. 
+>w
+Rank Forest 
+This is a particularly dark and dreary part of the forest where the undergrowth
+is very thick and the trees more densely populated, especially westward,
+in which direction any further movement would be impossible. 
+>n
+Uncultivated Hills 
+This is a tract of uncultivated moorland where there are many knolls and
+small hills. To the north the terrain becomes rocky and dangerous. Eastward
+leads to the most eminent hill in the area and the dying forest is to the
+south and west. 
+>s
+Rank Forest 
+This is a particularly dark and dreary part of the forest where the undergrowth
+is very thick and the trees more densely populated, especially westward,
+in which direction any further movement would be impossible. 
+>e
+Rank Forest 
+You find yourself in the murky gloom of the dying forest. Northward, just
+out of the forest you can see an area of moorland and to the east there
+is a gravel path running along the edge of the forest. 
+>n
+Mountainous Hills 
+You are in a mountainous region to the north of the dying forest, where
+there are many mounds and small hills. Northward, the terrain becomes rocky
+and dangerous. To the west are more rolling hills but northwestward stands
+the most eminent hill in the area. 
+>s
+Rank Forest 
+You find yourself in the murky gloom of the dying forest. Northward, just
+out of the forest you can see an area of moorland and to the east there
+is a gravel path running along the edge of the forest. 
+>e
+On The Path 
+You are on the gravel path leading north to the mountains. Northwestward,
+off the path, is an area of moorland just north of the forest. To the east
+is an extensive, grassy wilderness. 
+>n
+On The Path 
+You are on the gravel path. Directly north are foothills leading up to the
+southernmost mountain. Westward is the mountainous region and the expanse
+of grassy plain is to the east. 
+>n
+Foothills 
+You find yourself in the foothills below the nearest of the snow-capped
+mountains which looms up ominously in front of you. Around you, the floor
+is strewn with massive boulders. The only exits are south, along the gravel
+path, and a track leading northwest up the side of the mountain. Which is
+blocked by a particularly large boulder.
+>s
+On The Path 
+You are on the gravel path. Directly north are foothills leading up to the
+southernmost mountain. Westward is the mountainous region and the expanse
+of grassy plain is to the east. 
+>w
+Mountainous Hills 
+You are in a mountainous region to the north of the dying forest, where
+there are many mounds and small hills. Northward, the terrain becomes rocky
+and dangerous. To the west are more rolling hills but northwestward stands
+the most eminent hill in the area. 
+>w
+Rolling Hills 
+This is a bleak area of rolling hills to the north of the forest, where
+there are many mounds and knolls. Northward is the largest hill in the region
+and behind that looms the nearest of the snow-capped mountains. There are
+many more hills to the east and west. 
+>w
+Uncultivated Hills 
+This is a tract of uncultivated moorland where there are many knolls and
+small hills. To the north the terrain becomes rocky and dangerous. Eastward
+leads to the most eminent hill in the area and the dying forest is to the
+south and west. 
+>e
+Rolling Hills 
+This is a bleak area of rolling hills to the north of the forest, where
+there are many mounds and knolls. Northward is the largest hill in the region
+and behind that looms the nearest of the snow-capped mountains. There are
+many more hills to the east and west. 
+>s
+Rank Forest 
+You find yourself in the murky gloom of the dying forest. Northward, just
+out of the forest you can see an area of moorland and to the east there
+is a gravel path running along the edge of the forest. 
+>n
+Mountainous Hills 
+You are in a mountainous region to the north of the dying forest, where
+there are many mounds and small hills. Northward, the terrain becomes rocky
+and dangerous. To the west are more rolling hills but northwestward stands
+the most eminent hill in the area. 
+>n
+The terrain in that direction is too rocky.
+>w
+Rolling Hills 
+This is a bleak area of rolling hills to the north of the forest, where
+there are many mounds and knolls. Northward is the largest hill in the region
+and behind that looms the nearest of the snow-capped mountains. There are
+many more hills to the east and west. 
+>n
+Large Hill 
+You are on a large hill covered in clumps of wild heather atop which is
+a small hut. To the north, the terrain becomes dangerously rocky. However,
+in every other direction there are more hills. From within, a voice says,
+"Come in, my child, the way is clear."
+>n
+The terrain in that direction is too rocky.
+>in
+Eh - I don't follow you.
+>enter hut
+Inside The Hut 
+You are now inside a dingy old mud hut. A shaven-headed guru wearing an
+orange robe sits cross-legged in the centre of the floor with a cupboard
+behind him. Also, a small bowl, full of rice, is on the floor in front of
+the guru. As you enter, he stands, bows to you and sits again.
+The guru notices your wristband and breaks out into uncontrollable laughter.
+>out
+Large Hill 
+You are on a large hill covered in clumps of wild heather atop which is
+a small hut. To the north, the terrain becomes dangerously rocky. However,
+in every other direction there are more hills. 
+>s
+Rolling Hills 
+This is a bleak area of rolling hills to the north of the forest, where
+there are many mounds and knolls. Northward is the largest hill in the region
+and behind that looms the nearest of the snow-capped mountains. There are
+many more hills to the east and west. 
+>s
+Rank Forest 
+You find yourself in the murky gloom of the dying forest. Northward, just
+out of the forest you can see an area of moorland and to the east there
+is a gravel path running along the edge of the forest. 
+>e
+On The Path 
+You are on the gravel path leading north to the mountains. Northwestward,
+off the path, is an area of moorland just north of the forest. To the east
+is an extensive, grassy wilderness. 
+>e
+Grassy Plain 
+This is a vast expanse of grassy plain. To the west is the gravel path,
+and the plain extends as far as you can see to the east. Northward, the
+terrain becomes rocky and dangerous. Honest John the travelling salesman
+is here. He has a friendly air as he tries to sell you his goods from the
+back of a wooden cart pulled by a mangy old donkey.
+"Ah, here's a likely customer", he says with a confident patter, "Are you
+on a quest?" And without waiting for an answer, "Then you'll need to get
+kitted out and I've got just the things:
+Some iron rations for those peckish moments on dungeon journeys, for only
+1 ferg. Some silver armour worthy of any true adventurer, for only 2 fergs.
+A bottle of whisky distilled by the highly acclaimed Roobikyoub tribe of
+dwarfs, for only 2 fergs. Some sparkling spring water from the exclusive
+Obakanga valley in southern Kerovnia, for only 1 ferg. A bottle of Farthington's
+real ale (complete with twigs and sediment), for only 1 ferg. I don't accept
+credit even if it's good (it's a matter of principle).
+>n
+You can't go that way.
+Only east, southeast, south, southwest, west, northwest.
+>s
+As you pass, Honest John complains, "Not going to buy anything, eh? Well,
+you're hardly going to succeed in your quest without any equipment, are
+you?"
+Grassy Wilderness 
+You find yourself in a vast wilderness of grassy plain extending to the
+limit of your vision in every direction. 
+Kronos the magician zooms past on a circular stone platform that hovers
+above the ground, executes a steep, banked turn and glides to a halt in
+front of you.
+"Greetings, stranger", Kronos says in a deep, rich voice.
+>l
+Grassy Wilderness 
+You find yourself in a vast wilderness of grassy plain extending to the
+limit of your vision in every direction. 
+"I am having great trouble in finding someone to perform an extremely simple
+task and I wonder if you would help me out. If you deliver this sealed letter
+to King Erik of Kerovnia, you will be well rewarded when I next meet you
+on your travels and I would be forever indebted to you."
+The magician then offers you a sealed note.
+>get note
+You have now got the note 
+>l
+Grassy Wilderness 
+You find yourself in a vast wilderness of grassy plain extending to the
+limit of your vision in every direction. 
+Kronos glides off on his stone platform, whistling to himself.
+>l
+Grassy Wilderness 
+You find yourself in a vast wilderness of grassy plain extending to the
+limit of your vision in every direction. 
+>s
+Grassy Plain 
+This is an extensive area of grassy plain. Looking westward you can recognise
+the gravel path. To the south, there is a dotted red line on the ground
+with a dense, swirling fog beyond. Just in front of the line stands a notice
+board. 
+>s
+You cannot cross the line as the items you are carrying seem to hold you
+back.
+>w
+On The Path 
+You are on the gravel path. To the east is a vast, grassy plain and the
+dying forest is westward. The path also continues south to a dotted red
+line on the ground, beyond which is a dense, swirling fog. Just in front
+of the line is a notice board. 
+>n
+On The Path 
+You are on the gravel path. To the east is a vast, grassy wilderness and
+the dying forest is westward. The path also continues south. 
+>e
+Grassy Wilderness 
+You find yourself in a vast wilderness of grassy plain extending to the
+limit of your vision in every direction. 
+>e
+Stone Bridge 
+You are near the edge of a cliff. To the east, a stone bridge spans a deep
+ravine at the bottom of which runs a fast flowing river. Westward leads
+onto an extensive, grassy plain. 
+>s
+Bank 
+You find yourself at the edge of a cliff. To the east, far below, a fast
+flowing river runs south along a ravine. Westward leads into a vast, grassy
+wilderness. Looking south, you can see a red dotted line on the floor beyond
+which is a dense, swirling fog. Just in front of the line is a notice board.
+
+>w
+Grassy Plain 
+This is an extensive area of grassy plain. Looking westward you can recognise
+the gravel path. To the south, there is a dotted red line on the ground
+with a dense, swirling fog beyond. Just in front of the line stands a notice
+board. 
+>n
+Grassy Wilderness 
+You find yourself in a vast wilderness of grassy plain extending to the
+limit of your vision in every direction. 
+>n
+Grassy Plain 
+This is a vast expanse of grassy plain. To the west is the gravel path,
+and the plain extends as far as you can see to the east. Northward, the
+terrain becomes rocky and dangerous. Honest John is here.
+>e
+As you pass, Honest John complains, "Not going to buy anything, eh? Well,
+you're hardly going to succeed in your quest without any equipment, are
+you?"
+Cliff 
+You are at the edge of a cliff. To the east, far below, a fast flowing river
+runs south along a ravine. Westward is the vast wilderness and northwards
+the terrain becomes rocky and dangerous. 
+>s
+Stone Bridge 
+You are near the edge of a cliff. To the east, a stone bridge spans a deep
+ravine at the bottom of which runs a fast flowing river. Westward leads
+onto an extensive, grassy plain. 
+>e
+On The Bridge 
+You are halfway across the stone bridge. The river below you runs south,
+and eastward you can see a high wall with an open gateway leading to the
+gardens of the golden palace. 
+>e
+Palace Gardens 
+You are in the palace gardens where rose bushes and herbaceous borders are
+neatly arranged around a central fountain. Surrounding the gardens is a
+high wall through which there are two exits: east to the gatehouse and west
+to the stone bridge. Standing in the southwest corner of the gardens is
+a small toolshed. 
+There is a mat here.

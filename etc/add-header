@@ -1,0 +1,54 @@
+#! /usr/bin/env perl
+
+# Add copyright header file to distribution source files.
+
+$0 =~ s-.*/--;
+
+# Get directory where header include files live.
+$configdir = shift;
+
+# Get distribution directory.
+$distdir = shift;
+
+# Find files with suffixes.
+open(FIND, "find $distdir -name '*.*' -print |");
+while (<FIND>) {
+    chop($file = $_);
+
+    # Get appropriate header file if it exists.
+    if ($file =~ /.+\.(.+)/) {
+	$suffix = $1;
+    } else {
+	next;
+    }
+
+    $header = $configdir . "/header." . $suffix;
+    next unless -f $header;
+
+    $newfile = $file . ".out";
+    open(OUT, "> $newfile") or &bomb("can't open $newfile: $!");
+
+    # Check lex/yacc source.
+    open(IN, $file) or &bomb("can't open $file: $!");
+    $first = <IN>;
+    $lexyacc = ($first eq "%{\n");
+    print OUT $first if $lexyacc;
+
+    # Print header.
+    open(HDR, $header) or &bomb("can't open $header: $!");
+    print OUT while <HDR>;
+    close HDR;
+
+    print OUT $first unless $lexyacc;
+    print OUT while <IN>;
+    close IN;
+
+    # Move new file to old one.
+    close OUT;
+    rename($newfile, $file) or &bomb("can't replace $file");
+}
+
+# Bomb out with an error.
+sub bomb {
+    die "$0: error: @_\n";
+}

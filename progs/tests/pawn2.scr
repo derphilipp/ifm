@@ -1,0 +1,376 @@
+verbose
+Ok 
+>e
+Stone Bridge 
+You are near the edge of a cliff. To the east, a stone bridge spans a deep
+ravine at the bottom of which runs a fast flowing river. Westward leads
+onto an extensive, grassy plain. 
+>e
+On The Bridge 
+You are halfway across the stone bridge. The river below you runs south,
+and eastward you can see a high wall with an open gateway leading to the
+gardens of the golden palace. 
+>e
+Palace Gardens 
+You are in the palace gardens where rose bushes and herbaceous borders are
+neatly arranged around a central fountain. Surrounding the gardens is a
+high wall through which there are two exits: east to the gatehouse and west
+to the stone bridge. Standing in the southwest corner of the gardens is
+a small toolshed. 
+There is a mat here.
+>examine mat
+The mat is made of coarse, fibrous hair and has the word 'WELCOME' printed
+on it in large, friendly letters.
+>get it
+You have now got the mat, under it you discover a wooden key.
+>item "mat"
+I don't understand item 
+>item "wooden key"
+I don't understand item 
+>item need Mat
+I don't understand item 
+>l
+Palace Gardens 
+You are in the palace gardens where rose bushes and herbaceous borders are
+neatly arranged around a central fountain. Surrounding the gardens is a
+high wall through which there are two exits: east to the gatehouse and west
+to the stone bridge. Standing in the southwest corner of the gardens is
+a small toolshed. 
+There is a wooden key here.
+>get key
+You have now got the wooden key 
+>save
+Please enter filename : pawn.sav
+Are you sure (y/n)? y
+>sw
+The door is closed!
+>open door
+But the door is locked 
+>l
+Palace Gardens 
+You are in the palace gardens where rose bushes and herbaceous borders are
+neatly arranged around a central fountain. Surrounding the gardens is a
+high wall through which there are two exits: east to the gatehouse and west
+to the stone bridge. Standing in the southwest corner of the gardens is
+a small toolshed. 
+>e
+Gateway 
+You are at the gatehouse which consists of an archway leading through to
+the courtyard of the main palace. Some guards are here. Two burly guards,
+armed with pikes, block your entrance.
+>examine guards
+The guards look very menacing. They proudly wear the emblem of King Erik.
+>item "guards"
+I don't understand item 
+>guard, hello
+One of the guards says, Hello, what do you want, scum!
+>show note to guarde
+I don't understand guarde 
+>show note to guard
+The guards lead you into the palace courtyard for an audience with the king,
+who stands in front of you looking very pensive. He takes the note and studies
+it intently before giving you his reply:
+"Get out of my palace!", He rants, his countenance ablaze with apoplectic
+fury. "I will not give in to that evil lizard Kronos."
+He screws the note up and stomps off in an abominable rage. The guards lift
+you off the ground and unceremoniously dump you outside the palace walls.
+>undo
+I don't understand undo 
+>l
+Gateway 
+You are at the gatehouse which consists of an archway leading through to
+the courtyard of the main palace. Some guards are here.
+>e
+The guards are standing in your way.
+>n
+There is a wall in your way!
+>s
+There is a wall in your way!
+>e
+The guards are standing in your way.
+An adventurer has just arrived, riding a horse
+>examine adventurer
+The adventurer is a tall, handsome man dressed in gleaming armour. He occasionally
+says things like 'go north', 'get sword' and 'unlight lamp'.
+An adventurer in gleaming armour is here, riding a horse with no legs.
+>examine horse
+The horse is a beautiful white charger that hovers three feet off the ground
+with no visible means of support.
+He is wearing a poncho and a stetson 
+>get poncho
+But the horse won't let you 
+>wait
+Time passes 
+The adventurer has just left, riding a horse
+>l
+Gateway 
+You are at the gatehouse which consists of an archway leading through to
+the courtyard of the main palace. Some guards are here.
+>w
+Palace Gardens 
+You are in the palace gardens where rose bushes and herbaceous borders are
+neatly arranged around a central fountain. Surrounding the gardens is a
+high wall through which there are two exits: east to the gatehouse and west
+to the stone bridge. Standing in the southwest corner of the gardens is
+a small toolshed. 
+The adventurer has just left, riding a horse
+>w
+On The Bridge 
+You are halfway across the stone bridge. The river below you runs south,
+and eastward you can see a high wall with an open gateway leading to the
+gardens of the golden palace. 
+An adventurer in gleaming armour is here, riding a horse with no legs.
+>adventurer, hello
+The adventurer says, Greetings, fellow wanderer. It is a fine day for travelling,
+is it not?
+The adventurer has just left, riding a horse
+>l
+On The Bridge 
+You are halfway across the stone bridge. The river below you runs south,
+and eastward you can see a high wall with an open gateway leading to the
+gardens of the golden palace. 
+>w
+Stone Bridge 
+You are near the edge of a cliff. To the east, a stone bridge spans a deep
+ravine at the bottom of which runs a fast flowing river. Westward leads
+onto an extensive, grassy plain. 
+The adventurer has just left, riding a horse
+>w
+Grassy Wilderness 
+You find yourself in a vast wilderness of grassy plain extending to the
+limit of your vision in every direction. 
+An adventurer in gleaming armour is here, riding a horse with no legs.
+>wait
+Time passes 
+The adventurer has just left, riding a horse
+>n
+Grassy Plain 
+This is a vast expanse of grassy plain. To the west is the gravel path,
+and the plain extends as far as you can see to the east. Northward, the
+terrain becomes rocky and dangerous. Honest John the travelling salesman
+is here. He has a friendly air as he tries to sell you his goods from the
+back of a wooden cart pulled by a mangy old donkey.
+"Ah, here's a likely customer", he says with a confident patter, "Are you
+on a quest?" And without waiting for an answer, "Then you'll need to get
+kitted out and I've got just the things:
+Some iron rations for those peckish moments on dungeon journeys, for only
+1 ferg. Some silver armour worthy of any true adventurer, for only 2 fergs.
+A bottle of whisky distilled by the highly acclaimed Roobikyoub tribe of
+dwarfs, for only 2 fergs. Some sparkling spring water from the exclusive
+Obakanga valley in southern Kerovnia, for only 1 ferg. A bottle of Farthington's
+real ale (complete with twigs and sediment), for only 1 ferg. I don't accept
+credit even if it's good (it's a matter of principle).
+>s
+Honest John turns away, mumbling something about a wife and three kids to
+feed, then gets on his cart and sulks.
+Grassy Wilderness 
+You find yourself in a vast wilderness of grassy plain extending to the
+limit of your vision in every direction. 
+>s
+Grassy Plain 
+This is an extensive area of grassy plain. Looking westward you can recognise
+the gravel path. To the south, there is a dotted red line on the ground
+with a dense, swirling fog beyond. Just in front of the line stands a notice
+board. 
+>s
+You cannot cross the line as the items you are carrying seem to hold you
+back.
+>e
+Bank 
+You find yourself at the edge of a cliff. To the east, far below, a fast
+flowing river runs south along a ravine. Westward leads into a vast, grassy
+wilderness. Looking south, you can see a red dotted line on the floor beyond
+which is a dense, swirling fog. Just in front of the line is a notice board.
+
+>n
+Stone Bridge 
+You are near the edge of a cliff. To the east, a stone bridge spans a deep
+ravine at the bottom of which runs a fast flowing river. Westward leads
+onto an extensive, grassy plain. 
+>e
+On The Bridge 
+You are halfway across the stone bridge. The river below you runs south,
+and eastward you can see a high wall with an open gateway leading to the
+gardens of the golden palace. 
+>e
+Palace Gardens 
+You are in the palace gardens where rose bushes and herbaceous borders are
+neatly arranged around a central fountain. Surrounding the gardens is a
+high wall through which there are two exits: east to the gatehouse and west
+to the stone bridge. Standing in the southwest corner of the gardens is
+a small toolshed. 
+>sw
+The door is closed!
+>unlock door with wooden key
+The wooden key can't unlock the door 
+>w
+On The Bridge 
+You are halfway across the stone bridge. The river below you runs south,
+and eastward you can see a high wall with an open gateway leading to the
+gardens of the golden palace. 
+>w
+Stone Bridge 
+You are near the edge of a cliff. To the east, a stone bridge spans a deep
+ravine at the bottom of which runs a fast flowing river. Westward leads
+onto an extensive, grassy plain. 
+>w
+Grassy Wilderness 
+You find yourself in a vast wilderness of grassy plain extending to the
+limit of your vision in every direction. 
+>w
+On The Path 
+You are on a gravel path leading north to two snow capped mountains. To
+the west is a dying forest. Eastward is a vast, grassy plain and the path
+also continues southward. 
+>w
+Rank Forest 
+You find yourself in the murky gloom of the dying forest. Northward, just
+out of the forest you can see an area of moorland and to the east there
+is a gravel path running along the edge of the forest. 
+>s
+Forest Clearing 
+You have stumbled upon a clearing in the forest, the middle of which is
+covered in a vibrant, green turf. However, the trees around the edge of
+the clearing have no leaves and all seem dead or dying. 
+There is a tree stump here.
+>w
+Rank Forest 
+This is a particularly dark and dreary part of the forest where the undergrowth
+is very thick and the trees more densely populated, especially westward,
+in which direction any further movement would be impossible. 
+>n
+Uncultivated Hills 
+This is a tract of uncultivated moorland where there are many knolls and
+small hills. To the north the terrain becomes rocky and dangerous. Eastward
+leads to the most eminent hill in the area and the dying forest is to the
+south and west. 
+>s
+Rank Forest 
+This is a particularly dark and dreary part of the forest where the undergrowth
+is very thick and the trees more densely populated, especially westward,
+in which direction any further movement would be impossible. 
+>s
+Rank Forest 
+You find yourself in a cold, dark part of the forest where the sinister
+shadows fill you with misgivings. Westward, the undergrowth becomes thick
+and impenetrable. To the south, there is a dotted red line on the ground
+with dense, swirling fog beyond. Just in front of the line is a notice board.
+
+>e
+Rank Forest 
+This is a part of the forest where the humidity has caused the undergrowth
+to be covered in a thin layer of mildew. The overpowering odour fills your
+nostrils, prompting nausea. Looking southward, you can see a dotted red
+line on the ground, beyond which is a dense, swirling fog. Just in front
+of the line is a notice board. There is also a large tree here that looks
+climbable. 
+>u
+Up The Tree 
+You find yourself a long way up the ancient tree. There are an abundance
+of twigs and branches that all seem to be brushing against your face. The
+branches extend even further above your head but you cannot climb any higher
+as there are no more footholds. Set into the west side of the tree trunk
+is a small wooden door. 
+>unlock door
+With what? 
+>wooden key
+The door is now unlocked
+>open it
+The door is now open.
+>in
+Eh - I don't follow you.
+>enter tree
+Tree Trunk Room 
+You are in a small, cramped room inside the tree trunk. The floor is covered
+with varnished wooden planks and light filters through the various knots
+and holes further up the trunk. 
+There are some boards here. One of the floorboards seems quite loose.
+>move board
+The boards are too heavy to lift.
+>examine board
+The boards are large and very solid.
+>pull board
+You cannot get a grip on the boards 
+>pull floorboard
+You cannot get a grip on the boards 
+>stand on board
+I don't follow you.
+>jump
+That was fun, what next?
+>jump on board
+You can't do that to the boards 
+>l
+Tree Trunk Room 
+You are in a small, cramped room inside the tree trunk. The floor is covered
+with varnished wooden planks and light filters through the various knots
+and holes further up the trunk. 
+There are some boards here.
+>examine boards
+The boards are large and very solid.
+>examine board
+The boards are large and very solid.
+>u
+There are no more footholds for climbing in that direction.
+>d
+You can't go that way.
+Only west.
+>l
+Tree Trunk Room 
+You are in a small, cramped room inside the tree trunk. The floor is covered
+with varnished wooden planks and light filters through the various knots
+and holes further up the trunk. 
+There are some boards here.
+>move board
+The boards are too heavy to lift.
+>push it
+The boards are too heavy to lift.
+>press board
+Nothing happens.
+>l
+Tree Trunk Room 
+You are in a small, cramped room inside the tree trunk. The floor is covered
+with varnished wooden planks and light filters through the various knots
+and holes further up the trunk. 
+There are some boards here.
+>get boards
+The boards are too heavy to lift.
+>i
+You are carrying a mat and a wooden key 
+You are wearing a shirt, some jeans and a wristband 
+>x mat
+I don't understand x 
+>examine mat
+The mat is made of coarse, fibrous hair and has the word 'WELCOME' printed
+on it in large, friendly letters.
+>remove band
+The wristband steadfastly refuses to be moved 
+>l
+Tree Trunk Room 
+You are in a small, cramped room inside the tree trunk. The floor is covered
+with varnished wooden planks and light filters through the various knots
+and holes further up the trunk. 
+There are some boards here.
+>cut board
+With what? 
+>knife
+I don't understand knife 
+>score
+Your score at the moment is 10 from a possible 350.
+>w
+Up The Tree 
+You find yourself a long way up the ancient tree. There are an abundance
+of twigs and branches that all seem to be brushing against your face. The
+branches extend even further above your head but you cannot climb any higher
+as there are no more footholds. Set into the west side of the tree trunk
+is a small wooden door. 
+>d
+Rank Forest 
+This is a part of the forest where the humidity has caused the undergrowth
+to be covered in a thin layer of mildew. The overpowering odour fills your
+nostrils, prompting nausea. Looking southward, you can see a dotted red
+line on the ground, beyond which is a dense, swirling fog. Just in front
+of the line is a notice board. There is also a large tree here that looks
+climbable. 
+>save
+Please enter filename : pawn.sav
+Are you sure (y/n)? y

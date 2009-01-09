@@ -1,0 +1,606 @@
+Start of a transcript of
+"The Path to Fortune"
+Volume One of "The Windhall Chronicles"
+Created using Unix Inform 5.5
+Copyright (c) 1995, 1996 by Jeff Cassidy and C.E. Forman. All rights reserved.
+(Type HELP for instructions and registration info.)
+Release 4 / Serial number 960326 / Inform v1502 Library 5/11
+Interpreter 1 Version B / Library serial number 950703
+
+>verbose
+"The Path to Fortune" is now in its "verbose" mode, which always gives long
+descriptions of locations (even if you've been there before).
+
+>title "Windhall Chronicles"
+You what?
+
+>l
+
+Central Windhall
+     You stand in the midst of the small city of Windhall. The road runs along
+north and south from here. To the west is Sir Gunther's small house, and to the
+east lies Baezil's Bakery. You can almost taste all the delicious pastries that
+Baezil bakes fresh every day.
+
+>e
+(opening the door to Baezil's bakery first)
+
+Baezil's Bakery
+You stand in the cool confines of Baezil's bakery, but something is amiss. The
+oven, which usually at this time of day is full of cooking delights, now lies
+empty and lifeless, and no delicacies line the many trays along the counter.
+
+Baezil stoops over his oven, cursing it loudly.
+
+On the counter are a handful of habba nuts, a clump of light-colored dough and a
+clump of dark-colored dough.
+
+>item "Baezil"
+That's not a verb I recognize.
+
+>item "habba nuts"
+That's not a verb I recognize.
+
+>item "dough"
+That's not a verb I recognize.
+
+>w
+
+Central Windhall
+     You stand in the midst of the small city of Windhall. The road runs along
+north and south from here. To the west is Sir Gunther's small house, and to the
+east lies Baezil's Bakery. You can almost taste all the delicious pastries that
+Baezil bakes fresh every day.
+
+>w
+(opening the door to Sir Gunther's house first)
+
+Sir Gunther's House
+     You stand in the small cottage that Sir Gunther IX has taken up residence
+in. It was the first thing built when the town was settled, and its age is
+starting to show. The room is simply furnished, more due to lack of funds than
+lack of want. This is one of the few times you've ever been in here, for few
+visit Sir Gunther on a regular basis.
+
+An old, battered wastebasket sits next to Sir Gunther's writing desk.
+
+Sir Gunther is seated at his desk, shuffling though some of his "important"
+papers, which he keeps well-hidden from your sight. He glances up as you enter.
+
+"Yes? And what arest THOU doing here?"
+
+It's pretty obvious he's still more than a bit peeved about your being chosen
+for the quest over him.
+
+>item "Sir Gunther"
+That's not a verb I recognize.
+
+>item "basket"
+That's not a verb I recognize.
+
+>x basket
+Sir Gunther's wastebasket is made of poor-quality wood, and has many chips in
+it.
+
+>look in it
+The wastebasket is empty.
+
+>x papers
+You catch a glimpse of the "important" papers, which turn out to be useless
+doodles and little notes Sir Gunther writes to himself, reminding him of how
+great he is.
+
+>l
+
+Sir Gunther's House
+     You stand in the small cottage that Sir Gunther IX has taken up residence
+in. It was the first thing built when the town was settled, and its age is
+starting to show. The room is simply furnished, more due to lack of funds than
+lack of want. This is one of the few times you've ever been in here, for few
+visit Sir Gunther on a regular basis.
+
+An old, battered wastebasket sits next to Sir Gunther's writing desk.
+
+Sir Gunther is seated at his desk, shuffling though some of his "important"
+papers, which he keeps well-hidden from your sight.
+
+>e
+
+Central Windhall
+     You stand in the midst of the small city of Windhall. The road runs along
+north and south from here. To the west is Sir Gunther's small house, and to the
+east lies Baezil's Bakery. You can almost taste all the delicious pastries that
+Baezil bakes fresh every day.
+
+>s
+
+Southern Windhall
+     You stand at the southern end of the small town. To the west lies Borthur's
+smithy, your home and workplace. You can feel the heat of the fires within
+wafting from the open front door. To the east lies Mayor Mielon and Idah's
+house, a pleasant cottage that is always enjoyable to visit. To the south the
+road ends in the midst of a small field, and beyond you see the great Forest of
+Ansalon. Standing in the middle of the forest, sticking up through the treetops,
+looms the tower of Nostrophidius, dark and lonely.
+
+>e
+(opening the door to the mayor's house first)
+
+Mielon and Idah's House
+     This is the home of the mayor and his wife, and the place where all the
+town meetings are held. The fireplace and brick chimney give the room a quaint
+coziness, and it is never too hot or too cold. You have spent many days sitting
+by the fire and talking to Idah, who never bores you with her many tales.
+
+A long coil of twine lies in the corner.
+
+Mielon is pacing around the table, looking apprehensive.
+
+Idah sits in her chair by the fire, patient and kindly.
+
+A large basket of neatly folded laundry sits in a corner.
+
+>item "Mielon"
+That's not a verb I recognize.
+
+>item "Idah"
+That's not a verb I recognize.
+
+>item "laundry"
+That's not a verb I recognize.
+
+>item "twine"
+That's not a verb I recognize.
+
+>w
+
+Southern Windhall
+     You stand at the southern end of the small town. To the west lies Borthur's
+smithy, your home and workplace. You can feel the heat of the fires within
+wafting from the open front door. To the east lies Mayor Mielon and Idah's
+house, a pleasant cottage that is always enjoyable to visit. To the south the
+road ends in the midst of a small field, and beyond you see the great Forest of
+Ansalon. Standing in the middle of the forest, sticking up through the treetops,
+looms the tower of Nostrophidius, dark and lonely.
+
+>s
+
+North of Forest
+     You stand in a small field overlooking the surrounding countryside south of
+the town. Rolling hills stretch southwest until they meet with the tree-covered
+Tysis Mountains. Standing before the mountains, almost matching their height,
+looms the tower of Nostrophidius. To the southeast, the great forest of Ansalon
+stretches to the horizon.
+
+>se
+
+Forest Path
+     The easy forest path here is well worn from use by the townspeople and
+forest animals. To the east the path has a smaller, lesser-used split, rounding
+to the southeast. The latter path goes far deeper into the forest while the main
+path to the east skirts around the edge.
+
+>e
+
+Grassy Glen
+     You stand in a small glen near the edge of the Forest of Ansalon. Trees
+skirt around the glen, blocking any attempts to see where it is you're headed.
+As you walk into the clearing you feel a strange sense that someone is watching
+your every move, making you edgy about remaining here for a long time. A path
+picks up at the eastern side of the clearing, and you think you can manage to
+navigate through the trees to the south as well.
+
+>e
+
+Giant Tree
+     A giant ikash tree before you stretches almost twice as tall as any other
+around it. Its many branches block most of the light and rain from reaching the
+ground below it. Thus there is no vegetation underneath the mighty tree. As you
+look up from its gnarly base, you get a severe case of vertigo. The giant ikash
+leaves hang down, constantly getting in your way. You can see the forest thin
+out to both the east and west, and you think you can continue to the southeast
+through the nearly impenetrable growth.
+
+>u
+
+Nook
+     You are now about halfway up the giant ikash, tucked into a small nook.
+Above you the branches thicken, making further climbing impossible. You're too
+afraid to look below you for fear that you might see exactly how high up you
+are. You were definitely not cut out to be a tree climber.
+
+You can see a bird's nest (in which is an egg) here.
+
+>item "nest"
+That's not a verb I recognize.
+
+>item "egg"
+That's not a verb I recognize.
+
+>get egg
+You pick up the egg.
+
+>x it
+It's an ordinary-looking, if somewhat large, egg, but it seems to be divided
+into two halves which are sealed onto one another. It has a light-blue tinge to
+it, and it feels as if there is something solid within it.
+
+>open it
+You try with your callused blacksmith hands to open the fragile egg, but all you
+manage to do is shatter the delicate frame into a hundred pieces.
+
+>undo
+Nook
+[Previous turn undone]
+
+>i
+You are carrying:
+  an egg
+  a pack (being worn and closed)
+  an old shovel
+
+>save
+Ok.
+
+Nook
+     You are now about halfway up the giant ikash, tucked into a small nook.
+Above you the branches thicken, making further climbing impossible. You're too
+afraid to look below you for fear that you might see exactly how high up you
+are. You were definitely not cut out to be a tree climber.
+
+You can see a bird's nest (which is empty) here.
+
+>d
+
+Giant Tree
+     A giant ikash tree before you stretches almost twice as tall as any other
+around it. Its many branches block most of the light and rain from reaching the
+ground below it. Thus there is no vegetation underneath the mighty tree. As you
+look up from its gnarly base, you get a severe case of vertigo. The giant ikash
+leaves hang down, constantly getting in your way. You can see the forest thin
+out to both the east and west, and you think you can continue to the southeast
+through the nearly impenetrable growth.
+
+>se
+
+Cliffs of Mydar (1)
+     You are on the very edge of the great Cliffs of Mydar. Below the Mydar
+Ocean spans out to the horizon, a deep sea of blue. The wind here is gusty,
+bringing with it the smells of the sea. To the west the great southern Forest of
+Ansalon stretches, blocking any travel that way. A tiny break in the forest
+permits passage northwest, and beyond it lies a mammoth tree, dwarfing all those
+which grow around it. To the south and northeast the cliffs continue.
+
+>x tree
+Which do you mean, the forest or the giant ikash tree?
+
+>ikash
+Which do you mean, the forest or the giant ikash tree?
+
+>ikash tree
+Which do you mean, the forest or the giant ikash tree?
+
+>s
+I only understood you as far as wanting to examine the south wall.
+
+>s
+
+Cliffs of Mydar (2)
+     You are walking along the endless Cliffs of Mydar. Far below, the Mydar
+Ocean extends to the east as far as you can see. You can smell the salt water
+from this height and see the waves as they crash into the rocks far below. To
+the northwest you see the Forest of Ansalon and realize that you've never been
+south of the forest before.  You think you can manage to get through the
+forest's overgrowth. Great grasslands stretch south until they meet the faraway
+Kaskanda Mountains, a fabled range in the south. A small worn path leads
+southeast from the impassable rocky outcroppings of the cliffs to the east.
+
+A dark elven bowman stands defiantly, twenty paces away.  He looks as though
+he's about to let loose an arrow at you.
+
+>e
+As you turn to flee, the dark elf bowman, having no sense of honor, lets loose
+his arrow, straight into your back. You take two steps and then realize that
+you're dead.
+
+
+    *** You have died ***
+
+
+In that game you scored 0 out of a possible 200, in 24 turns, which gives you
+the rank of an Apprentice.
+
+Would you like to RESTART, RESTORE a saved game, UNDO the last move, give the
+FULL score for that game, or QUIT?
+> restore
+Ok.
+
+Nook
+     You are now about halfway up the giant ikash, tucked into a small nook.
+Above you the branches thicken, making further climbing impossible. You're too
+afraid to look below you for fear that you might see exactly how high up you
+are. You were definitely not cut out to be a tree climber.
+
+You can see a bird's nest (which is empty) here.
+
+>d
+
+Giant Tree
+     A giant ikash tree before you stretches almost twice as tall as any other
+around it. Its many branches block most of the light and rain from reaching the
+ground below it. Thus there is no vegetation underneath the mighty tree. As you
+look up from its gnarly base, you get a severe case of vertigo. The giant ikash
+leaves hang down, constantly getting in your way. You can see the forest thin
+out to both the east and west, and you think you can continue to the southeast
+through the nearly impenetrable growth.
+
+>s
+Trees block your path.
+
+>w
+
+Grassy Glen
+     You stand in a small glen near the edge of the Forest of Ansalon. Trees
+skirt around the glen, blocking any attempts to see where it is you're headed.
+As you walk into the clearing you feel a strange sense that someone is watching
+your every move, making you edgy about remaining here for a long time. A path
+picks up at the eastern side of the clearing, and you think you can manage to
+navigate through the trees to the south as well.
+
+>s
+
+Forest Bend
+     The trees in this part of the forest seem to change everywhere you look. A
+path here bends from the northwest to the southwest, and it looks well worn. You
+also think you see breaks in the underbrush to the north and east.
+
+>e
+
+Forest of Ansalon
+     This is the heart of the huge forest. The trees confound your sense of
+direction, and make travel almost impossible. You think the underbrush lightens
+a bit to the southeast and the south, and you might also be able to forge a path
+to the west.
+
+A jittery squirrel darts from tree to tree, carrying a small green stone in its
+mouth.
+
+>item "squirrel"
+That's not a verb I recognize.
+
+>se
+
+Cliffs of Mydar (2)
+     You are walking along the endless Cliffs of Mydar. Far below, the Mydar
+Ocean extends to the east as far as you can see. You can smell the salt water
+from this height and see the waves as they crash into the rocks far below. To
+the northwest you see the Forest of Ansalon and realize that you've never been
+south of the forest before.  You think you can manage to get through the
+forest's overgrowth. Great grasslands stretch south until they meet the faraway
+Kaskanda Mountains, a fabled range in the south. A small worn path leads
+southeast from the impassable rocky outcroppings of the cliffs to the east.
+
+A dark elven bowman stands defiantly, twenty paces away.  He looks as though
+he's about to let loose an arrow at you.
+
+>w
+As you turn to flee, the dark elf bowman, having no sense of honor, lets loose
+his arrow, straight into your back. You take two steps and then realize that
+you're dead.
+
+
+    *** You have died ***
+
+
+In that game you scored 0 out of a possible 200, in 27 turns, which gives you
+the rank of an Apprentice.
+
+Would you like to RESTART, RESTORE a saved game, UNDO the last move, give the
+FULL score for that game, or QUIT?
+> restore
+Ok.
+
+Nook
+     You are now about halfway up the giant ikash, tucked into a small nook.
+Above you the branches thicken, making further climbing impossible. You're too
+afraid to look below you for fear that you might see exactly how high up you
+are. You were definitely not cut out to be a tree climber.
+
+You can see a bird's nest (which is empty) here.
+
+>d
+
+Giant Tree
+     A giant ikash tree before you stretches almost twice as tall as any other
+around it. Its many branches block most of the light and rain from reaching the
+ground below it. Thus there is no vegetation underneath the mighty tree. As you
+look up from its gnarly base, you get a severe case of vertigo. The giant ikash
+leaves hang down, constantly getting in your way. You can see the forest thin
+out to both the east and west, and you think you can continue to the southeast
+through the nearly impenetrable growth.
+
+>w
+
+Grassy Glen
+     You stand in a small glen near the edge of the Forest of Ansalon. Trees
+skirt around the glen, blocking any attempts to see where it is you're headed.
+As you walk into the clearing you feel a strange sense that someone is watching
+your every move, making you edgy about remaining here for a long time. A path
+picks up at the eastern side of the clearing, and you think you can manage to
+navigate through the trees to the south as well.
+
+>s
+
+Forest Bend
+     The trees in this part of the forest seem to change everywhere you look. A
+path here bends from the northwest to the southwest, and it looks well worn. You
+also think you see breaks in the underbrush to the north and east.
+
+>sw
+
+Rocky Plains
+     This is the middle ground where the Forest of Ansalon meets the Tysis
+Mountains. The forest, dark and oppressive, lies north. To the northwest are
+rolling foothills which lead up to the great mountains in the far west. One of
+the smaller mountains rises up through the scattered trees to the south.
+Westward, in the distance, you can make out the tower of Nostrophidius, matching
+the mountains in their glory.
+
+>s
+Trees block your path.
+
+>w
+A sheer cliff wall blocks your path.
+
+>nw
+
+Foothills
+     You stand amongst small rolling foothills which block your line of sight
+and constantly make you lose your way. You think you can make your way out of
+them to the southeast, and to the south what appears to be a plateau rises above
+the rocky mounds.
+
+Someone has left a fine quarterstaff wedged between two rocks.
+
+>item "quarterstaff" tag staff
+That's not a verb I recognize.
+
+>s
+
+Small Plateau
+     You are on a small rise about twenty feet in diameter. From here you can
+get a good view of your surroundings. To the west all you can see are mountains
+and, in their wake, the great mage's tower. You could descend the plateau to the
+north into a great range of foothills, or could also make your way down to the
+south, where the plateau meets with one of the smaller mountains. The mighty
+forest stretches off to the east.
+
+>e
+You'd fall off the plateau if you went that way.
+
+>w
+You'd fall off the plateau if you went that way.
+
+>s
+
+Mountain Base
+     This is the very foot of a small mountain which begins ascending to the
+southwest. Though you hate heights, you determine that this peak is scalable
+even by a novice climber such as yourself.  It's rather hot here, and you enjoy
+the little shade that the trees nearby provide.  To the north you can see what
+appears to be a plateau, and to the northeast the mountains and hills smooth out
+into gentle plains before they meet the forest.
+
+You can see a broken rock here.
+
+>item "rock"
+That's not a verb I recognize.
+
+>ne
+
+Rocky Plains
+     This is the middle ground where the Forest of Ansalon meets the Tysis
+Mountains. The forest, dark and oppressive, lies north. To the northwest are
+rolling foothills which lead up to the great mountains in the far west. One of
+the smaller mountains rises up through the scattered trees to the south.
+Westward, in the distance, you can make out the tower of Nostrophidius, matching
+the mountains in their glory.
+
+>s
+Trees block your path.
+
+>sw
+
+Mountain Base
+     This is the very foot of a small mountain which begins ascending to the
+southwest. Though you hate heights, you've made it up this mountain before, and
+you feel confident that you can do it again if necessary.  It's rather hot here,
+and you enjoy the little shade that the trees nearby provide.  To the north you
+can see what appears to be a plateau, and to the northeast the mountains and
+hills smooth out into gentle plains before they meet the forest.
+
+You can see a broken rock here.
+
+>n
+
+Small Plateau
+     You are on a small rise about twenty feet in diameter. From here you can
+get a good view of your surroundings. To the west all you can see are mountains
+and, in their wake, the great mage's tower. You could descend the plateau to the
+north into a great range of foothills, or could also make your way down to the
+south, where the plateau meets with one of the smaller mountains. The mighty
+forest stretches off to the east.
+
+>n
+
+Foothills
+     You stand amongst small rolling foothills which block your line of sight
+and constantly make you lose your way. You think you can make your way out of
+them to the southeast, and to the south what appears to be a plateau rises above
+the rocky mounds.
+
+Someone has left a fine quarterstaff wedged between two rocks.
+
+>s
+
+Small Plateau
+     You are on a small rise about twenty feet in diameter. From here you can
+get a good view of your surroundings. To the west all you can see are mountains
+and, in their wake, the great mage's tower. You could descend the plateau to the
+north into a great range of foothills, or could also make your way down to the
+south, where the plateau meets with one of the smaller mountains. The mighty
+forest stretches off to the east.
+
+>s
+
+Mountain Base
+     This is the very foot of a small mountain which begins ascending to the
+southwest. Though you hate heights, you've made it up this mountain before, and
+you feel confident that you can do it again if necessary.  It's rather hot here,
+and you enjoy the little shade that the trees nearby provide.  To the north you
+can see what appears to be a plateau, and to the northeast the mountains and
+hills smooth out into gentle plains before they meet the forest.
+
+You can see a broken rock here.
+
+>sw
+
+Mountain Path
+     The path slopes gradually as it leads up one of the smaller of the Tysis
+Mountains. Climbing is rather treacherous, more so than it looks, and the sun
+beats down on you, making you sweat profusely.  The path winds further up the
+mountain to the east. Northeastward, it ends at the base of the mountain. You
+can see to the west the snow-capped peaks of the Tysis range. Before the
+mountains, almost matching their splendor, stands the tower of Nostrophidius,
+dark and uninviting.
+
+>e
+
+Turning Path
+     The path here zigs and zags around the mountain, and the constant turns and
+twists make you nervous and unsure of your location, as you've never been on
+this particular path before. The farther up the path you go, the colder it
+becomes. To the east the path abruptly ends before reaching the summit of the
+mountain, and to the west it winds its way toward the base.
+
+Directly in front of you, a werewolf and an ogre are locked in a vicious
+confrontation.
+
+The werewolf roars in pain as the ogre's fist smashes into its side.
+
+You begin to feel a bit hungry.
+
+>item "werewolf"
+That's not a verb I recognize.
+
+>item "ogre"
+That's not a verb I recognize.
+
+>e
+The two combatants are in your way.
+
+The werewolf roars in pain as the ogre's fist smashes into its side.
+
+>unscript
+
+End of transcript.
