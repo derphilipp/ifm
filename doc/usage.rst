@@ -130,7 +130,7 @@ Finally, here are the information options:
 
    ``vars``
 	   Show a complete list of defined variables, in a format suitable
-	   for feeding back into IFM.  See :ref:`variables`.
+	   for feeding back into IFM.  See :doc:`vars`.
 
 .. cmdoption:: -v, --version
 
@@ -206,7 +206,7 @@ transfig package) will automatically do this.
 Tk drawing commands (``tk``)
 ----------------------------
 
-This produces map commands for input to :ref:`tkifm <tkifm>`, a simple
+This produces map commands for input to :doc:`tkifm <tkifm>`, a simple
 graphical interface to IFM.  It isn't very useful to produce this output
 yourself---:program:`tkifm` does that internally to build its map pictures.
 But you can control its display by setting variables in the usual way.
@@ -291,8 +291,7 @@ Customization
 You can change the appearance of many output features according to your
 taste.  You do this by setting the values of the variables that control
 those features.  This section tells you how to use variables---for a
-complete list of the customization variables available, see
-:ref:`variables`.
+complete list of the customization variables available, see :doc:`vars`.
 
 As a first example, the background colour of rooms is determined by the
 variable :keyword:`room_colour`.  Its default value is ``white``.  It can

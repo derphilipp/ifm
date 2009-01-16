@@ -1,10 +1,8 @@
-.. _scr2ifm:
-
-.. include:: refs.rst
-
 ====================================================
  :program:`scr2ifm`: convert transcripts to IFM map
 ====================================================
+
+.. include:: refs.rst
 
 .. program:: scr2ifm
 

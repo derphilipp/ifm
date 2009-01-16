@@ -1,5 +1,3 @@
-.. _solving:
-
 ==================
  Solving the game
 ==================
@@ -9,7 +7,7 @@
 As well as making a map of your game, you can record the steps you took to
 solve it.  IFM can then calculate a (fairly) optimal solution.  This
 section is a guide to how to do it.  Again, it's not a complete
-specification---see :ref:`language` for that.
+specification---see :doc:`language` for that.
 
 .. index::
    single: task; Introduction to tasks
@@ -526,7 +524,7 @@ done.
 If there are no cyclic dependencies, the task list is *traversed* to find a
 sequence which solves the game while satisfying the task dependencies.  The
 start room is the room which was first mentioned in the input (but this can
-be changed---see :ref:`language`).  While there are tasks left in the task
+be changed---see :doc:`language`).  While there are tasks left in the task
 list, the following steps are performed:
 
 1. The inventory is examined to see if there are any unwanted items; if so,
