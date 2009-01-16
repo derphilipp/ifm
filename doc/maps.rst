@@ -1,5 +1,3 @@
-.. _making-maps:
-
 =============
  Making maps
 =============
@@ -7,7 +5,7 @@
 .. highlight:: ifm
 
 This section gives you a tour of the main commands for making maps.  It's
-not complete; see :ref:`language` for a full list of commands.
+not complete; see :doc:`language` for a full list of commands.
 
 Introduction to maps
 ====================

@@ -1,5 +1,3 @@
-.. _variables:
-
 ==================
  Output variables
 ==================

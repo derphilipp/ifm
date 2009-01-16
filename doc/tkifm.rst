@@ -1,5 +1,3 @@
-.. _tkifm:
-
 =============================================
  :program:`tkifm`: create maps interactively
 =============================================
@@ -49,12 +47,12 @@ Using your own editor
 =====================
 
 If you'd like to use your own editor to edit IFM files, but still view
-results with :program:`tkifm`, you can. :program:`tkifm` recognizes when the file it is
-visiting gets modified, and rereads it if so. If you like, you can also
-disable all tkifm file modification commands by setting the :keyword:`ifm(edit)`
-variable to zero (see below). This is probably a good idea if using another
-editor, or else you might accidentally save from :program:`tkifm` and lose all
-your changes.
+results with :program:`tkifm`, you can.  :program:`tkifm` recognizes when
+the file it is visiting gets modified, and rereads it if so. If you like,
+you can also disable all tkifm file modification commands by setting the
+:keyword:`ifm(edit)` variable to zero (see below). This is probably a good
+idea if using another editor, or else you might accidentally save from
+:program:`tkifm` and lose all your changes.
 
 Customization
 =============
