@@ -25,7 +25,7 @@ OPTIONAL = $(top_srcdir)/etc/missing --run
 
 guide: html
 
-force:; @ rm -rf $(htmldir); $(MAKE) guide
+force:; @ rm -rf $(htmldir) $(sphinxdir); $(MAKE) guide
 
 html: setup conf.py
 	$(SPHINX) -b $@ $(srcdir) $(htmldir)
