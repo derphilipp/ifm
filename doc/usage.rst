@@ -143,7 +143,7 @@ Finally, here are the information options:
 Types of output
 ===============
 
-.. |X| replace:: |Y|
+.. |X| replace:: Y
 
 IFM has three different types of output (a map, a list of items, and a list
 of tasks) and several different output formats, which are described in the
@@ -190,7 +190,7 @@ This produces a map which can be read (and edited) by Xfig_, and any other
 programs which understand Fig format.  The map sections are packed to get a
 best fit automatically, in a similar manner to PostScript, but since Fig
 has no concept of pages, it is most useful when you're printing each map
-section individually.  There's a utility program called :ref:`ifm2dev
+section individually.  There's a utility program called :doc:`ifm2dev
 <ifm2dev>` which automatically does this.
 
 Fig format is also useful if you want to print poster-sized maps over

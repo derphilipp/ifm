@@ -20,10 +20,10 @@ Mapping programs and tools
 
 * IFMapper_ is a graphical mapping tool for Linux and Windows and has the
   ability to read and write IFM and GUEmap_ maps.  It also uses (and
-  improves on) the :ref:`scr2ifm <scr2ifm>` algorithm for mapping
+  improves on) the :doc:`scr2ifm <scr2ifm>` algorithm for mapping
   transcripts.
 
-* Frobot_ creates maps in a similar manner to :ref:`scr2ifm <scr2ifm>`, by
+* Frobot_ creates maps in a similar manner to :doc:`scr2ifm <scr2ifm>`, by
   analyzing a game transcript.
 
 * ifm2i7_ is a Perl script which converts IFM maps into `Inform 7`_ input,
