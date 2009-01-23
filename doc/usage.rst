@@ -143,8 +143,7 @@ Finally, here are the information options:
 Types of output
 ===============
 
-.. include:: <isopub.txt>
-.. |X| replace:: |check|
+.. |X| replace:: |Y|
 
 IFM has three different types of output (a map, a list of items, and a list
 of tasks) and several different output formats, which are described in the
