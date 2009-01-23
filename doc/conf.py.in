@@ -38,7 +38,8 @@ source_suffix = '.rst'
 
 # General substitutions.
 project = 'IFM'
-copyright = '1998-%s, Glenn Hutchings' % time.strftime('%Y')
+author = "Glenn Hutchings"
+copyright = '1998-%s, %s' % (time.strftime('%Y'), author)
 
 # The default replacements for |version| and |release|, also used in
 # various other places throughout the built documents.
@@ -144,16 +145,16 @@ htmlhelp_basename = 'IFM'
 # Options for LaTeX output
 # ------------------------
 
-# The paper size ('letter' or 'a4').
-latex_paper_size = 'a4'
-
-# The font size ('10pt', '11pt' or '12pt').
-latex_font_size = '11pt'
+# LaTeX parameters.
+latex_elements = dict(papersize = "a4",
+                      pointsize = "11pt",
+		      fncychap = r"\usepackage[Conny]{fncychap}",
+                      footer = "")
 
 # Grouping the document tree into LaTeX files. List of tuples (source start
 # file, target name, title, author, document class [howto/manual]).
 latex_documents = [
-  ('contents', 'ifm.tex', 'IFM Documentation', 'Glenn Hutchings', 'manual'),
+  ('contents', 'ifm.tex', 'IFM User Manual', author, 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the
