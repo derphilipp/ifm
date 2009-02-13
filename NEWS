@@ -1,10 +1,12 @@
-Version 5.3.1 (9 Feb 2009)
-==========================
+===========================
+ Version 5.4 (13 Feb 2009)
+===========================
 
 * Fixed build problems on various systems.
 
-Version 5.3 (14 Nov 2008)
-=========================
+===========================
+ Version 5.3 (14 Nov 2008)
+===========================
 
 * IFM is now hosted at Bitbucket_.
 
@@ -49,8 +51,9 @@ Version 5.3 (14 Nov 2008)
 .. _DSC: http://www-cdf.fnal.gov/offline/PostScript/AdobePS.html
 .. _Bitbucket: http://www.bitbucket.org/zondo/ifm
 
-Version 5.2 (7 Sep 2006)
-========================
+==========================
+ Version 5.2 (7 Sep 2006)
+==========================
 
 * There's a new ``-errors`` option, which controls the maximum number of
   errors printed before giving up.
@@ -80,8 +83,9 @@ Version 5.2 (7 Sep 2006)
 
 .. _Lee Bigelow: ligelowbee@yahoo.com
 
-Version 5.1 (30 Nov 2004)
-=========================
+===========================
+ Version 5.1 (30 Nov 2004)
+===========================
 
 * The ``tkifm`` program now supports line numbering and syntax
   highlighting, thanks to a contributor who wishes to remain anonymous.
@@ -105,8 +109,9 @@ Version 5.1 (30 Nov 2004)
 
 .. _Dan Eble: mailto:eble@ticalc.org
 
-Version 5.0 (23 Jan 2003)
-=========================
+===========================
+ Version 5.0 (23 Jan 2003)
+===========================
 
 * New map output: Fig format, suitable for viewing or editing with Xfig, or
   exporting to other formats.
@@ -180,8 +185,9 @@ Version 5.0 (23 Jan 2003)
 * Fixed glitch in room text on PostScript output: now tries reducing font
   size before squishing, so that text is filled better.
 
-Version 4.1 (10 May 1999)
-=========================
+===========================
+ Version 4.1 (10 May 1999)
+===========================
 
 * Fixed minor task bug: in special cases, giving items caused solver to
   fail to find newly-opened paths.
@@ -192,8 +198,9 @@ Version 4.1 (10 May 1999)
 * Fixed core dump problem when reading colour definitions (on FreeBSD, at
   least).
 
-Version 4.0 (21 Apr 1999)
-=========================
+===========================
+ Version 4.0 (21 Apr 1999)
+===========================
 
 * PostScript driver can now print in colour.
 
@@ -242,8 +249,9 @@ Version 4.0 (21 Apr 1999)
   ``cygwin1.dll`` (not ``cygwin.dll``), included in the distribution.
   See ``README.win32`` for details.
 
-Version 3.0 (1 Oct 1998)
-========================
+==========================
+ Version 3.0 (1 Oct 1998)
+==========================
 
 * There's a new program ``scr2ifm`` in the distribution, which attempts to
   convert a game transcript into IFM format.  It's a perl script, and gets
@@ -285,15 +293,17 @@ Version 3.0 (1 Oct 1998)
 
 * Minor fixes to make installation smoother on FreeBSD.
 
-Version 2.1 (26 Aug 1998)
-=========================
+===========================
+ Version 2.1 (26 Aug 1998)
+===========================
 
 * Fixed bug which caused some types of variable not to be set properly.
 
 * Minor fixes to library functions to link properly under Solaris.
 
-Version 2.0 (19 Aug 1998)
-=========================
+===========================
+ Version 2.0 (19 Aug 1998)
+===========================
 
 * Lots of new keywords for use by the game solver, which has been
   considerably enhanced.
@@ -347,8 +357,9 @@ Version 2.0 (19 Aug 1998)
 
 * Library function now doesn't clobber read-only strings.
 
-Version 1.0 (11 Jun 1998)
-=========================
+===========================
+ Version 1.0 (11 Jun 1998)
+===========================
 
 * First release.
 
