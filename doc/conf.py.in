@@ -14,14 +14,18 @@
 # out serve to show the default value.
 
 import sys, os, time
+sys.path.insert(0, os.path.abspath('tools'))
 
-# If your extensions are in another directory, add it here. If the
-# directory is relative to the documentation root, use os.path.abspath to
-# make it absolute, like shown here.
-#sys.path.append(os.path.abspath('ext'))
+from ifm import IFMLexer
+from transcript import TranscriptLexer
 
 # General configuration
 # ---------------------
+
+# Setup function.
+def setup(app):
+    app.add_lexer('ifm', IFMLexer())
+    app.add_lexer('transcript', TranscriptLexer())
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.

@@ -56,9 +56,8 @@ some extra tools installed to build it:
 * GNU ``make``.
 * The GNU autotools: ``autoconf``, ``automake``.
 * Parser generator tools: ``lex``, ``yacc`` (or ``bison``).
-* Sphinx_ to generate the IFM manual (and you'll need to install Pygments_
-  and ``pyifhilite`` from the ``contrib`` directory if you want syntax
-  highlighting).
+* Sphinx_ (at least version 0.6) to generate the IFM manual (and you'll
+  need to install Pygments_ if you want syntax highlighting).
 
 To get things started, run ``autogen.sh``.  Then build as normal.
 
