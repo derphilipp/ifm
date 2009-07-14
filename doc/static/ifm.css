@@ -5,6 +5,15 @@ body {
     font-size: 90%;
 }
 
+div.documentwrapper {
+    float: left;
+    width: 100%;
+}
+
+div.bodywrapper {
+    margin: 0 0 0 230px;
+}
+
 div.document {
     background-color: #f2f2f2;
 }
