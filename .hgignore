@@ -4,7 +4,15 @@ Makefile
 Makefile.in
 
 configure
+config.log
+config.status
 *.m4
+*.o
+*.a
+*.pyc
+
+autom4te.cache/
+.deps/
 
 doc/conf.py
 doc/examples/ruins-*.txt
