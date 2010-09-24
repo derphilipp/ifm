@@ -40,3 +40,5 @@ tests/*.list
 tests/*.out
 
 *.output
+
+.ditz-config
