@@ -501,7 +501,7 @@ Drawing the map
 
 At any point during the mapping of the game, we could run IFM and get a map
 of where we've been (and where to explore next, since we marked room exits
-with :keyword:`exit`).  We can do that, for example, like this::
+with :samp:`exit`).  We can do that, for example, like this::
 
     ifm -m -o ruins.ps ruins.ifm
 

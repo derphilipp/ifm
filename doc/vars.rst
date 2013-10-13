@@ -538,7 +538,7 @@ Game solver variables
      - string
      - 
      - Comma-separated list of extra room tags which are assigned the
-       :keyword:`finish` attribute.
+       :samp:`finish` attribute.
 
        .. versionadded:: 5.3
 
@@ -548,7 +548,7 @@ Game solver variables
      - string
      - 
      - Comma-separated list of extra item tags which are assigned the
-       :keyword:`finish` attribute.
+       :samp:`finish` attribute.
 
        .. versionadded:: 5.3
 
@@ -558,7 +558,7 @@ Game solver variables
      - string
      - 
      - Comma-separated list of extra task tags which are assigned the
-       :keyword:`finish` attribute.
+       :samp:`finish` attribute.
 
        .. versionadded:: 5.3
 

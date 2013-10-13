@@ -148,41 +148,41 @@ game almost certainly won't understand these commands, and will print a
 suitable indignant reply. But that shouldn't affect the state of things.)
 The commands recognized are:
 
-:keyword:`title <name>`
+:samp:`title <name>`
        Give the map a title. The name must be in double-quotes. This
        command can appear anywhere, and has the same effect each time.
 
-:keyword:`map <name>`
+:samp:`map <name>`
        Indicate that the current room starts a new map section with the
        given name. The name must be in double-quotes. This is useful if it
        seems like the map divides into different sections (e.g., the floors
        of a house).
 
-       If you use the :keyword:`map` command, you'll end up with two or
-       more map sections. The first map section is the one that contains
-       the very first room, and will have a default name unless you give it
-       one using another :keyword:`map` command.
+       If you use the :samp:`map` command, you'll end up with two or more
+       map sections. The first map section is the one that contains the
+       very first room, and will have a default name unless you give it one
+       using another :samp:`map` command.
 
-:keyword:`item <name> [attrs]`
+:samp:`item <name> [attrs]`
        Declare an item in the current room.  The name must be in
        double-quotes. If you don't give it a tag attribute, one is
        generated automatically by changing all invalid tag characters in
        the name to underscores.
 
-:keyword:`item [attrs]`
+:samp:`item [attrs]`
        Add the given attributes to the last declared item, if any.
 
-:keyword:`item delete`
+:samp:`item delete`
        Delete the last declared item, if any.
 
-:keyword:`task <name> [attrs]`
+:samp:`task <name> [attrs]`
        Declare a task in the current room in a similar manner to items. The
        name must be in double-quotes.
 
-:keyword:`task [attrs]`
+:samp:`task [attrs]`
        Add the given attributes to the last declared task, if any.
 
-:keyword:`task delete`
+:samp:`task delete`
        Delete the last declared task, if any.
 
 Note that :program:`scr2ifm` knows almost nothing about IFM command
@@ -202,7 +202,7 @@ when a room is the same as a previously-visited room, because the room
 description changed too much between visits.
 
 You can fix most of these problems by creating a command file and
-specifying it with the :keyword:`-c` option.  There are two types of entry:
+specifying it with the :samp:`-c` option.  There are two types of entry:
 :program:`scr2ifm` commands and IFM commands. In a command file, blank
 lines and comment lines (those starting with a ``#``) are ignored. If a
 command isn't recognized as a :program:`scr2ifm` command, it's assumed to
@@ -212,104 +212,103 @@ links or hiding them altogether.
 
 Here's a list of the commands available:
 
-:keyword:`is_room TEXT`
+:samp:`is_room TEXT`
        Declare a line of text that is actually the name of a room. Normally
        room names get recognized properly, but there may be some special
        cases that aren't.
 
-:keyword:`not_room TEXT`
+:samp:`not_room TEXT`
        Declare a line of text that definitely isn't the name of a
        room. This is for opposite cases to the above.
 
-:keyword:`use_name TEXT`
+:samp:`use_name TEXT`
        Use only the room name to decide whether a room has been previously
        visited. This is for cases where a room description changes too much
        between visits to be called the same room. Note that this implies
        that there can only ever be one room with this name.
 
-:keyword:`set_option LETTER`
+:samp:`set_option LETTER`
        This is a convenience that lets you specify :program:`scr2ifm`
-       command-line options in the command file instead. E.g.,
-       :keyword:`set_option i` will indent output nicely.
+       command-line options in the command file instead.  E.g.,
+       :samp:`set_option i` will indent output nicely.
 
-:keyword:`set_param VAR = VALUE`
-       This evaluates the given Perl expression. You can use this to set
+:samp:`set_param VAR = VALUE`
+       This evaluates the given Perl expression.  You can use this to set
        various parameters that control how the transcript is parsed (see
-       below).  Setting a value of :keyword:`undef` will remove that
+       below).  Setting a value of :samp:`undef` will remove that
        parameter (so that it won't be used).
 
 Here's a list of the parameters that control how the transcript is parsed,
-and their defaults. You can use the :program:`scr2ifm` :keyword:`set_param`
+and their defaults.  You can use the :program:`scr2ifm` :samp:`set_param`
 command to set them in the command file.
 
-:keyword:`$name_remove`
+:samp:`$name_remove`
        Matched text to remove before seeing if a line of text is a room
-       name. This is for getting rid of stuff like " (in the dodgem
-       car)". Default: ``\s+\(.+\)``
+       name.  This is for getting rid of stuff like " (in the dodgem
+       car)".  Default: ``\s+\(.+\)``
 
-:keyword:`$name_maxwords`
-       Maximum no. of words in a room name. Default: 8
+:samp:`$name_maxwords`
+       Maximum no. of words in a room name.  Default: 8
 
-:keyword:`$name_maxuncap`
-       Maximum length of an uncapitalized word in a room name. Default: 3
+:samp:`$name_maxuncap`
+       Maximum length of an uncapitalized word in a room name.  Default: 3
 
-:keyword:`$name_invalid`
-       Regexp which, if matched, signals an invalid room name. Default:
+:samp:`$name_invalid`
+       Regexp which, if matched, signals an invalid room name.  Default:
        ``[.!?"]``
 
-:keyword:`$desc_minwords`
-       Minimum no. of matching words required to match a room
-       description. Default: 20
+:samp:`$desc_minwords`
+       Minimum no. of matching words required to match a room description.
+       Default: 20
 
-:keyword:`$cmd_prompt`
-       Regexp matching a command prompt. Default: ``^>\s*``
+:samp:`$cmd_prompt`
+       Regexp matching a command prompt.  Default: ``^>\s*``
 
-:keyword:`$cmd_look`
-       Regexp matching a 'look' command (case-insensitive). Default:
+:samp:`$cmd_look`
+       Regexp matching a 'look' command (case-insensitive).  Default:
        ``^l(ook)?$``
 
-:keyword:`$cmd_undo`
-       Regexp matching an UNDO command (case-insensitive). It's assumed
-       that only a single level of UNDO is available. Default: ``^undo$``
+:samp:`$cmd_undo`
+       Regexp matching an UNDO command (case-insensitive).  It's assumed
+       that only a single level of UNDO is available.  Default: ``^undo$``
 
-:keyword:`$cmd_teleport`
+:samp:`$cmd_teleport`
        Regexp matching commands that are known to cause a teleport to an
-       arbitrary room (case-insensitive). Default: ``^(restart|restore)$``
+       arbitrary room (case-insensitive).  Default: ``^(restart|restore)$``
 
 Writing the map
 ===============
 
-Output from :program:`scr2ifm` is as follows. First, if the title of the
-map was specified with the :keyword:`title` command, it is printed. Then,
-if there's more than one map section, a list of map section titles is
-printed.
+Output from :program:`scr2ifm` is as follows.  First, if the title of the
+map was specified with the :samp:`title` command, it is printed.  Then, if
+there's more than one map section, a list of map section titles is printed.
 
-Next, there's a list of IFM commands derived from the transcript. Each time
-a new room is seen, a room command is output for it. Each room is given a
-tag name formed by the initials of each capitalized word in its name. To
-make tags unique, the second and subsequent occurrences of a tag name have
-that number appended.  For example, room "West of House" would get tag
-``WH``.
+Next, there's a list of IFM commands derived from the transcript.  Each
+time a new room is seen, a room command is output for it.  Each room is
+given a tag name formed by the initials of each capitalized word in its
+name.  To make tags unique, the second and subsequent occurrences of a tag
+name have that number appended.  For example, room "West of House" would
+get tag ``WH``.
 
 If a movement command was up, down, in or out, then a compass direction is
 chosen for it that doesn't clash with other rooms (if possible) and the
-:keyword:`go` attribute is used to mark its real direction. If a movement
-command isn't recognized, the same is done except this time the
-:keyword:`cmd` attribute is used to record the command instead.
+:samp:`go` attribute is used to mark its real direction.  If a movement
+command isn't recognized, the same is done except this time the :samp:`cmd`
+attribute is used to record the command instead.
 
-If movement is seen between two already-visited rooms, a :keyword:`link`
-command is output (or a :keyword:`join`, if the rooms appear to be on
-different map sections). Link tags are built by concatenating the room tags
-of the linked rooms with an underscore in between. Link movement is dealt
-with in the same manner as for rooms.
+If movement is seen between two already-visited rooms, a :samp:`link`
+command is output (or a :samp:`join`, if the rooms appear to be on
+different map sections).  Link tags are built by concatenating the room
+tags of the linked rooms with an underscore in between.  Link movement is
+dealt with in the same manner as for rooms.
 
-If the special :keyword:`item` or :keyword:`task` commands are seen, then
-an item or task command is output following the room that it appears in. If
-an item or task hasn't been given a tag, it is assigned one. The tag is
-made by translating all invalid tag characters in the name to underscores,
+If the special :samp:`item` or :samp:`task` commands are seen, then an item
+or task command is output following the room that it appears in.  If an
+item or task hasn't been given a tag, it is assigned one.  The tag is made
+by translating all invalid tag characters in the name to underscores,
 capitalizing (to avoid clashes with IFM commands) and, if the tag clashes
-with a previously-defined tag, adding a numerical suffix to make it
-unique. For example, "black rod" might get a tag ``Black_rod_2``.
+with a previously-defined tag, adding a numerical suffix to make it unique.
+For example, "black rod" might get a tag ``Black_rod_2``.
 
 Finally, the IFM commands from the file indicated by the ``-c`` option are
 echoed (if any).
@@ -320,7 +319,7 @@ Example session
 ===============
 
 Here's a simple example of :program:`scr2ifm` in action on *Colossal
-Cave*. First, the transcript in file :file:`advent.scr` (with annotation):
+Cave*.  First, the transcript in file :file:`advent.scr` (with annotation):
 
 .. literalinclude:: examples/advent1.scr
    :language: transcript

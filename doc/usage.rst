@@ -28,8 +28,8 @@ exist, they are both read.  You can use this file to customize the default
 variable settings for different types of output.
 
 Then input from the file(s) on the command-line is read.  If no files were
-specified, :keyword:`stdin` is read.  A filename equal to :file:`-` also
-indicates that :keyword:`stdin` should be read at that point.
+specified, :samp:`stdin` is read.  A filename equal to :file:`-` also
+indicates that :samp:`stdin` should be read at that point.
 
 If any of the :option:`-map`, :option:`-items`, :option:`-tasks` or
 :option:`-show` options was specified, the appropriate output is produced.
@@ -236,11 +236,11 @@ converted to uppercase.
 
 In order for this to work properly, you have to give commands that the game
 will understand.  The cmd attribute of rooms, links, joins and tasks can
-help with this.  Currently there's no item :keyword:`cmd` attribute, so you
+help with this.  Currently there's no item :samp:`cmd` attribute, so you
 have to make sure that the item description is recognized by the game (for
-:keyword:`get` and :keyword:`drop` commands).  Also, if a task is
-implicitly done in the game without you having to type any commands (e.g.,
-visiting a room), you can indicate this by using :keyword:`cmd none`.
+:samp:`get` and :samp:`drop` commands).  Also, if a task is implicitly done
+in the game without you having to type any commands (e.g., visiting a
+room), you can indicate this by using :samp:`cmd none`.
 
 Of course, a recording will only play back properly in an interpreter if it
 provides correct game commands.  Random events can't be dealt with by IFM,
@@ -293,8 +293,8 @@ those features.  This section tells you how to use variables---for a
 complete list of the customization variables available, see :doc:`vars`.
 
 As a first example, the background colour of rooms is determined by the
-variable :keyword:`room_colour`.  Its default value is ``white``.  It can
-be changed like this::
+variable :samp:`room_colour`.  Its default value is ``white``.  It can be
+changed like this::
 
     room_colour = "beige";
 
@@ -319,9 +319,9 @@ water bottle.  You can define a style called, say, ``Water``, like this::
       room_colour = "light blue";
     endstyle;
 
-The values of variables that are set between the :keyword:`style` and
-:keyword:`endstyle` clauses only apply to things drawn in that style.  Now,
-if you declare rooms like this::
+The values of variables that are set between the :samp:`style` and
+:samp:`endstyle` clauses only apply to things drawn in that style.  Now, if
+you declare rooms like this::
 
     room "At End Of Road";
 
@@ -331,7 +331,7 @@ then the room "Inside Building" will be drawn with a light blue background.
 You can customize individual links in a similar manner.
 
 An alternative way to define a variable in a particular style is to use the
-:keyword:`in style` clause, like this::
+:samp:`in style` clause, like this::
 
     room_colour = "light blue" in style Water;
 
@@ -422,12 +422,12 @@ produced.
        defined, but none of that type of object have been defined yet.
 
 ``error: no [type] referred to by 'it'``
-       You've said :keyword:`it` to refer to the last room, item or task
+       You've said :samp:`it` to refer to the last room, item or task
        tag that was mentioned in the current command, but no tags of that
        type of object have been mentioned.
 
 ``error: no items referred to by 'them'``
-       You've said :keyword:`them` to refer to all the items mentioned in
+       You've said :samp:`them` to refer to all the items mentioned in
        the current command, but no items have been mentioned.
 
 ``error: [type] tag [name] already defined``
@@ -440,7 +440,7 @@ produced.
 ``error: [type] tag [name] not yet defined``
        You're referring to a tag at a point where it hasn't yet been
        defined, in a situation where it must be (e.g., the room
-       :keyword:`from` clause, or a command that modifies attributes of a
+       :samp:`from` clause, or a command that modifies attributes of a
        previously-defined object).
 
 ``error: can't modify [name] attribute``
@@ -460,11 +460,11 @@ produced.
 
 ``error: links between [name1] and [name2] have differing lengths``
        You've defined more than one link or join between the given rooms,
-       but given them different values for the :keyword:`length`
-       attribute.  This isn't allowed.
+       but given them different values for the :samp:`length` attribute.
+       This isn't allowed.
 
 ``error: more than one task needs to follow [task] immediately``
-       You've given two or more tasks an identical :keyword:`follow` tag.
+       You've given two or more tasks an identical :samp:`follow` tag.
        Only one task can "follow" a given task.
 
 ``error: [num] cyclic task dependencies``
@@ -485,11 +485,11 @@ Here's the list of warning messages.  If only warnings occur, then output
 is still produced.
 
 ``warning: attribute [attr] ignored -- no implicit link``
-       You've given a room with no :keyword:`dir` clause an attribute that
-       is associated with that link (e.g., :keyword:`oneway`).  Most likely
+       You've given a room with no :samp:`dir` clause an attribute that is
+       associated with that link (e.g., :samp:`oneway`).  Most likely
        you're putting the attribute in the wrong place---if you want, say,
        a join to have one of these attributes, you must define it using the
-       standalone :keyword:`join` command instead.
+       standalone :samp:`join` command instead.
 
 ``warning: link from [name1] to [name2] outside grid``
        The destination room for a link is not in a compass direction from
@@ -513,17 +513,16 @@ is still produced.
 
 ``warning: can't solve game ([num] tasks ignored)``
        The game is unsolvable because you're explicitly ignoring tasks
-       and/or items, using the :keyword:`ignore` attribute.
+       and/or items, using the :samp:`ignore` attribute.
 
 ``warning: no matching style command``
-       You've used :keyword:`endstyle` without a matching
-       :keyword:`style`.  You probably have too many :keyword:`endstyle`
-       commands.
+       You've used :samp:`endstyle` without a matching :samp:`style`.  You
+       probably have too many :samp:`endstyle` commands.
 
 ``warning: unexpected style: [name] (expected [name])``
-       You've used :keyword:`endstyle` with an argument that doesn't match
-       the argument of the corresponding :keyword:`style`.  You might have
-       missed out another :keyword:`endstyle` somewhere, or have too many.
+       You've used :samp:`endstyle` with an argument that doesn't match the
+       argument of the corresponding :samp:`style`.  You might have missed
+       out another :samp:`endstyle` somewhere, or have too many.
 
 ``warning: style [name] referenced but not defined``
        An object in your input uses the specified style, but it isn't
