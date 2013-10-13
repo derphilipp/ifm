@@ -3,6 +3,8 @@ syntax: glob
 Makefile
 Makefile.in
 
+TAGS
+
 configure
 config.log
 config.status
