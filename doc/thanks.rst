@@ -2,4 +2,4 @@
  Credits
 =========
 
-.. include:: ../THANKS
+.. include:: files/THANKS

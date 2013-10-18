@@ -2,4 +2,4 @@
  Change history
 ================
 
-.. include:: ../NEWS
+.. include:: files/NEWS

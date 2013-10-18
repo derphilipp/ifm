@@ -21,6 +21,7 @@ doc/examples/ruins-*.txt
 doc/html
 doc/latex
 doc/images
+doc/files
 doc/sphinx
 
 ifm

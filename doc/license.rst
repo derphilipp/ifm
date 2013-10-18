@@ -5,9 +5,9 @@
 General Public License
 ======================
 
-.. literalinclude:: ../COPYING
+.. literalinclude:: files/COPYING
 
 Free Documentation License
 ==========================
 
-.. literalinclude:: ../COPYING.DOC
+.. literalinclude:: files/COPYING.DOC

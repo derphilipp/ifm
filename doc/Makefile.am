@@ -1,11 +1,16 @@
 ## Automake template for IFM documentation.
 
-builddir = $(top_builddir)/doc
-htmldir = $(builddir)/html
-latexdir = $(builddir)/latex
-sphinxdir = $(builddir)/sphinx
-imagedir = $(srcdir)/images
-exampledir = $(srcdir)/examples
+builddir	= $(top_builddir)/doc
+htmldir		= $(builddir)/html
+latexdir	= $(builddir)/latex
+sphinxdir	= $(builddir)/sphinx
+imagedir	= $(srcdir)/images
+exampledir	= $(srcdir)/examples
+tooldir		= $(srcdir)/tools
+staticdir	= $(srcdir)/static
+templatedir	= $(srcdir)/templates
+filedir		= $(srcdir)/files
+repodir		= $(top_srcdir)/../ifmdocs
 
 # Documentation sources.
 
@@ -13,6 +18,11 @@ DOCFILES = changes.rst contents.rst editors.rst example.rst ifm2dev.rst	 \
 ifm2tex.rst ifm2web.rst intro.rst language.rst license.rst links.rst	 \
 maps.rst refs.rst scr2ifm.rst solving.rst thanks.rst tkifm.rst tools.rst \
 usage.rst vars.rst
+
+INCFILES = NEWS THANKS COPYING COPYING.DOC
+
+REPODOCS = conf.py $(DOCFILES) $(imagedir) $(exampledir) $(tooldir)	\
+$(filedir) $(staticdir) $(templatedir)
 
 # Programs.
 
@@ -36,12 +46,19 @@ latex: setup conf.py
 linkcheck: setup conf.py
 	$(SPHINX) -b $@ $(srcdir) $(sphinxdir)
 
+ifmdocs: $(repodir) setup
+	cp -auv $(REPODOCS) $(repodir)
+
 setup:
 	@ mkdir -p $(htmldir) $(latexdir) $(sphinxdir) $(imagedir)
 	@ $(MAKE) -s images examples
 	@ for file in conf.py images/logo.png; do			\
 	    path=$(builddir)/$$file;					\
 	    test -f $$path || ln -s $(srcdir)/$$file $$path;		\
+	done
+	@ mkdir -p $(filedir)
+	@ for file in $(INCFILES); do					\
+	    cp $(top_srcdir)/$$file $(filedir);				\
 	done
 
 # Generated images.
