@@ -1,6 +1,6 @@
-==========================
+=================================
  IFM: Interactive Fiction Mapper
-==========================
+=================================
 
 About IFM
 =========
@@ -68,7 +68,7 @@ Finally...
 ==========
 
 Feel free to send comments, bug reports, suggestions, etc. to me.  I am
-Glenn Hutchings (zondo42@googlemail.com).
+Glenn Hutchings (zondo42@gmail.com).
 
 Happy mapping!
 
@@ -76,7 +76,3 @@ Happy mapping!
 .. _Sphinx: http://sphinx.pocoo.org
 .. _Pygments: http://pygments.org
 .. _Cygwin: http://www.cygwin.com
-
-.. Local Variables:
-.. mode: rst
-.. End:
