@@ -653,7 +653,6 @@ new_task(int type, vhash *data)
 static void
 order_tasks(vhash *before, vhash *after)
 {
-    vlist *allow, *depend;
     int count = 0;
     vhash *step;
 

@@ -166,7 +166,6 @@ dot_task_finish(void)
     printf("    edge [%s];\n", link_attr);
 
     v_iterate(rooms, i) {
-        name = vh_iter_key(i);
         list = vh_iter_pval(i);
 
         v_iterate(list, j) {

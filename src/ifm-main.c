@@ -340,7 +340,6 @@ parse_input(char *file, int libflag, int required)
     static int parses = 0;
     extern FILE *yyin;
     char *path = file;
-    int c;
 
     line_number = 0;
 

@@ -43,25 +43,35 @@ ifm-parse.h: ifm-parse.c
 
 # Add lint support.
 
-SUFFIXES = .lint
+LINT = cppcheck
 
-LINT = splint
+LINTARGS = --template=gcc -j$(LINTJOBS) --suppressions-list=$(LINTSUPP)
+LINTENABLE = style,performance,portability,information
+LINTGLOBAL = --platform=unix64 --enable=$(LINTENABLE)
 
-LINTARGS = +quiet -weak +show-scan -badflag
+LINTINCLUDE = -I. -I/usr/include -I/usr/include/x86_64-linux-gnu	\
+-I/usr/lib/gcc/x86_64-linux-gnu/4.7/include -D__x86_64__ $(CS_INCLUDES)
 
-LINTGLOBAL = -fixed-formal-array +posix-lib +export-header +ignore-signs  \
--zero-ptr +eval-order +noret +unreachable +noeffect +warn-lint-comments	  \
--null-deref +export-header-var +case-break -unrecog -buffer-overflow-high \
--ret-val-other +match-any-integral +relax-types
+LINTSUPP = $(top_srcdir)/etc/cppcheck.supp
+LINTDEFS = $(CPPFLAGS) $(DEFS) $(AM_CPPFLAGS)
+LINTIGNORE = -W% -pthread% -pipe% -g -O%
+LINTJOBS = 2
 
-LINTDEFS = -I. $(CPPFLAGS) $(DEFS) $(INCLUDES)
+LINTCMD = $(SHELL) $(top_srcdir)/etc/missing --run $(LINT) $(LINTARGS)	\
+$(filter-out ${LINTIGNORE},${LINTDEFS}) $(LINTGLOBAL) $(LINTLOCAL)	\
+$(LINTINCLUDE) $(LINTFLAGS) $(LINTEXTRA)
 
-LINTCMD = $(LINT) $(LINTARGS) $(LINTLOCAL) $(LINTGLOBAL) $(LINTFLAGS)	\
-$(LINTDEFS)
+LINTCHECK = LINTEXTRA=--check-config LINTENABLE=information
 
-.c.lint:; @ $(LINTCMD) $<
+%.lint: %.c
+	@ $(LINTCMD) $<
 
-lint:; $(LINTCMD) $(DEFS) $(INCLUDES) $(SRCS)
+lint:; $(LINTCMD) $(LINTDEFS) $(SRCS)
+
+# Add emacs flymake support.
+
+check-syntax:
+	$(CC) $(AM_CPPFLAGS) -o /dev/null -S $(CHK_SOURCES)
 
 include $(top_srcdir)/etc/Makefile.common
 

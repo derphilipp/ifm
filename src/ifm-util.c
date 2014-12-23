@@ -431,7 +431,7 @@ split_line(char *string, double ratio)
             vl_spush(list, val);
             val = V_BUF_SET(tok);
         } else {
-            val = V_BUF_ADD(" ");
+            V_BUF_ADD(" ");
             val = V_BUF_ADD(tok);
         }
     }

@@ -1,0 +1,4 @@
+// cppcheck suppressions, in -*- C -*- mode.
+
+variableScope
+obsoleteFunctionsalloca
