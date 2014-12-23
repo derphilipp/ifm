@@ -20,6 +20,24 @@
 #include "ifm-util.h"
 #include "ifm-vars.h"
 
+#ifndef SYSINIT
+#define SYSINIT "ifm-init.ifm"
+#endif
+
+#ifndef IFMPATH
+#ifndef MINGW32
+#define IFMPATH "/usr/local/share/ifm:."
+#else
+#define IFMPATH "ifm;."
+#endif
+#endif
+
+#ifndef MINGW32
+#define PATHSEP ":"
+#else
+#define PATHSEP ";"
+#endif
+
 /* Whether any output is required */
 #define OUTPUT (write_map || write_items || write_tasks)
 

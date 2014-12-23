@@ -10,4 +10,4 @@ task "T2" tag T2 follow T1 need thing;
 task "T3" tag T3 follow T2 lose thing;
 END
 
-cmp -s $SRCDIR/tests/test-follow4.exp $BUILDDIR/tests/test-follow4.out
+diff -b $SRCDIR/tests/test-follow4.exp $BUILDDIR/tests/test-follow4.out

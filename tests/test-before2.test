@@ -10,4 +10,4 @@ item "gold bar" score 1 before pull;
 item "steel cage" hidden note "Falls on gold bar when rope is pulled";
 END
 
-cmp -s $SRCDIR/tests/test-before2.exp $BUILDDIR/tests/test-before2.out
+diff -b $SRCDIR/tests/test-before2.exp $BUILDDIR/tests/test-before2.out

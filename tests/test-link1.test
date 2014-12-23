@@ -10,4 +10,4 @@ room R2 exit n;
 link R2 go in;
 END
 
-cmp -s $SRCDIR/tests/test-link1.exp $BUILDDIR/tests/test-link1.out
+diff -b $SRCDIR/tests/test-link1.exp $BUILDDIR/tests/test-link1.out

@@ -9,4 +9,4 @@ task "Do something";
 join R1 to R2 go n;
 END
 
-cmp -s $SRCDIR/tests/test-join1.exp $BUILDDIR/tests/test-join1.out
+diff -b $SRCDIR/tests/test-join1.exp $BUILDDIR/tests/test-join1.out

@@ -1,14 +1,17 @@
 dnl Process this file with autoconf to produce a configure script.
 
 dnl Initialize autoconf.
-AC_INIT(ifm, 5.4, zondo42@googlemail.com)
+AC_INIT(ifm, [5.4], [zondo42@gmail.com])
 AC_CONFIG_SRCDIR(src/ifm-main.c)
 AC_CONFIG_AUX_DIR(etc)
+AC_CONFIG_HEADERS([etc/config.h])
 
 dnl Initialize automake.
 AM_INIT_AUTOMAKE(foreign)
 
 dnl Checks for programs.
+AC_CANONICAL_HOST
+
 AC_PROG_CC
 AM_PROG_LEX
 AC_PROG_YACC
@@ -16,27 +19,23 @@ AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 AC_PROG_RANLIB
 
+dnl Check for building on MinGW.
+MINGW32=no
+if test $build_os == mingw32; then
+   MINGW32=yes
+   AC_DEFINE(MINGW32, [], [Whether building using MinGW])
+fi
+
+AM_CONDITIONAL(MINGW32, test $MINGW32 = yes)
+
 dnl Checks for header files.
 AC_HEADER_STDC
 
-dnl Check for cygwin.
-AC_CANONICAL_HOST
+AC_CHECK_HEADERS(malloc.h alloca.h unistd.h process.h signal.h)
 
-case $host_os in
-     *cygwin*) CYGWIN=yes;;
-     *)        CYGWIN=no;;
-esac 
-
-if test "$IFM_CYGWIN" != ""; then
-   AC_MSG_NOTICE(overriding Cygwin detection)
-   CYGWIN=yes
-fi
-
-if test $CYGWIN = yes; then
-   AC_DEFINE(CYGWIN, 1, Whether building using Cygwin on Windows)
-fi
-
-AM_CONDITIONAL(CYGWIN, test $CYGWIN = yes)
+dnl Checks for functions.
+AC_FUNC_ALLOCA
+AC_CHECK_FUNCS(mkstemp)
 
 dnl Check for wish.
 AC_PATH_PROGS(WISH, wish8.0 wish80 wish, no)
@@ -84,4 +83,5 @@ src/Makefile
 src/libfig/Makefile
 src/libvars/Makefile
 tests/Makefile
+win32/Makefile
 )

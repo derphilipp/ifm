@@ -4,7 +4,7 @@ AUTOMAKE_OPTIONS = check-news
 
 ACLOCAL_AMFLAGS = -I etc
 
-SUBDIRS = $(subdirs) src lib doc man progs tests
+SUBDIRS = $(subdirs) src lib doc man progs tests win32
 
 EXTRA_DIST = COPYING.DOC TO-DO
 

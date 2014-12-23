@@ -9,4 +9,4 @@ room "Room 2" dir e cmd "go to other room";
 task "First thing" tag t1;
 END
 
-cmp -s $SRCDIR/tests/test-cmd.exp $BUILDDIR/tests/test-cmd.out
+diff -b $SRCDIR/tests/test-cmd.exp $BUILDDIR/tests/test-cmd.out

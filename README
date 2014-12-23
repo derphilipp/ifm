@@ -24,7 +24,7 @@ IFM can write hardcopy maps directly to PostScript, suitable for printing
 or viewing.  It can also write maps in Fig format, which can be viewed and
 edited using Xfig, or converted into many other formats.
 
-For detailed documentation, see the `IFM user guide <doc/html/index.html>`_.
+For more information, see the IFM user guide at http://ifm.readthedocs.org.
 
 Copyright
 =========
@@ -43,26 +43,28 @@ down to::
     make
     su -c 'make install'
 
-If you want to build IFM on Windows, you'll need to install Cygwin_ first.
-Then, use the same commands as above.
-
 Hacking
 =======
 
-IFM is hosted at Bitbucket_.  You're free to hack on it to your heart's
-content.  If you have just done a ``hg clone`` to get a copy, you'll need
-some extra tools installed to build it:
+IFM is hosted at Bitbucket_, using Mercurial_, and developed on Linux.
+You're free to hack on it to your heart's content.  If you have just done a
+``hg clone`` to get a copy, you'll need some extra tools installed to build
+it:
 
 * GNU ``make``.
 * The GNU autotools: ``autoconf``, ``automake``.
 * Parser generator tools: ``lex``, ``yacc`` (or ``bison``).
-* Sphinx_ (at least version 0.6) to generate the IFM manual (and you'll
-  need to install Pygments_ if you want syntax highlighting).
+* Sphinx_ to build the IFM manual (and Pygments_ for syntax highlighting)
+* GNU ``help2man`` to build the IFM man page
 
 To get things started, run ``autogen.sh``.  Then build as normal.
 
-If you want to hack things on Windows, you'll need to install Cygwin_, as
-per installation.
+To create or update the Windows distribution:
+
+#. Clone this repo on Windows
+#. Install MinGW_, including the tools mentioned above
+#. Build everything in the usual way
+#. Type ``make zip`` in the ``win32`` directory
 
 Finally...
 ==========
@@ -72,7 +74,8 @@ Glenn Hutchings (zondo42@gmail.com).
 
 Happy mapping!
 
+.. _Mercurial: http://mercurial.selenic.com
 .. _Bitbucket: http://www.bitbucket.org/zondo/ifm
 .. _Sphinx: http://sphinx.pocoo.org
 .. _Pygments: http://pygments.org
-.. _Cygwin: http://www.cygwin.com
+.. _MinGW: http://mingw.org

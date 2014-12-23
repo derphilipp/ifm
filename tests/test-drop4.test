@@ -15,4 +15,4 @@ room "Room 3" tag R3 dir e;
 task "Win" need thing3 after last;
 END
 
-cmp -s $SRCDIR/tests/test-drop4.exp $BUILDDIR/tests/test-drop4.out
+diff -b $SRCDIR/tests/test-drop4.exp $BUILDDIR/tests/test-drop4.out

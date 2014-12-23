@@ -15,4 +15,4 @@ room "Room 3" dir n;
 task "Room3" tag room3 follow room1 need tongs;
 END
 
-cmp -s $SRCDIR/tests/test-follow2.exp $BUILDDIR/tests/test-follow2.out
+diff -b $SRCDIR/tests/test-follow2.exp $BUILDDIR/tests/test-follow2.out

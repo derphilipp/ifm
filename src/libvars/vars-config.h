@@ -3,14 +3,18 @@
 #ifndef VARS_CONFIG_H
 #define VARS_CONFIG_H
 
-/* Include Windoze stuff if required */
-#ifdef _WINDOWS
-#include "vars-win32.h"
+/* Include main config file */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
 #endif
 
 /* Include other headers if available */
 #ifdef HAVE_ALLOCA_H
 #include <alloca.h>
+#endif
+
+#ifdef HAVE_MALLOC_H
+#include <malloc.h>
 #endif
 
 #ifdef HAVE_UNISTD_H
@@ -46,33 +50,6 @@
 # else
 #  include <time.h>
 # endif
-#endif
-
-/* Stuff for getting process list */
-#define PS_PROG "/bin/ps"
-
-#if defined(_AIX) || defined(___AIX)	/* AIX 3.x */
-#  define PS_CMD PS_PROG " -ekf"
-#  define PS_FMT "%s %d %d %*20c %*s %[^\n]"
-#elif defined(__linux)			/* Linux 0.9x */
-#  define HAVE_UID
-#  define PS_CMD PS_PROG " laxww"
-#  define PS_FMT "%*d %d %d %d %*40c %*s %[^\n]"
-#elif defined(_BSD)			/* Untested */
-#  define HAVE_UID
-#  define PS_CMD PS_PROG " laxww"
-#  define PS_FMT "%*d %*c %d %d %d %*d %*d %*d %*x %*d %d %*15c %*s %[^\n]"
-#elif defined(__convex)			/* Convex */
-#  define HAVE_UID
-#  define PS_CMD PS_PROG " laxww"
-#  define PS_FMT "%*s %d %d %d %*d %*g %*d %*d %*21c %*s %[^\n]"
-#else					/* HP-UX, A/UX etc. */
-#  define PS_CMD PS_PROG " -ef"
-#  define PS_FMT "%s %d %d %*20c %*s %[^\n]"
-#endif
-
-#ifdef HAVE_UID
-#include <pwd.h>
 #endif
 
 /* Shut splint up about unrecognized functions */

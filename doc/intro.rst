@@ -79,14 +79,7 @@ Getting IFM
 
 You can find IFM in the `mapping tools`_ directory of the `IF archive`_.
 See the file :file:`INSTALL` that comes with the IFM source distribution
-for installation details.  But it basically boils down to::
-
-    ./configure
-    make
-    su -c 'make install'
-
-If you want to build IFM on Windows, you'll need to install Cygwin_ first.
-Then, use the same commands as above.
+for build and installation details.
 
 .. rubric:: Footnotes
 

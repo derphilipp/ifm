@@ -13,4 +13,4 @@ room "Room 3" tag R3 dir s from R1;
 room "Room 4" tag R4 dir e link R2;
 END
 
-cmp -s $SRCDIR/tests/test-nolink2.exp $BUILDDIR/tests/test-nolink2.out
+diff -b $SRCDIR/tests/test-nolink2.exp $BUILDDIR/tests/test-nolink2.out

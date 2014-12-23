@@ -12,11 +12,9 @@ HDRS = vars-buffer.h vars-config.h vars-copy.h vars-debug.h vars-destroy.h \
 vars-freeze.h vars-getopt.h vars-graph.h vars-hash.h vars-iterate.h	   \
 vars-list.h vars-macros.h vars-memory.h vars-print.h vars-queue.h	   \
 vars-random.h vars-scalar.h vars-system.h vars-traverse.h vars-type.h	   \
-vars-utils.h vars-win32.h vars-write.h vars-xml.h vars-yaml.h vars.h
+vars-utils.h vars-write.h vars-xml.h vars-yaml.h vars.h
 
 NOINST_HDRS = vars-freeze-lex.h
-
-INCLUDES = -DHAVE_MKSTEMP
 
 noinst_HEADERS = $(HDRS)
 noinst_LIBRARIES = libvars.a

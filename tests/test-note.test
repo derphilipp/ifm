@@ -13,4 +13,4 @@ room "Garage" dir s;
 task "Do first" tag first note "First task" note "Another note";
 END
 
-cmp -s $SRCDIR/tests/test-note.exp $BUILDDIR/tests/test-note.out
+diff -b $SRCDIR/tests/test-note.exp $BUILDDIR/tests/test-note.out

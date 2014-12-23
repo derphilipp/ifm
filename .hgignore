@@ -25,6 +25,7 @@ doc/files
 doc/sphinx
 
 ifm
+ifm.exe
 ifm2dev
 ifm2tex
 ifm2web
@@ -43,5 +44,19 @@ tests/*.list
 tests/*.out
 
 *.output
+
+etc/compile
+etc/depcomp
+etc/install-sh
+etc/missing
+etc/ylwrap
+etc/config.*
+etc/stamp-*
+etc/test-driver
+
+tests/*.trs
+tests/*.log
+
+win32/ifm-*
 
 .ditz-config

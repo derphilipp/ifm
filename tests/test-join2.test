@@ -11,4 +11,4 @@ link SR to NR dir w ne;
 join SR to NR hidden;
 END
 
-cmp -s $SRCDIR/tests/test-join2.exp $BUILDDIR/tests/test-join2.out
+diff -b $SRCDIR/tests/test-join2.exp $BUILDDIR/tests/test-join2.out

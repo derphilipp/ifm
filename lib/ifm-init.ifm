@@ -1,4 +1,4 @@
-# System IFM init file, in -*- Perl -*- mode.
+# System IFM init file.
 
 # General variables
 colour_file = "ifm-rgb.txt";

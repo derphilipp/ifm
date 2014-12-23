@@ -1,6 +1,5 @@
 .. External references.
 
-.. _Cygwin: http://www.cygwin.com
 .. _Flymake: http://flymake.sourceforge.net
 .. _Frobot: http://www.ifarchive.org/if-archive/mapping-tools/frobot12.zip
 .. _Frotz: http://frotz.sourceforge.net

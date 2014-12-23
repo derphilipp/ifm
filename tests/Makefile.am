@@ -17,7 +17,7 @@ TKIFM		= $(top_builddir)/progs/tkifm
 TESTS		= $(SRCS:.ifm=.test)
 EXP		= $(SRCS:.ifm=.exp)
 
-EXTRA_DIST	= README Maketests $(TESTS) $(EXP) $(SRCS)
+EXTRA_DIST	= Maketests $(TESTS) $(EXP) $(SRCS)
 
 SUFFIXES	= .ifm .test .task .prof .tk .ps .rec
 

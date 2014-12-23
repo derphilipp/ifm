@@ -11,4 +11,4 @@ room "Room 2" tag R2 dir s;
 task "Win";
 END
 
-cmp -s $SRCDIR/tests/test-give2.exp $BUILDDIR/tests/test-give2.out
+diff -b $SRCDIR/tests/test-give2.exp $BUILDDIR/tests/test-give2.out

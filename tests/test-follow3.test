@@ -11,4 +11,4 @@ room "Room 2" dir n before task2;
 task "Safe task";
 END
 
-cmp -s $SRCDIR/tests/test-follow3.exp $BUILDDIR/tests/test-follow3.out
+diff -b $SRCDIR/tests/test-follow3.exp $BUILDDIR/tests/test-follow3.out

@@ -98,7 +98,7 @@ v_read(FILE *fp)
         goto end;
 
     if (id > 0) {
-        sprintf(idbuf, "%ld", id);
+        sprintf(idbuf, "%d", id);
         data = vh_pget(seen, idbuf);
         if (data == NULL) {
             /* Read type code */

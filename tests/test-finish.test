@@ -15,4 +15,4 @@ room "Bedroom" dir e;
 task "Tidy the room" tag tidy need broom;
 END
 
-cmp -s $SRCDIR/tests/test-finish.exp $BUILDDIR/tests/test-finish.out
+diff -b $SRCDIR/tests/test-finish.exp $BUILDDIR/tests/test-finish.out

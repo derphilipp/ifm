@@ -14,4 +14,4 @@ task "Put coal in diamond machine" need coal lose it tag lose_coal;
 task "Make diamond" after last;
 END
 
-cmp -s $SRCDIR/tests/test-keep2.exp $BUILDDIR/tests/test-keep2.out
+diff -b $SRCDIR/tests/test-keep2.exp $BUILDDIR/tests/test-keep2.out

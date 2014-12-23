@@ -29,14 +29,13 @@ ifm_LDADD   = -lfig -lvars -lm
 
 AM_YFLAGS = -d -v
 
-IFMPATH = $(pkgdatadir):.
+if MINGW32
+IFMDEFS = 
+else
+IFMDEFS = -DIFMPATH=\"$(pkgdatadir):.\"
+endif
 
-IFMDEFS  = -DSYSINIT=\"ifm-init.ifm\"
-IFMDEFS += -DIFMPATH=\"$(IFMPATH)\"
-IFMDEFS += -DPATHSEP=\":\"
-IFMDEFS += -DINITFILE=\"$(INITFILE)\"
-
-INCLUDES = -I$(FIG_SRC) -I$(VARS_SRC) $(IFMDEFS)
+AM_CPPFLAGS = -I$(FIG_SRC) -I$(VARS_SRC) $(IFMDEFS)
 
 $(bin_PROGRAMS): $(VARS_BIN)/libvars.a $(FIG_BIN)/libfig.a
 

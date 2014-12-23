@@ -14,4 +14,4 @@ room "Room 3" dir n;
 task "Room3" tag room3 follow room1;
 END
 
-cmp -s $SRCDIR/tests/test-follow1.exp $BUILDDIR/tests/test-follow1.out
+diff -b $SRCDIR/tests/test-follow1.exp $BUILDDIR/tests/test-follow1.out

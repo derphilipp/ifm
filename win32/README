@@ -1,0 +1,31 @@
+=================================
+ IFM: Interactive Fiction Mapper
+=================================
+
+About this package
+==================
+
+This is the Windows distribution of IFM.  Only the main executable, its
+library files, and a bunch of examples are included here.  For
+documentation on how to use IFM, see http://ifm.readthedocs.org.
+
+Installation
+============
+
+Just unpack the ZIP archive (like you appear to have done :-) and run the
+executable.  No installation required.  The executable looks in the ``ifm``
+folder to find the files it needs.
+
+Copyright
+=========
+
+IFM and its utility programs are free software, and you may redistribute
+them under certain conditions; see the file ``COPYING`` for details.
+
+Finally...
+==========
+
+Feel free to send comments, bug reports, suggestions, etc. to me.  I am
+Glenn Hutchings (zondo42@gmail.com).
+
+Happy mapping!

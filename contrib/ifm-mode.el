@@ -2,8 +2,8 @@
 
 ;; Filename: ifm-mode.el
 ;; Copyright (C) 2001-2008 Glenn Hutchings
-;; Author: Glenn Hutchings <zondo42@googlemail.com>
-;; Maintainer: Glenn Hutchings <zondo42@googlemail.com>
+;; Author: Glenn Hutchings <zondo42@gmail.com>
+;; Maintainer: Glenn Hutchings <zondo42@gmail.com>
 ;; Created: 19 Apr 2001
 ;; Description: IFM map editing mode.
 ;; Version 0.4 (14 Oct 2008)

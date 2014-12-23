@@ -12,4 +12,4 @@ task "Win";
 room R2 need thing;
 END
 
-cmp -s $SRCDIR/tests/test-attr2.exp $BUILDDIR/tests/test-attr2.out
+diff -b $SRCDIR/tests/test-attr2.exp $BUILDDIR/tests/test-attr2.out

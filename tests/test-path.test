@@ -11,4 +11,4 @@ room "R4" tag R4 dir e link R1 R2;
 task "Win";
 END
 
-cmp -s $SRCDIR/tests/test-path.exp $BUILDDIR/tests/test-path.out
+diff -b $SRCDIR/tests/test-path.exp $BUILDDIR/tests/test-path.out

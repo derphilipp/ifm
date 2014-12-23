@@ -6,4 +6,4 @@ $BUILDDIR/src/ifm -I$SRCDIR/lib -w -m -i -t -f raw 2>&1 > $BUILDDIR/tests/test-n
 task "Twiddle thumbs";
 END
 
-cmp -s $SRCDIR/tests/test-noroom.exp $BUILDDIR/tests/test-noroom.out
+diff -b $SRCDIR/tests/test-noroom.exp $BUILDDIR/tests/test-noroom.out

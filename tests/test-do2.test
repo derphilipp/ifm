@@ -13,4 +13,4 @@ task "Trigger alarm" tag trigger_alarm score 1;
 task "Win" finish;
 END
 
-cmp -s $SRCDIR/tests/test-do2.exp $BUILDDIR/tests/test-do2.out
+diff -b $SRCDIR/tests/test-do2.exp $BUILDDIR/tests/test-do2.out

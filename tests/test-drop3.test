@@ -15,4 +15,4 @@ room "Room 3" tag R3 dir e;
 room "Room 4" tag R4 dir e;
 END
 
-cmp -s $SRCDIR/tests/test-drop3.exp $BUILDDIR/tests/test-drop3.out
+diff -b $SRCDIR/tests/test-drop3.exp $BUILDDIR/tests/test-drop3.out

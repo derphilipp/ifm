@@ -17,4 +17,4 @@ room "Freedom" dir w from begin;
 task "Win the game" need stick treasure;
 END
 
-cmp -s $SRCDIR/tests/test-before1.exp $BUILDDIR/tests/test-before1.out
+diff -b $SRCDIR/tests/test-before1.exp $BUILDDIR/tests/test-before1.out

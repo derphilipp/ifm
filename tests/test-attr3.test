@@ -17,4 +17,4 @@ task "Escape with the diamond" need diamond;
 join Vault to Entrance after disable_alarm hidden go w;
 END
 
-cmp -s $SRCDIR/tests/test-attr3.exp $BUILDDIR/tests/test-attr3.out
+diff -b $SRCDIR/tests/test-attr3.exp $BUILDDIR/tests/test-attr3.out

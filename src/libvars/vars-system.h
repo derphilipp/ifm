@@ -24,15 +24,10 @@ enum v_testtype {
     V_TEST_BLK,                 /*!< Is it block-special? */
     V_TEST_REG,                 /*!< Is it a regular file? */
     V_TEST_FIFO,                /*!< Is it a FIFO? */
-    V_TEST_LNK,                 /*!< Is it a symlink? */
-    V_TEST_SOCK                 /*!< Is it a socket? */
 };
 
 /*! @brief Synonym for V_TEST_REG. */
 #define V_TEST_FILE      V_TEST_REG
-
-/*! @brief Synonym for V_TEST_LNK. */
-#define V_TEST_SYMLINK   V_TEST_LNK
 
 /*! @brief Test whether a file exists. */
 #define v_exists(file)   v_test(file, V_TEST_EXISTS)
@@ -53,8 +48,6 @@ extern char *v_filename(char *path);
 extern vlist *v_glob(char *dir, char *pat);
 extern int v_lock(FILE *fp, enum v_locktype locktype, int wait);
 extern time_t v_parse_date(char *string);
-extern vlist *v_procinfo(void);
-extern void v_signal(int signal, void (*func)(int signal));
 extern vlist *v_stat(char *file);
 extern char *v_suffix(char *path);
 extern char *v_tempfile(char *prefix, char *buffer);

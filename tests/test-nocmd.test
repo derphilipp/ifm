@@ -11,4 +11,4 @@ task "Visit finish room" after last cmd none;
 task "Do second thing" after last;
 END
 
-cmp -s $SRCDIR/tests/test-nocmd.exp $BUILDDIR/tests/test-nocmd.out
+diff -b $SRCDIR/tests/test-nocmd.exp $BUILDDIR/tests/test-nocmd.out

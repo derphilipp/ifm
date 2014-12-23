@@ -15,4 +15,4 @@ task "Find that thing exists" get thing;
 item "thing 2" tag thing2;
 END
 
-cmp -s $SRCDIR/tests/test-give1.exp $BUILDDIR/tests/test-give1.out
+diff -b $SRCDIR/tests/test-give1.exp $BUILDDIR/tests/test-give1.out

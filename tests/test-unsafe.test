@@ -18,4 +18,4 @@ room "Treasure Room" dir w;
 item "diamond" score 1;
 END
 
-cmp -s $SRCDIR/tests/test-unsafe.exp $BUILDDIR/tests/test-unsafe.out
+diff -b $SRCDIR/tests/test-unsafe.exp $BUILDDIR/tests/test-unsafe.out

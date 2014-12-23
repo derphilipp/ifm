@@ -9,4 +9,4 @@ room "Nowhere" dir w link dark;
 room "Light" dir n from dark;
 END
 
-cmp -s $SRCDIR/tests/test-exit.exp $BUILDDIR/tests/test-exit.out
+diff -b $SRCDIR/tests/test-exit.exp $BUILDDIR/tests/test-exit.out

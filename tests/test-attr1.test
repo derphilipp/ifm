@@ -11,4 +11,4 @@ room "Room 2" dir s need thing1 need thing2;
 task "Win";
 END
 
-cmp -s $SRCDIR/tests/test-attr1.exp $BUILDDIR/tests/test-attr1.out
+diff -b $SRCDIR/tests/test-attr1.exp $BUILDDIR/tests/test-attr1.out

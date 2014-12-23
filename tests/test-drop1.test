@@ -13,4 +13,4 @@ room "Room 2" dir s tag R2;
 task "Win" need ball;
 END
 
-cmp -s $SRCDIR/tests/test-drop1.exp $BUILDDIR/tests/test-drop1.out
+diff -b $SRCDIR/tests/test-drop1.exp $BUILDDIR/tests/test-drop1.out

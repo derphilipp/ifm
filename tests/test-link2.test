@@ -10,4 +10,4 @@ link SR to NR dir e nw;
 link SR to NR dir w ne;
 END
 
-cmp -s $SRCDIR/tests/test-link2.exp $BUILDDIR/tests/test-link2.out
+diff -b $SRCDIR/tests/test-link2.exp $BUILDDIR/tests/test-link2.out

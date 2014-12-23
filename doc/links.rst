@@ -40,11 +40,11 @@ Existing IFM maps
 * There's a web page set up by Dave Chapeskie (dchapes@ddm.wox.org) which
   has many IFM maps in source and PostScript format, at
 
-      http://www.sentex.ca/~dchapes/ifm
+      https://bitbucket.org/dchapes/ifmaps
 
   At the moment it contains maps of a few Infocom and Inform games.  Some
   are complete, others not quite.  A few have tasks set up so that a
-  walkthrough can be made.  The site hasn't been updated for a while.
+  walkthrough can be made.
 
 * Another site containing some IFM maps can be found at:
 

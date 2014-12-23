@@ -15,4 +15,4 @@ task "Do another thing" need thing2 need thing3 drop them;
 task "Do yet another thing" after last need thing2 thing3 lose them;
 END
 
-cmp -s $SRCDIR/tests/test-them.exp $BUILDDIR/tests/test-them.out
+diff -b $SRCDIR/tests/test-them.exp $BUILDDIR/tests/test-them.out

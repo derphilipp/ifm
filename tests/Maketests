@@ -37,7 +37,7 @@ foreach $ifmfile (@ARGV) {
     print OUT "> $builddir/tests/$outfile <<END\n";
     print OUT @prog;
     print OUT "END\n\n";
-    print OUT "cmp -s $srcdir/tests/$expfile $builddir/tests/$outfile\n";
+    print OUT "diff -b $srcdir/tests/$expfile $builddir/tests/$outfile\n";
     close OUT;
 
     chmod 0775, $testfile;

@@ -14,4 +14,4 @@ room "Room 3" dir e before unsafe;
 task "Safe task";
 END
 
-cmp -s $SRCDIR/tests/test-do3.exp $BUILDDIR/tests/test-do3.out
+diff -b $SRCDIR/tests/test-do3.exp $BUILDDIR/tests/test-do3.out

@@ -16,4 +16,4 @@ task "Win the game" need large;
 link R1 to R4 leave all except large;
 END
 
-cmp -s $SRCDIR/tests/test-leave2.exp $BUILDDIR/tests/test-leave2.out
+diff -b $SRCDIR/tests/test-leave2.exp $BUILDDIR/tests/test-leave2.out

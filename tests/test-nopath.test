@@ -15,4 +15,4 @@ task "Win";
 link R4 to R1 nopath;
 END
 
-cmp -s $SRCDIR/tests/test-nopath.exp $BUILDDIR/tests/test-nopath.out
+diff -b $SRCDIR/tests/test-nopath.exp $BUILDDIR/tests/test-nopath.out

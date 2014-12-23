@@ -12,4 +12,4 @@ task "Open door" tag open_door ignore score 1;
 task "Win" finish;
 END
 
-cmp -s $SRCDIR/tests/test-do1.exp $BUILDDIR/tests/test-do1.out
+diff -b $SRCDIR/tests/test-do1.exp $BUILDDIR/tests/test-do1.out
