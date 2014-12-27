@@ -12,8 +12,8 @@
 .. _Narrative Flow Graphs: http://gram.cs.mcgill.ca/nfg.php
 .. _VIM: http://www.vim.org
 .. _Xfig: http://www.xfig.org
-.. _`Inform 7`: http://www.inform-fiction.org/I7/Inform%207.html
+.. _`Inform 7`: http://inform7.com
 .. _asciimapper: http://www.ifarchive.org/if-archive/mapping-tools/asciimapper
 .. _groff: http://groff.ffii.org
-.. _ifm2i7: http://www.ifarchive.org/ifarchive/mapping-tools/ifm2i7.tar.bz2
+.. _ifm2i7: http://www.ifarchive.org/if-archive/mapping-tools/ifm2i7.tar.bz2
 .. _mapping tools: http://www.ifarchive.org/if-archive/mapping-tools
