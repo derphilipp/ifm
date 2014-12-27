@@ -237,7 +237,6 @@ vs_declare(void)
         v_print_func(vscalar_type, vs_print);
         v_freeze_func(vscalar_type, vs_freeze);
         v_thaw_func(vscalar_type, (void *(*)()) vs_thaw);
-        v_xmldump_func(vscalar_type, vs_xmldump);
         v_yamldump_func(vscalar_type, vs_yamldump);
         v_destroy_func(vscalar_type, vs_destroy);
         v_traverse_func(vscalar_type, vs_traverse);
@@ -1124,54 +1123,6 @@ vs_write(vscalar *s, FILE *fp)
             return 0;
         break;
     }
-
-    return 1;
-}
-
-/* Dump XML scalar to file */
-int
-vs_xmldump(vscalar *s, FILE *fp)
-{
-    void *ptr;
-
-    VS_CHECK(s);
-
-    v_xmldump_start(fp);
-
-    switch(vs_type(s)) {
-
-    case V_TYPE_INT:
-        sprintf(buf, "%d", vs_iget(s));
-        v_xmldump_tag(fp, "int", "value", buf, NULL);
-        break;
-
-    case V_TYPE_FLOAT:
-        sprintf(buf, FLOAT_FORMAT, vs_fget(s));
-        v_xmldump_tag(fp, "float", "value", buf, NULL);
-        break;
-
-    case V_TYPE_DOUBLE:
-        sprintf(buf, FLOAT_FORMAT, vs_dget(s));
-        v_xmldump_tag(fp, "double", "value", buf, NULL);
-        break;
-
-    case V_TYPE_STRING:
-        v_xmldump_data(fp, "string", vs_sget_buf(s, buf));
-        break;
-
-    case V_TYPE_POINTER:
-        ptr = vs_pget(s);
-        if (!v_xmldump(ptr, fp))
-            return 0;
-
-        break;
-
-    case V_TYPE_UNDEF:
-        v_xmldump_tag(fp, "undef", NULL);
-        break;
-    }
-
-    v_xmldump_finish(fp);
 
     return 1;
 }

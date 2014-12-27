@@ -98,7 +98,6 @@ vtype *vlist_type = NULL;
 /* Internal functions */
 static void vl_need_push(vlist *l, int num);
 static void vl_need_unshift(vlist *l, int num);
-static int vl_xmldump(vlist *l, FILE *fp);
 static int vl_yamldump(vlist *l, FILE *fp);
 
 /*!
@@ -252,7 +251,6 @@ vl_declare(void)
         v_print_func(vlist_type, vl_print);
         v_destroy_func(vlist_type, vl_destroy);
         v_traverse_func(vlist_type, vl_traverse);
-        v_xmldump_func(vlist_type, vl_xmldump);
         v_yamldump_func(vlist_type, vl_yamldump);
     }
 
@@ -1342,29 +1340,6 @@ vl_write(vlist *l, FILE *fp)
         if (!vs_write(l->list[i], fp))
             return 0;
 
-    return 1;
-}
-
-/* Dump contents of a list in XML format */
-static int
-vl_xmldump(vlist *l, FILE *fp)
-{
-    int i;
-
-    VL_CHECK(l);
-
-    v_xmldump_start(fp);
-
-    for (i = l->beg; i <= l->end; i++) {
-        v_xmldump_tag_start(fp, "entry", NULL);
-
-        if (!vs_xmldump(l->list[i], fp))
-            return 0;
-
-        v_xmldump_tag_finish(fp, "entry");
-    }
-
-    v_xmldump_finish(fp);
     return 1;
 }
 

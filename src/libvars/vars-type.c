@@ -86,7 +86,6 @@ v_create(char *name, char *code)
     t->print = NULL;
     t->traverse = NULL;
     t->destroy = NULL;
-    t->xmldump = NULL;
     t->yamldump = NULL;
 
     /* Add it to the type list */
@@ -358,18 +357,6 @@ void
 v_write_func(vtype *t, int (*func)())
 {
     t->write = func;
-}
-
-/*!
-  @brief   Set XML-dump function for a variable type.
-  @ingroup type
-  @param   t Type.
-  @param   func Function.
-*/
-void
-v_xmldump_func(vtype *t, int (*func)())
-{
-    t->xmldump = func;
 }
 
 /*!

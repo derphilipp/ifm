@@ -85,7 +85,6 @@ extern int vs_traverse(vscalar *s, int (*func)());
 extern enum v_stype vs_type(vscalar *s);
 extern void vs_undef(vscalar *s);
 extern int vs_write(vscalar *s, FILE *fp);
-extern int vs_xmldump(vscalar *s, FILE *fp);
 
 #ifdef __cplusplus
 }

@@ -60,7 +60,6 @@ static void vq_downheap(vqueue *q, int n);
 static velt *vq_new(vscalar *s, double priority);
 static void vq_require(vqueue *q, int num);
 static void vq_upheap(vqueue *q, int n);
-static int vq_xmldump(vqueue *q, FILE *fp);
 
 /* Check if pointer is a queue */
 int
@@ -149,7 +148,6 @@ vq_declare(void)
         v_print_func(vqueue_type, vq_print);
         v_destroy_func(vqueue_type, vq_destroy);
         v_traverse_func(vqueue_type, vq_traverse);
-        v_xmldump_func(vqueue_type, vq_xmldump);
     }
 
     return vqueue_type;
@@ -571,40 +569,6 @@ vq_write(vqueue *q, FILE *fp)
         if (!vs_write(QVAL(q, i)->val, fp))
             return 0;
     }
-
-    return 1;
-}
-
-/* Dump contents of a queue in XML format */
-static int
-vq_xmldump(vqueue *q, FILE *fp)
-{
-    char buf[20];
-    velt *e;
-    int i;
-
-    VQ_CHECK(q);
-
-    v_xmldump_start(fp);
-
-    for (i = 1; i < q->entries; i++) {
-        e = QVAL(q, i);
-
-        sprintf(buf, "%g", e->priority);
-
-        if (vs_defined(e->val)) {
-            v_xmldump_tag_start(fp, "entry", "priority", buf, NULL);
-
-            if (vs_xmldump(e->val, fp))
-                v_xmldump_tag_finish(fp, "entry");
-            else
-                return 0;
-        } else {
-            v_xmldump_tag(fp, "entry", "priority", buf, NULL);
-        }
-    }
-
-    v_xmldump_finish(fp);
 
     return 1;
 }

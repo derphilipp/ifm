@@ -109,9 +109,6 @@ vtype *vbuffer_type = NULL;
 /* Default buffer allocation size */
 static unsigned int bufsize = BUFFER_DEFAULT_SIZE;
 
-/* Internal functions */
-static int vb_xmldump(vbuffer *b, FILE *fp);
-
 /*!
   @brief   Set the default initial buffer size used by vb_create().
   @ingroup buffer_misc
@@ -225,7 +222,6 @@ vb_declare(void)
         v_print_func(vbuffer_type, vb_print);
         v_destroy_func(vbuffer_type, vb_destroy);
         v_traverse_func(vbuffer_type, vb_traverse);
-        v_xmldump_func(vbuffer_type, vb_xmldump);
     }
 
     return vbuffer_type;
@@ -732,17 +728,4 @@ vb_write(vbuffer *b, FILE *fp)
 
     /* Write buffer string */
     return vb_fputs(b, fp);
-}
-
-/* Dump XML buffer to a stream */
-static int
-vb_xmldump(vbuffer *b, FILE *fp)
-{
-    VB_CHECK(b);
-
-    v_xmldump_start(fp);
-    v_xmldump_data(fp, "string", vb_get(b));
-    v_xmldump_finish(fp);
-
-    return 1;
 }

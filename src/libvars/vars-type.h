@@ -20,7 +20,6 @@ struct v_type {
     int (*write)();             /* Write function */
     int (*freeze)();            /* Freeze function */
     void *(*thaw)();            /* Thaw function */
-    int (*xmldump)();           /* Dump-XML function */
     int (*yamldump)();          /* Dump-YAML function */
     int (*traverse)();          /* Traversal function */
     void (*destroy)();          /* Destruction function */
@@ -46,7 +45,6 @@ typedef struct v_header vheader;
 #include <vars-traverse.h>
 #include <vars-utils.h>
 #include <vars-write.h>
-#include <vars-xml.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -73,7 +71,6 @@ extern void v_read_func(vtype *t, void *(*func)());
 extern void v_thaw_func(vtype *t, void *(*func)());
 extern void v_traverse_func(vtype *t, int (*func)());
 extern void v_write_func(vtype *t, int (*func)());
-extern void v_xmldump_func(vtype *t, int (*func)());
 extern void v_yamldump_func(vtype *t, int (*func)());
 
 #ifdef __cplusplus

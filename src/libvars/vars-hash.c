@@ -163,7 +163,6 @@ char vh_keybuf[V_HEXSTRING_SIZE];
 /* Internal functions */
 static vtable **vh_entries(vhash *h);
 static int vh_entries_cmp(vtable **t1, vtable **t2);
-static int vh_xmldump(vhash *h, FILE *fp);
 static int vh_yamldump(vhash *h, FILE *fp);
 
 /*!
@@ -380,7 +379,6 @@ vh_declare(void)
         v_freeze_func(vhash_type, vh_freeze);
         v_thaw_func(vhash_type, (void *(*)()) vh_thaw);
         v_print_func(vhash_type, vh_print);
-        v_xmldump_func(vhash_type, vh_xmldump);
         v_yamldump_func(vhash_type, vh_yamldump);
         v_destroy_func(vhash_type, vh_destroy);
         v_traverse_func(vhash_type, vh_traverse);
@@ -1219,42 +1217,6 @@ vh_write(vhash *h, FILE *fp)
                 return 0;
         }
     }
-
-    return 1;
-}
-
-/* Dump XML contents of a hash */
-static int
-vh_xmldump(vhash *h, FILE *fp)
-{
-    vtable **entries;
-    vscalar *val;
-    char *key;
-    int i;
-
-    VH_CHECK(h);
-
-    v_xmldump_start(fp);
-    entries = vh_entries(h);
-
-    for (i = 0; entries[i] != NULL; i++) {
-        key = entries[i]->key;
-        val = entries[i]->val;
-
-        if (vs_defined(val)) {
-            v_xmldump_tag_start(fp, "entry", "key", key, NULL);
-
-            if (vs_xmldump(val, fp))
-                v_xmldump_tag_finish(fp, "entry");
-            else
-                return 0;
-        } else {
-            v_xmldump_tag(fp, "entry", "key", key, NULL);
-        }
-    }
-
-    V_DEALLOC(entries);
-    v_xmldump_finish(fp);
 
     return 1;
 }

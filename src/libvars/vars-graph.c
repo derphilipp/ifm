@@ -277,7 +277,6 @@ static vnode *vg_newnode(vgraph *g, char *node);
 static void vg_tsort_visit(vgraph *g, vnode *n, vlist *order);
 static vnode *vg_visit(vgraph *g, vnode *from, vnode *to, int type,
                        vlist *visit);
-static int vg_xmldump(vgraph *g, FILE *fp);
 
 /* Build a path given a start node */
 static vlist *
@@ -452,7 +451,6 @@ vg_declare(void)
         v_print_func(vgraph_type, vg_print);
         v_destroy_func(vgraph_type, vg_destroy);
         v_traverse_func(vgraph_type, vg_traverse);
-        v_xmldump_func(vgraph_type, vg_xmldump);
     }
 
     return vgraph_type;
@@ -2005,66 +2003,6 @@ vg_write(vgraph *g, FILE *fp)
         if (!vs_write(l->val, fp))
             return 0;
     }
-
-    return 1;
-}
-
-/* Dump contents of a graph in XML format */
-static int
-vg_xmldump(vgraph *g, FILE *fp)
-{
-    char *from, *to, *oneway;
-    vlink *l;
-    vnode *n;
-
-    VG_CHECK(g);
-
-    /* Get usage information */
-    vg_getusage(g);
-
-    v_xmldump_start(fp);
-
-    /* Dump nodes */
-    for (n = g->nhead; n != NULL; n = n->nnext) {
-        if (n->used && !vs_defined(n->val))
-            continue;
-
-        if (vs_defined(n->val)) {
-            v_xmldump_tag_start(fp, "node", "name", n->name, NULL);
-
-            if (vs_xmldump(n->val, fp))
-                v_xmldump_tag_finish(fp, "node");
-            else
-                return 0;
-        } else {
-            v_xmldump_tag(fp, "node", "name", n->name, NULL);
-        }
-    }
-
-    /* Dump links */
-    for (l = g->lhead; l != NULL; l = l->lnext) {
-        if (l->opposite)
-            continue;
-
-        from = l->from->name;
-        to = l->to->name;
-        oneway = l->oneway ? "true" : "false";
-
-        if (vs_defined(l->val)) {
-            v_xmldump_tag_start(fp, "link", "from", from,
-                                "to", to, "oneway", oneway, NULL);
-
-            if (vs_xmldump(l->val, fp))
-                v_xmldump_tag_finish(fp, "link");
-            else
-                return 0;
-        } else {
-            v_xmldump_tag(fp, "link", "from", from,
-                          "to", to, "oneway", oneway, NULL);
-        }
-    }
-
-    v_xmldump_finish(fp);
 
     return 1;
 }
