@@ -1,9 +1,8 @@
-=================================
- IFM: Interactive Fiction Mapper
-=================================
+IFM: Interactive Fiction Mapper
+===============================
 
 About IFM
-=========
+---------
 
 IFM is a language and a program for keeping track of your progress through
 an Interactive Fiction game.  You can record each room you visit and its
@@ -24,58 +23,59 @@ IFM can write hardcopy maps directly to PostScript, suitable for printing
 or viewing.  It can also write maps in Fig format, which can be viewed and
 edited using Xfig, or converted into many other formats.
 
-For more information, see the IFM user guide at http://ifm.readthedocs.org.
+For more information, see the [IFM user guide](http://ifm.readthedocs.org).
 
 Copyright
-=========
+---------
 
 IFM and its utility programs are free software, and you may redistribute
-them under certain conditions; see the files ``COPYING`` and
-``COPYING.DOC`` for details.
+them under certain conditions; see the files [COPYING](COPYING) and
+[COPYING.DOC](COPYING.DOC) for details.
 
 Installation
-============
+------------
 
-See the file ``INSTALL`` for installation details.  But it basically boils
-down to::
+See the file `INSTALL` for installation details.  But it basically boils
+down to:
 
     ./configure
     make
     su -c 'make install'
 
 Hacking
-=======
+-------
 
-IFM is hosted at Bitbucket_, using Mercurial_, and developed on Linux.
-You're free to hack on it to your heart's content.  If you have just done a
-``hg clone`` to get a copy, you'll need some extra tools installed to build
-it:
+IFM is hosted at [Bitbucket](http://www.bitbucket.org/zondo/ifm), using
+[Mercurial](http://mercurial.selenic.com), and developed on Linux.  You're
+free to hack on it to your heart's content.  If you have just done a `hg
+clone` to get a copy, you'll need some extra tools installed to build it:
 
-* GNU ``make``.
-* The GNU autotools: ``autoconf``, ``automake``.
-* Parser generator tools: ``lex``, ``yacc`` (or ``bison``).
-* Sphinx_ to build the IFM manual (and Pygments_ for syntax highlighting)
-* GNU ``help2man`` to build the IFM man page
+* GNU `make`
+* The GNU autotools: `autoconf`, `automake`
+* Parser generator tools: `lex`, `yacc` (or `bison`)
+* [Sphinx](http://sphinx.pocoo.org) to build the IFM manual (and
+  [Pygments](http://pygments.org) for syntax highlighting)
+* GNU `help2man` to build the IFM man page
 
-To get things started, run ``autogen.sh``.  Then build as normal.
+To get things started, run `autogen.sh`.  Then build as normal.
 
 To create or update the Windows distribution:
 
-#. Clone this repo on Windows
-#. Install MinGW_, including the tools mentioned above
-#. Build everything in the usual way
-#. Type ``make zip`` in the ``win32`` directory
+1. Clone this repo on Windows
+2. Install [MinGW](http://mingw.org), including the tools mentioned above
+3. Build everything in the usual way
+4. Type `make zip` in the `win32` directory
 
 Finally...
-==========
+----------
 
 Feel free to send comments, bug reports, suggestions, etc. to me.  I am
-Glenn Hutchings (zondo42@gmail.com).
+Glenn Hutchings (<zondo42@gmail.com>).
 
 Happy mapping!
 
-.. _Mercurial: http://mercurial.selenic.com
-.. _Bitbucket: http://www.bitbucket.org/zondo/ifm
-.. _Sphinx: http://sphinx.pocoo.org
-.. _Pygments: http://pygments.org
-.. _MinGW: http://mingw.org
+<!--
+Local Variables:
+mode: markdown
+End:
+--!>
