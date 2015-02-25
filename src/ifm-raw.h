@@ -3,6 +3,8 @@
 #ifndef IFM_RAW_H
 #define IFM_RAW_H
 
+#include "ifm-driver.h"
+
 extern mapfuncs raw_mapfuncs;
 extern itemfuncs raw_itemfuncs;
 extern taskfuncs raw_taskfuncs;

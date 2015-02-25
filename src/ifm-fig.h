@@ -3,6 +3,8 @@
 #ifndef IFM_FIG_H
 #define IFM_FIG_H
 
+#include "ifm-driver.h"
+
 extern mapfuncs fig_mapfuncs;
 
 extern void fig_map_start(void);

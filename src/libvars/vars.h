@@ -31,6 +31,5 @@
 #include <vars-type.h>
 #include <vars-write.h>
 #include <vars-utils.h>
-#include <vars-yaml.h>
 
 #endif

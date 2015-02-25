@@ -13,6 +13,7 @@
 #include <vars.h>
 
 #include "ifm-driver.h"
+#include "ifm-main.h"
 #include "ifm-map.h"
 #include "ifm-task.h"
 #include "ifm-util.h"
@@ -66,19 +67,19 @@ dot_task_start(void)
     height = (page_height - page_margin) / 2.54;
 
     /* Write graph header */
-    printf("digraph \"%s\" {\n", title);
+    output("digraph \"%s\" {\n", title);
 
-    printf("    fontname = \"%s\";\n", font);
+    output("    fontname = \"%s\";\n", font);
 
-    printf("    graph [size = \"%g,%g\", ratio = fill, %s];\n",
+    output("    graph [size = \"%g,%g\", ratio = fill, %s];\n",
            height, width, graph_attr);
 
-    printf("    node [fontname = \"%s\"];\n", font);
-    printf("    edge [fontname = \"%s\", len = 1.5];\n", font);
+    output("    node [fontname = \"%s\"];\n", font);
+    output("    edge [fontname = \"%s\", len = 1.5];\n", font);
 
-    printf("    rankdir = LR;\n");
-    printf("    rotate = 90;\n");
-    printf("    concentrate = true;\n");
+    output("    rankdir = LR;\n");
+    output("    rotate = 90;\n");
+    output("    concentrate = true;\n");
 }
 
 void
@@ -118,7 +119,7 @@ dot_task_finish(void)
     vl_destroy(nodes);
 
     /* Write nodes */
-    printf("    node [%s];\n", node_attr);
+    output("    node [%s];\n", node_attr);
 
     v_iterate(rooms, i) {
         name = vh_iter_key(i);
@@ -126,24 +127,24 @@ dot_task_finish(void)
 
         if (show_rooms) {
             if (strlen(name) > 0) {
-                printf("    subgraph cluster_%d {\n", ++cluster);
-                printf("        ");
+                output("    subgraph cluster_%d {\n", ++cluster);
+                output("        ");
                 print_label(name);
-                printf(";\n");
+                output(";\n");
             } else {
-                printf("    subgraph anywhere {\n");
+                output("    subgraph anywhere {\n");
             }
         }
 
         v_iterate(list, j) {
             node = vl_iter_svalref(j);
             step = vg_node_pget(g, node);
-            printf("    ");
+            output("    ");
 
             if (show_rooms)
-                printf("    ");
+                output("    ");
 
-            printf("%s [", node);
+            output("%s [", node);
 
             V_BUF_SET(vh_sgetref(step, "DESC"));
             if (!show_rooms && strlen(name) > 0)
@@ -155,15 +156,15 @@ dot_task_finish(void)
             }
 
             print_label(V_BUF_VAL);
-            printf("];\n");
+            output("];\n");
         }
 
         if (show_rooms)
-            printf("    }\n");
+            output("    }\n");
     }
 
     /* Write links */
-    printf("    edge [%s];\n", link_attr);
+    output("    edge [%s];\n", link_attr);
 
     v_iterate(rooms, i) {
         list = vh_iter_pval(i);
@@ -172,12 +173,12 @@ dot_task_finish(void)
             node = vl_iter_svalref(j);
             tolist = vg_node_to(g, node);
             v_iterate(tolist, k)
-                printf("    %s -> %s;\n", node, vl_iter_svalref(k));
+                output("    %s -> %s;\n", node, vl_iter_svalref(k));
         }
     }
 
     /* Write graph footer */
-    printf("}\n");
+    output("}\n");
 
     /* Clean up */
     v_destroy(rooms);
@@ -188,14 +189,14 @@ dot_task_finish(void)
 static void
 print_label(char *string)
 {
-    printf("label = \"");
+    output("label = \"");
 
     while (*string != '\0') {
         if (*string == '"')
-            putchar('\\');
-        putchar(*string);
+            output("\\");
+        output("%c", *string);
         string++;
     }
 
-    putchar('"');
+    output("\"");
 }

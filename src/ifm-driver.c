@@ -12,6 +12,7 @@
 #include <math.h>
 #include <vars.h>
 
+#include "ifm-main.h"
 #include "ifm-driver.h"
 #include "ifm-map.h"
 #include "ifm-util.h"

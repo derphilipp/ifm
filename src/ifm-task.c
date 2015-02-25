@@ -1185,7 +1185,7 @@ solver_msg(int level, char *fmt, ...)
     if (TASK_VERBOSE) {
         indent(level);
         V_BUF_FMT(fmt, msg);
-        printf("%s\n", msg);
+        output("%s\n", msg);
     }
 }
 
@@ -1295,15 +1295,15 @@ task_status(vhash *room, vhash *step)
 
     if (TASK_VERBOSE) {
         indent(2);
-        printf("possible: %s", vh_sgetref(step, "DESC"));
+        output("possible: %s", vh_sgetref(step, "DESC"));
 
         if (len > 0)
-            printf(" (dist %d)", len);
+            output(" (dist %d)", len);
 
         if (safemsg != NULL)
-            printf(" (unsafe: %s)", safemsg);
+            output(" (unsafe: %s)", safemsg);
 
-        printf("\n");
+        output("\n");
     }
 
     return (safemsg == NULL ? TS_SAFE : TS_UNSAFE);

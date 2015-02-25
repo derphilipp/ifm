@@ -8,7 +8,7 @@ cmd()
     eval "$1"
 }
 
-cmd "aclocal"
+cmd "aclocal -I etc"
 cmd "autoheader"
 cmd "automake -a -c -f"
 cmd "autoconf"

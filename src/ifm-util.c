@@ -336,17 +336,6 @@ pack_sections(int xmax, int ymax)
     return num;
 }
 
-/* Send a string to stdout */
-void
-put_string(char *fmt, ...)
-{
-    V_BUF_DECL;
-    char *str;
-
-    V_BUF_FMT(fmt, str);
-    fputs(str, stdout);
-}
-
 /* Set up room names */
 void
 setup_room_names(void)

@@ -9,10 +9,25 @@ AC_CONFIG_HEADERS([etc/config.h])
 dnl Initialize automake.
 AM_INIT_AUTOMAKE(foreign)
 
+dnl Check for compiler and flags.
+AC_PROG_CC
+
+AM_CHECK_CC_OPTION(-pipe)
+
+AM_CHECK_CC_OPTION(-W)
+AM_CHECK_CC_OPTION(-Wall)
+
+AM_CHECK_CC_OPTION(-Werror-implicit-function-declaration)
+
+AM_CHECK_CC_OPTION(-Wno-unused-but-set-variable)
+AM_CHECK_CC_OPTION(-Wno-unused-parameter)
+AM_CHECK_CC_OPTION(-Wno-unused-value)
+
+AC_SUBST(LOCAL_CFLAGS)
+
 dnl Checks for programs.
 AC_CANONICAL_HOST
 
-AC_PROG_CC
 AM_PROG_LEX
 AC_PROG_YACC
 AC_PROG_INSTALL

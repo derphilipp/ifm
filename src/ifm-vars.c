@@ -351,7 +351,7 @@ var_list(void)
 
     INIT_VARS;
 
-    printf("# IFM defined variables.\n");
+    output("# IFM defined variables.\n");
 
     /* Non-style variables */
     var_print(nvars, NULL);
@@ -381,16 +381,16 @@ var_print(vhash *vars, char *style)
     names = vh_keys(vars);
     vl_sort(names, NULL);
 
-    printf("\n");
+    output("\n");
 
     if (style != NULL)
-        printf("# Style '%s' variables.\n", style);
+        output("# Style '%s' variables.\n", style);
     else
-        printf("# General variables.\n");
+        output("# General variables.\n");
 
     v_iterate(names, iter) {
         name = vl_iter_svalref(iter);
-        printf("%s = ", name);
+        output("%s = ", name);
         val = vh_get(vars, name);
 
         switch (vs_type(val)) {
@@ -409,14 +409,14 @@ var_print(vhash *vars, char *style)
             break;
 
         default:
-            printf("%s", vs_sget(val));
+            output("%s", vs_sget(val));
             break;
         }
 
         if (style != NULL)
-            printf(" in style %s", style);
+            output(" in style %s", style);
 
-        printf(";\n");
+        output(";\n");
     }
 
     vl_destroy(names);

@@ -563,6 +563,45 @@ v_usage(char *fmt, ...)
 }
 
 /*!
+  @brief   Initialise options.
+  @ingroup options_parse
+
+  Reinitialize the option declarations.  This is only needed if you intend
+  to set up option parsing more than once.
+*/
+void
+v_initopts(void)
+{
+    if (option_list != NULL) {
+        v_destroy(option_list);
+        option_list = NULL;
+    }
+
+    if (short_optlist != NULL) {
+        v_destroy(short_optlist);
+        short_optlist = NULL;
+    }
+
+    if (long_optlist != NULL) {
+        v_destroy(long_optlist);
+        long_optlist = NULL;
+    }
+
+    if (short_opthash != NULL) {
+        v_destroy(short_opthash);
+        short_opthash = NULL;
+    }
+
+    if (long_opthash != NULL) {
+        v_destroy(long_opthash);
+        long_opthash = NULL;
+    }
+
+    optgroup = NULL;
+    optind = 1;
+}
+
+/*!
   @brief   Parse a list argument into a list of flags.
   @ingroup options_parse
   @param   list

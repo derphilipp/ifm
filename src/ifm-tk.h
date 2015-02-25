@@ -3,6 +3,8 @@
 #ifndef IFM_TK_H
 #define IFM_TK_H
 
+#include "ifm-driver.h"
+
 extern mapfuncs tk_mapfuncs;
 extern itemfuncs tk_itemfuncs;
 extern taskfuncs tk_taskfuncs;

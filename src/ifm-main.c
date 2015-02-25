@@ -24,19 +24,13 @@
 #define SYSINIT "ifm-init.ifm"
 #endif
 
-#ifndef IFMPATH
-#ifndef MINGW32
-#define IFMPATH "/usr/local/share/ifm:."
-#else
-#define IFMPATH "ifm;."
-#endif
-#endif
-
 #ifndef MINGW32
 #define PATHSEP ":"
 #else
 #define PATHSEP ";"
 #endif
+
+#define STRINGIFY(name) #name
 
 /* Whether any output is required */
 #define OUTPUT (write_map || write_items || write_tasks)
@@ -81,9 +75,24 @@ static struct show_st {
     { NULL,   NULL,                NULL }
 };
 
+#ifdef IFM_LIBRARY
+
+static vbuffer *command_output = NULL;
+
+#else
+
 /* Main routine */
 int
 main(int argc, char *argv[])
+{
+    return run_main(argc, argv);
+}
+
+#endif
+
+/* Main function */
+int
+run_main(int argc, char *argv[])
 {
     char *env, *file = NULL, *info = NULL, *spec, *format = NULL;
     vlist *args, *list, *include = NULL, *vars = NULL;
@@ -106,6 +115,8 @@ main(int argc, char *argv[])
     progname = argv[0];
 
     /* Define options */
+    v_initopts();
+
     v_optgroup("Output options:");
 
     v_option('m', "map", V_OPT_OPTARG, "sections",
@@ -160,11 +171,15 @@ main(int argc, char *argv[])
     if ((opts = v_getopts(argc, argv)) == NULL)
         v_die("Type '%s -help' for help", progname);
 
-    if (help)
+    if (help) {
         usage();
+        return 0;
+    }
 
-    if (version)
+    if (version) {
         print_version();
+        return 0;
+    }
 
     if (vh_exists(opts, "map")) {
         write_map = 1;
@@ -181,8 +196,12 @@ main(int argc, char *argv[])
             ref_style(vl_iter_svalref(iter));
     }
 
-    /* Set search path */
-    ifm_search = vl_split(IFMPATH, PATHSEP);
+    /* Set search path if required */
+    if (ifm_search != NULL)
+        vl_destroy(ifm_search);
+
+    ifm_search = vl_create();
+    vl_spush(ifm_search, STRINGIFY(IFMLIB));
 
     if ((env = getenv("IFMPATH")) != NULL) {
         list = vl_split(env, PATHSEP);
@@ -315,7 +334,7 @@ main(int argc, char *argv[])
     /* Just show info if required */
     if (info == NULL) {
         if (!OUTPUT && !TASK_VERBOSE)
-            printf("Syntax appears OK\n");
+            output("Syntax appears OK\n");
 
         if (write_map)
             print_map(ifm_driver, sections);
@@ -333,10 +352,50 @@ main(int argc, char *argv[])
     return 0;
 }
 
+/* Run a command and return its output */
+char *
+run_command(char *command)
+{
+#ifdef IFM_LIBRARY
+    int argc, i, code;
+    char **argv;
+    vlist *parts;
+
+    vb_init(command_output);
+
+    /* Split command into bits */
+    parts = vl_qsplit(command, NULL, "'");
+
+    /* Build command args */
+    argc = vl_length(parts) + 1;
+    argv = V_ALLOCA(char *, argc + 2);
+    argv[0] = "ifm";
+
+    for (i = 1; i <= argc; i++)
+        argv[i] = vl_sgetref(parts, i - 1);
+
+    argv[argc + 1] = NULL;
+
+    /* Run command */
+    code = run_main(argc, argv);
+
+    /* Clean up */
+    vl_destroy(parts);
+
+    /* Return result */
+    return code == 0 ? vb_get(command_output) : NULL;
+#else
+    return NULL;
+#endif
+}
+
 /* Parse input from a file */
 int
 parse_input(char *file, int libflag, int required)
 {
+    void yyrestart(FILE *input_file);
+    int yyparse(void);
+
     static int parses = 0;
     extern FILE *yyin;
     char *path = file;
@@ -421,14 +480,20 @@ select_format(char *str)
     return match;
 }
 
-/* Parser-called parse error */
+/* Write output */
 void
-yyerror(char *msg)
+output(char *fmt, ...)
 {
-    if (V_STREQ(msg, "parse error"))
-        err("syntax error");
-    else
-        err(msg);
+    V_BUF_DECL;
+    char *msg;
+
+    V_BUF_FMT(fmt, msg);
+
+#ifdef IFM_LIBRARY
+    vb_puts(command_output, msg);
+#else
+    printf("%s", msg);
+#endif
 }
 
 /* Give a parse error */
@@ -452,6 +517,16 @@ err(char *fmt, ...)
     } else {
         func->error(ifm_input, line_number, msg);
     }
+}
+
+/* Parser-called parse error */
+void
+yyerror(char *msg)
+{
+    if (V_STREQ(msg, "parse error"))
+        err("syntax error");
+    else
+        err(msg);
 }
 
 /* Give a parse warning */
@@ -519,24 +594,22 @@ fatal(char *fmt, ...)
 static void
 print_version(void)
 {
-    printf("IFM version %s\n", VERSION);
-    printf("Copyright (C) Glenn Hutchings <%s>\n\n", PACKAGE_BUGREPORT);
+    output("IFM version %s\n", VERSION);
+    output("Copyright (C) Glenn Hutchings <%s>\n\n", PACKAGE_BUGREPORT);
 
-    printf("This program is free software; you can redistribute it and/or modify\n");
-    printf("it under the terms of the GNU General Public License as published by\n");
-    printf("the Free Software Foundation; either version 2, or (at your option)\n");
-    printf("any later version.\n\n");
+    output("This program is free software; you can redistribute it and/or modify\n");
+    output("it under the terms of the GNU General Public License as published by\n");
+    output("the Free Software Foundation; either version 2, or (at your option)\n");
+    output("any later version.\n\n");
 
-    printf("This program is distributed in the hope that it will be useful,\n");
-    printf("but WITHOUT ANY WARRANTY; without even the implied warranty of\n");
-    printf("MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n");
-    printf("GNU General Public License for more details.\n\n");
+    output("This program is distributed in the hope that it will be useful,\n");
+    output("but WITHOUT ANY WARRANTY; without even the implied warranty of\n");
+    output("MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n");
+    output("GNU General Public License for more details.\n\n");
 
-    printf("You should have received a copy of the GNU General Public License\n");
-    printf("along with this program; if not, write to the Free Software\n");
-    printf("Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.\n");
-
-    exit(0);
+    output("You should have received a copy of the GNU General Public License\n");
+    output("along with this program; if not, write to the Free Software\n");
+    output("Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.\n");
 }
 
 /* Show some information */
@@ -574,7 +647,7 @@ show_maps(void)
 
     set_map_vars();
 
-    printf("%s\t%s\t%s\t%s\t%s\n",
+    output("%s\t%s\t%s\t%s\t%s\n",
            "No.", "Rooms", "Width", "Height", "Name");
 
     v_iterate(sects, iter) {
@@ -592,7 +665,7 @@ show_maps(void)
         if (show_map_title && vh_exists(sect, "TITLE"))
             ylen++;
 
-        printf("%d\t%d\t%d\t%d\t%s\n",
+        output("%d\t%d\t%d\t%d\t%s\n",
                num++, vl_length(rooms), xlen, ylen, title);
     }
 }
@@ -601,7 +674,7 @@ show_maps(void)
 static void
 show_path(void)
 {
-    printf("%s\n", vl_join(ifm_search, " "));
+    output("%s\n", vl_join(ifm_search, " "));
 }
 
 /* Print a usage message and exit */
@@ -612,13 +685,11 @@ usage()
 
     v_usage("Usage: %s [options] [file...]", progname);
 
-    printf("\nOutput formats (may be abbreviated):\n");
+    output("\nOutput formats (may be abbreviated):\n");
     for (i = 0; drivers[i].name != NULL; i++)
-        printf("    %-15s     %s\n", drivers[i].name, drivers[i].desc);
+        output("    %-15s     %s\n", drivers[i].name, drivers[i].desc);
 
-    printf("\nShow options (may be abbreviated):\n");
+    output("\nShow options (may be abbreviated):\n");
     for (i = 0; showopts[i].name != NULL; i++)
-        printf("    %-15s     %s\n", showopts[i].name, showopts[i].desc);
-
-    exit(0);
+        output("    %-15s     %s\n", showopts[i].name, showopts[i].desc);
 }

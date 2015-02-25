@@ -10,7 +10,10 @@ extern vlist *ifm_search;
 extern vlist *ifm_styles;
 
 /* Advertised functions */
+extern int run_main(int argc, char *argv[]);
+extern char *run_command(char *command);
 extern int parse_input(char *file, int libflag, int required);
+extern void output(char *fmt, ...);
 extern void yyerror(char *msg);
 extern void err(char *fmt, ...);
 extern void warn(char *fmt, ...);

@@ -14,6 +14,7 @@
 #include "ifm-path.h"
 #include "ifm-task.h"
 #include "ifm-util.h"
+#include "ifm-vars.h"
 
 #define NODE(room)           vh_sgetref(room, "NODE")
 
@@ -118,13 +119,13 @@ connect_rooms(void)
         if (TASK_VERBOSE) {
             indent(1);
             list = vh_pget(reach, "CMD");
-            printf("link '%s' to '%s' (%s)",
+            output("link '%s' to '%s' (%s)",
                    vh_sgetref(from, "DESC"),
                    vh_sgetref(to, "DESC"),
                    vl_join(list, ". "));
             if (len > 1)
-                printf(" (dist %d)", len);
-            printf("\n");
+                output(" (dist %d)", len);
+            output("\n");
         }
 
         /* To -> from if not one-way */
@@ -160,13 +161,13 @@ connect_rooms(void)
             if (TASK_VERBOSE) {
                 indent(1);
                 list = vh_pget(reach, "CMD");
-                printf("link '%s' to '%s' (%s)",
+                output("link '%s' to '%s' (%s)",
                        vh_sgetref(to, "DESC"),
                        vh_sgetref(from, "DESC"),
                        vl_join(list, ". "));
                 if (len > 1)
-                    printf(" (dist %d)", len);
-                printf("\n");
+                    output(" (dist %d)", len);
+                output("\n");
             }
         }
     }
@@ -214,13 +215,13 @@ connect_rooms(void)
         if (TASK_VERBOSE) {
             indent(1);
             list = vh_pget(reach, "CMD");
-            printf("join '%s' to '%s' (%s)",
+            output("join '%s' to '%s' (%s)",
                    vh_sgetref(from, "DESC"),
                    vh_sgetref(to, "DESC"),
                    vl_join(list, ". "));
             if (len > 1)
-                printf(" (dist %d)", len);
-            printf("\n");
+                output(" (dist %d)", len);
+            output("\n");
         }
 
         /* To -> from if not one-way */
@@ -255,13 +256,13 @@ connect_rooms(void)
             if (TASK_VERBOSE) {
                 indent(1);
                 list = vh_pget(reach, "CMD");
-                printf("join '%s' to '%s' (%s)",
+                output("join '%s' to '%s' (%s)",
                        vh_sgetref(to, "DESC"),
                        vh_sgetref(from, "DESC"),
                        vl_join(list, ". "));
                 if (len > 1)
-                    printf(" (dist %d)", len);
-                printf("\n");
+                    output(" (dist %d)", len);
+                output("\n");
             }
         }
     }
@@ -291,14 +292,14 @@ find_path(vhash *step, vhash *from, vhash *to)
 
     if (TASK_VERBOSE) {
         indent(3);
-        printf("find path: '%s' to '%s'",
+        output("find path: '%s' to '%s'",
                vh_sgetref(from, "DESC"),
                vh_sgetref(to, "DESC"));
     }
 
     if (step != NULL && vh_iget(step, "BLOCK")) {
         if (TASK_VERBOSE)
-            printf("\n");
+            output("\n");
 
         path_task = step;
         if ((path = vh_pget(step, "PATH")) != NULL)
@@ -316,15 +317,15 @@ find_path(vhash *step, vhash *from, vhash *to)
         vg_use_cache(graph, 1);
 
         if (TASK_VERBOSE && path_room != from)
-            printf("\n");
+            output("\n");
 
         len = PATH_LENGTH(from, to);
 
         if (TASK_VERBOSE && path_room == from) {
             if (len < 0)
-                printf(" (cached: no path)\n");
+                output(" (cached: no path)\n");
             else
-                printf(" (cached: dist %d)\n", len);
+                output(" (cached: dist %d)\n", len);
         }
     }
 
@@ -430,9 +431,9 @@ init_path(vhash *room)
 
             if (TASK_VERBOSE) {
                 indent(2);
-                printf("update path: %s\n", vh_sgetref(step, "DESC"));
+                output("update path: %s\n", vh_sgetref(step, "DESC"));
                 indent(2);
-                printf("possible block: %s may need dropping\n",
+                output("possible block: %s may need dropping\n",
                        vh_sgetref(item, "DESC"));
             }
 
@@ -484,10 +485,10 @@ init_path(vhash *room)
                 continue;
 
             indent(3);
-            printf("dist %d: %s", len, vh_sgetref(step, "DESC"));
+            output("dist %d: %s", len, vh_sgetref(step, "DESC"));
             if (len > 0 && (room = vh_pget(step, "ROOM")) != NULL)
-                printf(" (%s)", vh_sgetref(room, "DESC"));
-            printf("\n");
+                output(" (%s)", vh_sgetref(room, "DESC"));
+            output("\n");
         }
     }
 }
@@ -624,7 +625,7 @@ use_link(char *fnode, char *tnode, vscalar *s)
                     if (TASK_VERBOSE) {
                         indent(4 - vg_caching());
                         room = vg_node_pget(graph, tnode);
-                        printf("blocked link: %s (must leave %s)\n",
+                        output("blocked link: %s (must leave %s)\n",
                                vh_sgetref(room, "DESC"),
                                vh_sgetref(item, "DESC"));
                     }
@@ -646,7 +647,7 @@ use_link(char *fnode, char *tnode, vscalar *s)
                     if (TASK_VERBOSE) {
                         indent(4 - vg_caching());
                         room = vg_node_pget(graph, tnode);
-                        printf("blocked link: %s (need %s)\n",
+                        output("blocked link: %s (need %s)\n",
                                vh_sgetref(room, "DESC"),
                                vh_sgetref(item, "DESC"));
                     }
@@ -669,7 +670,7 @@ use_link(char *fnode, char *tnode, vscalar *s)
                     if (TASK_VERBOSE) {
                         indent(4 - vg_caching());
                         room = vg_node_pget(graph, tnode);
-                        printf("blocked link: %s (done '%s')\n",
+                        output("blocked link: %s (done '%s')\n",
                                vh_sgetref(room, "DESC"),
                                vh_sgetref(task, "DESC"));
                     }
@@ -691,7 +692,7 @@ use_link(char *fnode, char *tnode, vscalar *s)
                     if (TASK_VERBOSE) {
                         indent(4 - vg_caching());
                         room = vg_node_pget(graph, tnode);
-                        printf("blocked link: %s (not done '%s')\n",
+                        output("blocked link: %s (not done '%s')\n",
                                vh_sgetref(room, "DESC"),
                                vh_sgetref(task, "DESC"));
                     }
@@ -731,7 +732,7 @@ use_node(char *node, vscalar *s, double dist)
             if (block != NULL && block == path_task) {
                 if (TASK_VERBOSE) {
                     indent(4 - vg_caching());
-                    printf("blocked room: %s (must leave %s)\n",
+                    output("blocked room: %s (must leave %s)\n",
                            vh_sgetref(room, "DESC"),
                            vh_sgetref(item, "DESC"));
                 }
@@ -748,7 +749,7 @@ use_node(char *node, vscalar *s, double dist)
             if (!vh_iget(item, "TAKEN")) {
                 if (TASK_VERBOSE) {
                     indent(4 - vg_caching());
-                    printf("blocked room: %s (need %s)\n",
+                    output("blocked room: %s (need %s)\n",
                            vh_sgetref(room, "DESC"),
                            vh_sgetref(item, "DESC"));
                 }
@@ -766,7 +767,7 @@ use_node(char *node, vscalar *s, double dist)
             if (vh_iget(tstep, "DONE")) {
                 if (TASK_VERBOSE) {
                     indent(4 - vg_caching());
-                    printf("blocked room: %s (done '%s')\n",
+                    output("blocked room: %s (done '%s')\n",
                            vh_sgetref(room, "DESC"),
                            vh_sgetref(task, "DESC"));
                 }
@@ -783,7 +784,7 @@ use_node(char *node, vscalar *s, double dist)
             if (!vh_iget(tstep, "DONE")) {
                 if (TASK_VERBOSE) {
                     indent(4 - vg_caching());
-                    printf("blocked room: %s (not done '%s')\n",
+                    output("blocked room: %s (not done '%s')\n",
                            vh_sgetref(room, "DESC"),
                            vh_sgetref(task, "DESC"));
                 }
@@ -796,7 +797,7 @@ use_node(char *node, vscalar *s, double dist)
 #ifdef SHOW_VISIT
     if (TASK_VERBOSE && room != start_room) {
         indent(4 - vg_caching());
-        printf("visit: %s (dist %g)\n",
+        output("visit: %s (dist %g)\n",
                vh_sgetref(room, "DESC"), dist);
     }
 #endif

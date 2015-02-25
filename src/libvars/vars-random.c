@@ -14,6 +14,7 @@
 
 #include "vars-config.h"
 #include "vars-random.h"
+#include "vars-utils.h"
 
 /* Required size of unsigned long */
 #define ULONG	4

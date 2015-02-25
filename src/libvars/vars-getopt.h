@@ -45,6 +45,8 @@ extern void v_option_range(char optletter, char *optname, char *argname,
 extern void v_option_string(char optletter, char *optname, char *argname,
                             char **var, char *fmt, ...);
 extern void v_usage(char *fmt, ...);
+extern void v_initopts(void);
+
 extern vlist *vl_parse_list(char *list);
 
 #ifdef __cplusplus

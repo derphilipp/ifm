@@ -21,31 +21,31 @@
 
 #define PRINT_COLOUR(name) \
         if (var_changed(#name)) \
-                printf("/%s [%s] def\n", #name, var_colour(#name))
+                output("/%s [%s] def\n", #name, var_colour(#name))
 
 #define PRINT_FONT(name) \
         if (var_changed(#name)) \
-                printf("/%s /%s def\n", #name, var_string(#name))
+                output("/%s /%s def\n", #name, var_string(#name))
 
 #define PRINT_FONTSIZE(name) \
         if (var_changed(#name)) \
-                printf("/%s %g def\n", #name, var_real(#name) * font_scale)
+                output("/%s %g def\n", #name, var_real(#name) * font_scale)
 
 #define PRINT_INT(name) \
         if (var_changed(#name)) \
-                printf("/%s %d def\n", #name, var_int(#name))
+                output("/%s %d def\n", #name, var_int(#name))
 
 #define PRINT_REAL(name) \
         if (var_changed(#name)) \
-                printf("/%s %g def\n", #name, var_real(#name))
+                output("/%s %g def\n", #name, var_real(#name))
 
 #define PRINT_STRING(name) \
         if (var_changed(#name)) \
-                printf("/%s %s def\n", #name, ps_string(var_string(#name)))
+                output("/%s %s def\n", #name, ps_string(var_string(#name)))
 
 #define PRINT_BOOL(name) \
         if (var_changed(#name)) \
-                printf("/%s %s def\n", #name, var_int(#name) ? "true" : "false")
+                output("/%s %s def\n", #name, var_int(#name) ? "true" : "false")
 
 /* Map function list */
 mapfuncs ps_mapfuncs = {
@@ -116,11 +116,11 @@ ps_map_start(void)
     else
         title = "Interactive Fiction map";
 
-    printf("%%!PS-Adobe-2.0\n");
-    put_string("%%%%Title: %s\n", title);
-    printf("%%%%Creator: IFM v%s\n", VERSION);
-    printf("%%%%Pages: %d\n", num_pages);
-    printf("%%%%EndComments\n\n");
+    output("%%!PS-Adobe-2.0\n");
+    output("%%%%Title: %s\n", title);
+    output("%%%%Creator: IFM v%s\n", VERSION);
+    output("%%%%Pages: %d\n", num_pages);
+    output("%%%%EndComments\n\n");
 
     /* Print PostScript prolog */
     if ((fp = fopen(prolog, "r")) == NULL)
@@ -132,11 +132,11 @@ ps_map_start(void)
     fclose(fp);
 
     /* Page variables */
-    printf("/page_margin %g cm def\n", var_real("page_margin"));
-    printf("/page_width %g cm def\n", page_width);
-    printf("/page_height %g cm def\n", page_height);
-    printf("/map_width %d def\n", width);
-    printf("/map_height %d def\n", height);
+    output("/page_margin %g cm def\n", var_real("page_margin"));
+    output("/page_width %g cm def\n", page_width);
+    output("/page_height %g cm def\n", page_height);
+    output("/map_width %d def\n", width);
+    output("/map_height %d def\n", height);
 
     PRINT_BOOL(show_page_border);
     PRINT_COLOUR(page_border_colour);
@@ -145,12 +145,12 @@ ps_map_start(void)
     /* Title variables */
     if (title != NULL) {
         PRINT_BOOL(show_page_title);
-        put_string("/titlestring %s def\n", ps_string(title));
+        output("/titlestring %s def\n", ps_string(title));
         PRINT_FONT(page_title_font);
         PRINT_FONTSIZE(page_title_fontsize);
         PRINT_COLOUR(page_title_colour);
     } else {
-        printf("/show_page_title false def\n");
+        output("/show_page_title false def\n");
     }
 
     /* Map variables */
@@ -160,8 +160,8 @@ ps_map_start(void)
     PRINT_COLOUR(map_border_colour);
     PRINT_COLOUR(map_background_colour);
 
-    printf("/room_width %g def\n", room_width);
-    printf("/room_height %g def\n", room_height);
+    output("/room_width %g def\n", room_width);
+    output("/room_height %g def\n", room_height);
 
     /* Room style variables */
     ps_print_room_vars();
@@ -169,7 +169,7 @@ ps_map_start(void)
     /* Link style variables */
     ps_print_link_vars();
 
-    printf("\n%%%%EndProlog\n");
+    output("\n%%%%EndProlog\n");
 }
 
 void
@@ -188,14 +188,14 @@ ps_map_section(vhash *sect)
     /* Start a new page if required */
     if (page != ps_pagenum) {
         if (ps_pagenum > 0)
-            printf("endpage\n");
+            output("endpage\n");
 
         ps_pagenum = page;
-        printf("\n%%%%Page: %d %d\n\n", ps_pagenum, ps_pagenum);
+        output("\n%%%%Page: %d %d\n\n", ps_pagenum, ps_pagenum);
 
         rotate = (ps_rotflag ? ps_rotate : vh_iget(sect, "ROTATE"));
 
-        printf("%d %d %s beginpage\n",
+        output("%d %d %s beginpage\n",
                vh_iget(sect, "PXLEN"),
                vh_iget(sect, "PYLEN"),
                (rotate ? "true" : "false"));
@@ -203,7 +203,7 @@ ps_map_section(vhash *sect)
 
     /* Print border if required */
     if (show_map_border)
-        printf("%g %g %g %g mapborder\n",
+        output("%g %g %g %g mapborder\n",
                ps_xoff - 0.5, ps_yoff - 0.5,
                ps_xoff + xlen - 0.5, ps_yoff + ylen - 0.5);
 
@@ -211,9 +211,9 @@ ps_map_section(vhash *sect)
     if (show_map_title && vh_exists(sect, "TITLE")) {
         xpos = (double) (xlen - 1) / 2;
         ypos = (double) ylen - 1;
-        put_string("%s %g %g maptitle\n",
-                   ps_string(vh_sgetref(sect, "TITLE")),
-                   xpos + ps_xoff, ypos + ps_yoff);
+        output("%s %g %g maptitle\n",
+               ps_string(vh_sgetref(sect, "TITLE")),
+               xpos + ps_xoff, ypos + ps_yoff);
     }
 }
 
@@ -231,9 +231,9 @@ ps_map_room(vhash *room)
     /* Write coords */
     x = vh_iget(room, "X");
     y = vh_iget(room, "Y");
-    put_string("%s %g %g",
-               ps_string(vh_sgetref(room, "RDESC")),
-               x + ps_xoff, y + ps_yoff);
+    output("%s %g %g",
+           ps_string(vh_sgetref(room, "RDESC")),
+           x + ps_xoff, y + ps_yoff);
 
     /* Write item list (if any) */
     items = vh_pget(room, "ITEMS");
@@ -256,11 +256,11 @@ ps_map_room(vhash *room)
     }
 
     if (itemlist != NULL)
-        put_string(" %s true", ps_string(itemlist));
+        output(" %s true", ps_string(itemlist));
     else
-        printf(" false");
+        output(" false");
 
-    printf(" room\n");
+    output(" room\n");
 
     /* Write room exits (if any) */
     ex = vh_pget(room, "EX");
@@ -287,7 +287,7 @@ ps_map_room(vhash *room)
             x2 = x1 + 0.35 * (x2 - x1);
             y2 = y1 + 0.35 * (y2 - y1);
 
-            printf("%g %g %g %g roomexit\n",
+            output("%g %g %g %g roomexit\n",
                    ps_xoff + x1, ps_yoff + y1,
                    ps_xoff + x2, ps_yoff + y2);
         }
@@ -348,21 +348,21 @@ ps_map_link(vhash *link)
                 angle = 90;
         }
 
-        printf("%g %g %d circle\n", xs + ps_xoff, ys + ps_yoff, angle);
+        output("%g %g %d circle\n", xs + ps_xoff, ys + ps_yoff, angle);
     } else { /* it is not a circular link */
-        printf("[");
+        output("[");
         np = vl_length(x);
         for (i = 0; i < np; i++)
-            printf(" %g %g",
+            output(" %g %g",
                    vl_dget(x, i) + ps_xoff,
                    vl_dget(y, i) + ps_yoff);
-        printf(" ]");
+        output(" ]");
 
-        printf(" %d", up);
-        printf(" %d", in);
-        printf(" %s", (oneway ? "true" : "false"));
+        output(" %d", up);
+        output(" %d", in);
+        output(" %s", (oneway ? "true" : "false"));
 
-        printf(" link\n");
+        output(" link\n");
     }
 }
 
@@ -375,7 +375,7 @@ ps_map_endsection(void)
 void
 ps_map_finish(void)
 {
-    printf("endpage\n");
+    output("endpage\n");
 }
 
 /* Print room style variables */

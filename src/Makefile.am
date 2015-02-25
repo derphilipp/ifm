@@ -30,11 +30,12 @@ ifm_LDADD   = -lfig -lvars -lm
 AM_YFLAGS = -d -v
 
 if MINGW32
-IFMDEFS = 
+IFMDEFS = -DIFMLIB=ifm
 else
-IFMDEFS = -DIFMPATH=\"$(pkgdatadir):.\"
+IFMDEFS = -DIFMLIB=$(pkgdatadir)
 endif
 
+AM_CFLAGS = $(LOCAL_CFLAGS)
 AM_CPPFLAGS = -I$(FIG_SRC) -I$(VARS_SRC) $(IFMDEFS)
 
 $(bin_PROGRAMS): $(VARS_BIN)/libvars.a $(FIG_BIN)/libfig.a

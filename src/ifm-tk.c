@@ -13,6 +13,7 @@
 #include <vars.h>
 
 #include "ifm-driver.h"
+#include "ifm-main.h"
 #include "ifm-map.h"
 #include "ifm-task.h"
 #include "ifm-util.h"
@@ -22,27 +23,27 @@
 
 #define PRINT_COLOUR(name) \
         if (var_changed(#name)) \
-                printf("set ifm(%s) {%s}\n", #name, var_string(#name))
+                output("set ifm(%s) {%s}\n", #name, var_string(#name))
 
 #define PRINT_FONTDEF(name) \
         if (var_changed(#name)) \
-                printf("set ifm(%s) {%s}\n", #name, var_string(#name))
+                output("set ifm(%s) {%s}\n", #name, var_string(#name))
 
 #define PRINT_INT(name) \
         if (var_changed(#name)) \
-                printf("set ifm(%s) %d\n", #name, var_int(#name))
+                output("set ifm(%s) %d\n", #name, var_int(#name))
 
 #define PRINT_REAL(name) \
         if (var_changed(#name)) \
-                printf("set ifm(%s) %g\n", #name, var_real(#name))
+                output("set ifm(%s) %g\n", #name, var_real(#name))
 
 #define PRINT_STRING(name) \
         if (var_changed(#name)) \
-                printf("set ifm(%s) {%s}\n", #name, var_string(#name))
+                output("set ifm(%s) {%s}\n", #name, var_string(#name))
 
 #define PRINT_BOOL(name) \
         if (var_changed(#name)) \
-                printf("set ifm(%s) %s\n", #name, var_int(#name) ? "true" : "false")
+                output("set ifm(%s) %s\n", #name, var_int(#name) ? "true" : "false")
 
 /* Map function list */
 mapfuncs tk_mapfuncs = {
@@ -115,7 +116,7 @@ tk_map_section(vhash *sect)
     else
         V_BUF_SET(title);
 
-    put_string("AddSect {%s} %d %d\n", V_BUF_VAL,
+    output("AddSect {%s} %d %d\n", V_BUF_VAL,
                vh_iget(sect, "XLEN"),
                vh_iget(sect, "YLEN"));
 }
@@ -153,9 +154,9 @@ tk_map_room(vhash *room)
     /* Do room command */
     x = vh_iget(room, "X");
     y = vh_iget(room, "Y");
-    put_string("AddRoom {%s} {%s} %d %d\n",
-               vh_sgetref(room, "RDESC"),
-               (itemlist != NULL ? itemlist : ""), x, y);
+    output("AddRoom {%s} {%s} %d %d\n",
+           vh_sgetref(room, "RDESC"),
+           (itemlist != NULL ? itemlist : ""), x, y);
 
     /* Do room exit commands (if any) */
     ex = vh_pget(room, "EX");
@@ -164,7 +165,7 @@ tk_map_room(vhash *room)
         while (vl_length(ex) > 0) {
             xoff = vl_ishift(ex);
             yoff = vl_ishift(ey);
-            printf("AddExit {%d %d} {%d %d}\n", x, x + xoff, y, y + yoff);
+            output("AddExit {%d %d} {%d %d}\n", x, x + xoff, y, y + yoff);
         }
     }
 }
@@ -181,10 +182,10 @@ tk_map_link(vhash *link)
     /* Link style variables */
     tk_print_link_vars();
 
-    printf("AddLink");
-    printf(" {%s}", vl_join(x, " "));
-    printf(" {%s}", vl_join(y, " "));
-    printf(" %d %d %d\n",
+    output("AddLink");
+    output(" {%s}", vl_join(x, " "));
+    output(" {%s}", vl_join(y, " "));
+    output(" %d %d %d\n",
            updown, inout,
            vh_iget(link, "ONEWAY"));
 }
@@ -193,7 +194,7 @@ tk_map_link(vhash *link)
 void
 tk_item_start(void)
 {
-    printf("set itemlist {");
+    output("set itemlist {");
 }
 
 void
@@ -205,14 +206,14 @@ tk_item_entry(vhash *item)
 void
 tk_item_finish(void)
 {
-    printf("}\n");
+    output("}\n");
 }
 
 /* Task functions */
 void
 tk_task_start(void)
 {
-    printf("set tasklist {");
+    output("set tasklist {");
 }
 
 void
@@ -225,7 +226,7 @@ void
 tk_task_finish(void)
 {
     text_task_finish();
-    printf("}\n");
+    output("}\n");
 }
 
 /* Error functions */
@@ -233,10 +234,10 @@ void
 tk_warning(char *file, int line, char *msg)
 {
     if (line > 0) {
-        printf("GotoLine %d\n", line);
-        printf("Warning {Warning: line %d: %s}\n", line, msg);
+        output("GotoLine %d\n", line);
+        output("Warning {Warning: line %d: %s}\n", line, msg);
     } else {
-        printf("Warning {Warning: %s}\n", msg);
+        output("Warning {Warning: %s}\n", msg);
     }
 }
 
@@ -244,10 +245,10 @@ void
 tk_error(char *file, int line, char *msg)
 {
     if (line > 0) {
-        printf("GotoLine %d\n", line);
-        printf("Error {Error: line %d: %s}\n", line, msg);
+        output("GotoLine %d\n", line);
+        output("Error {Error: line %d: %s}\n", line, msg);
     } else {
-        printf("Error {Error: %s}\n", msg);
+        output("Error {Error: %s}\n", msg);
     }
 
     exit(0);

@@ -10,6 +10,7 @@
 #include <string.h>
 #include <vars.h>
 
+#include "ifm-main.h"
 #include "ifm-map.h"
 #include "ifm-util.h"
 #include "ifm-vars.h"
@@ -73,6 +74,8 @@ static int implicit = 0;        /* Implicit-link flag */
 static int allflag = 0;         /* All-items flag */
 static int repeat = 0;          /* String repeat count */
 static int instyle = 0;         /* Set variable in different style? */
+
+extern int yylex(void);
 %}
 
 %union {

@@ -12,6 +12,7 @@ EXTRA_DIST = fig-format.txt
 
 EXTRA_PROGRAMS = testfig
 
+AM_CFLAGS = $(LOCAL_CFLAGS)
 AM_CPPFLAGS = -I$(srcdir)/../libvars
 
 testfig_SOURCES = testfig.c

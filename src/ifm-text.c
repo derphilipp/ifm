@@ -13,6 +13,7 @@
 #include <vars.h>
 
 #include "ifm-driver.h"
+#include "ifm-main.h"
 #include "ifm-map.h"
 #include "ifm-task.h"
 #include "ifm-util.h"
@@ -56,30 +57,30 @@ text_item_entry(vhash *item)
             title = vh_sgetref(map, "TITLE");
         else
             title = "Interactive Fiction game";
-        put_string("Item list for %s\n", title);
+        output("Item list for %s\n", title);
     }
 
-    put_string("\n%s:\n", vh_sgetref(item, "DESC"));
+    output("\n%s:\n", vh_sgetref(item, "DESC"));
 
     if ((room = vh_pget(item, "ROOM")) == NULL)
-        printf("   carried at the start of the game\n");
+        output("   carried at the start of the game\n");
     else
-        printf("   %s in %s\n",
+        output("   %s in %s\n",
                (vh_iget(item, "HIDDEN") ? "hidden" : "seen"),
                vh_sgetref(room, "DESC"));
 
     if (vh_exists(item, "SCORE"))
-        printf("   scores %d points when picked up\n",
+        output("   scores %d points when picked up\n",
                vh_iget(item, "SCORE"));
 
     if (vh_exists(item, "LEAVE"))
-        printf("   may have to be dropped when moving\n");
+        output("   may have to be dropped when moving\n");
 
     if (vh_exists(item, "FINISH"))
-        printf("   finishes the game when picked up\n");
+        output("   finishes the game when picked up\n");
 
     if ((list = vh_pget(item, "RTASKS")) != NULL) {
-        printf("   obtained after:\n");
+        output("   obtained after:\n");
         v_iterate(list, iter) {
             task = vl_iter_pval(iter);
             if ((room = vh_pget(task, "ROOM")) == NULL)
@@ -88,12 +89,12 @@ text_item_entry(vhash *item)
                 V_BUF_SETF("%s (%s)",
                            vh_sgetref(task, "DESC"),
                            vh_sgetref(room, "DESC"));
-            put_string("      %s\n", V_BUF_VAL);
+            output("      %s\n", V_BUF_VAL);
         }
     }
 
     if ((list = vh_pget(item, "TASKS")) != NULL) {
-        printf("   needed for:\n");
+        output("   needed for:\n");
         v_iterate(list, iter) {
             task = vl_iter_pval(iter);
             if ((room = vh_pget(task, "ROOM")) == NULL)
@@ -102,32 +103,32 @@ text_item_entry(vhash *item)
                 V_BUF_SETF("%s (%s)",
                            vh_sgetref(task, "DESC"),
                            vh_sgetref(room, "DESC"));
-            put_string("      %s\n", V_BUF_VAL);
+            output("      %s\n", V_BUF_VAL);
         }
     }
 
     if ((list = vh_pget(item, "NROOMS")) != NULL) {
-        printf("   needed to enter:\n");
+        output("   needed to enter:\n");
         v_iterate(list, iter) {
             room = vl_iter_pval(iter);
-            put_string("      %s\n", vh_sgetref(room, "DESC"));
+            output("      %s\n", vh_sgetref(room, "DESC"));
         }
     }
 
     if ((list = vh_pget(item, "NLINKS")) != NULL) {
-        printf("   needed to move:\n");
+        output("   needed to move:\n");
         v_iterate(list, iter) {
             reach = vl_iter_pval(iter);
             room = vh_pget(reach, "FROM");
-            put_string("      %s to", vh_sgetref(room, "DESC"));
+            output("      %s to", vh_sgetref(room, "DESC"));
             room = vh_pget(reach, "TO");
-            put_string(" %s\n", vh_sgetref(room, "DESC"));
+            output(" %s\n", vh_sgetref(room, "DESC"));
         }
     }
 
     if (notes != NULL) {
         v_iterate(notes, iter)
-            put_string("   note: %s\n", vl_iter_svalref(iter));
+            output("   note: %s\n", vl_iter_svalref(iter));
     }
 }
 
@@ -152,39 +153,39 @@ text_task_entry(vhash *task)
             title = vh_sgetref(map, "TITLE");
         else
             title = "Interactive Fiction game";
-        put_string("Task list for %s\n", title);
+        output("Task list for %s\n", title);
     }
 
     type = vh_iget(task, "TYPE");
 
     if (type == T_MOVE) {
         if (count == 0)
-            put_string("\nStart: %s\n", vh_sgetref(startroom, "DESC"));
+            output("\nStart: %s\n", vh_sgetref(startroom, "DESC"));
 
         if (!moved)
-            printf("\n");
+            output("\n");
 
-        put_string("%s", vh_sgetref(task, "DESC"));
+        output("%s", vh_sgetref(task, "DESC"));
         if (cmds != NULL)
-            put_string(" (%s)", vl_join(cmds, ". "));
+            output(" (%s)", vl_join(cmds, ". "));
 
-        printf("\n");
+        output("\n");
         travel++;
         moved++;
     } else {
         if (room != NULL && (moved || room != lastroom))
-            put_string("\n%s:\n", vh_sgetref(room, "DESC"));
+            output("\n%s:\n", vh_sgetref(room, "DESC"));
         else if (!count)
-            printf("\nFirstly:\n");
+            output("\nFirstly:\n");
 
-        put_string("   %s\n", vh_sgetref(task, "DESC"));
+        output("   %s\n", vh_sgetref(task, "DESC"));
 
         if (cmds != NULL) {
             if (vl_length(cmds) > 0) {
                 v_iterate(cmds, iter)
-                    put_string("      cmd: %s\n", vl_iter_svalref(iter));
+                    output("      cmd: %s\n", vl_iter_svalref(iter));
             } else {
-                printf("      no action required\n");
+                output("      no action required\n");
             }
         }
 
@@ -196,25 +197,25 @@ text_task_entry(vhash *task)
             otask = vl_iter_pval(iter);
 
             if (type != T_MOVE)
-                printf("   ");
+                output("   ");
 
-            put_string("   also does: %s\n", vh_sgetref(otask, "DESC"));
+            output("   also does: %s\n", vh_sgetref(otask, "DESC"));
         }
     }
 
     if ((score = vh_iget(task, "SCORE")) > 0) {
         if (type != T_MOVE)
-            printf("   ");
+            output("   ");
 
-        printf("   score: %d\n", score);
+        output("   score: %d\n", score);
     }
 
     if (notes != NULL) {
         v_iterate(notes, iter) {
             if (type != T_MOVE)
-                printf("   ");
+                output("   ");
 
-            put_string("   note: %s\n", vl_iter_svalref(iter));
+            output("   note: %s\n", vl_iter_svalref(iter));
         }
     }
 
@@ -229,7 +230,7 @@ void
 text_task_finish(void)
 {
     if (travel > 0)
-        printf("\nTotal distance travelled: %d\n", travel);
+        output("\nTotal distance travelled: %d\n", travel);
     if (total > 0)
-        printf("\nTotal score: %d\n", total);
+        output("\nTotal score: %d\n", total);
 }
