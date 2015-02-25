@@ -27,9 +27,7 @@
 int v_deepcopy = 0;
 
 /* Pointer copy functions */
-/*@-exportheadervar@*/ 
 vhash *copy_funcs = NULL; 
-/*@=exportheadervar@*/ 
 
 /* Default copy function */
 static void *(*copyfunc)(void *p) = NULL;

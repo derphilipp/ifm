@@ -221,11 +221,11 @@ main(int argc, char *argv[])
             home = ".";
         }
 
-        V_BUF_SET1("%s/.ifmrc", home);
+        V_BUF_SETF("%s/.ifmrc", home);
         if (!parse_input(V_BUF_VAL, 0, 0))
             return 1;
 
-        V_BUF_SET1("%s/ifm.ini", home);
+        V_BUF_SETF("%s/ifm.ini", home);
         if (!parse_input(V_BUF_VAL, 0, 0))
             return 1;
     }
@@ -583,7 +583,7 @@ show_maps(void)
         if (vh_exists(sect, "TITLE"))
             title = vh_sgetref(sect, "TITLE");
         else
-            title = V_BUF_SET1("Map section %d", num);
+            title = V_BUF_SETF("Map section %d", num);
 
         rooms = vh_pget(sect, "ROOMS");
         xlen = vh_iget(sect, "XLEN");

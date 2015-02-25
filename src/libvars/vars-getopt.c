@@ -56,9 +56,7 @@
 #include "vars-macros.h"
 #include "vars-memory.h"
 
-/*@-noparams@*/
 #include "getopt.h"
-/*@=noparams@*/
 
 #define SET_VAR(type, var, val)                                         \
         if (var != NULL) *((type *) var) = val
@@ -481,13 +479,13 @@ v_usage(char *fmt, ...)
 
             if (strlen(sname) == 0) {
                 if (short_optlist == NULL)
-                    V_BUF_SET1("-%s", lname);    
+                    V_BUF_SETF("--%s", lname);    
                 else
-                    V_BUF_SET1("    -%s", lname);
+                    V_BUF_SETF("    --%s", lname);
             } else if (strlen(lname) == 0) {
-                V_BUF_SET1("-%s", sname);
+                V_BUF_SETF("-%s", sname);
             } else {
-                V_BUF_SET2("-%s, -%s", sname, lname);
+                V_BUF_SETF("-%s, --%s", sname, lname);
             }
 
             arg = 1;
@@ -514,7 +512,7 @@ v_usage(char *fmt, ...)
             vh_sstore(entry, "OPTS", V_BUF_VAL);
 
             if (arg) {
-                V_BUF_SET3("%s%s%s",
+                V_BUF_SETF("%s%s%s",
                            b1, (argname != NULL ? argname : "arg"), b2);
                 vh_sstore(entry, "ARG", V_BUF_VAL);
             }
@@ -531,7 +529,7 @@ v_usage(char *fmt, ...)
         str = vh_sgetref(entry, "OPTS");
 
         if (vh_exists(entry, "ARG"))
-            str = V_BUF_SET2("%s%s", str, vh_sgetref(entry, "ARG"));
+            str = V_BUF_SETF("%s%s", str, vh_sgetref(entry, "ARG"));
 
         vh_sstore(entry, "NAME", str);
         if (strlen(str) > (size_t) len)
@@ -543,7 +541,7 @@ v_usage(char *fmt, ...)
     puts(str);
 
     /* Build format string */
-    V_BUF_SET1("   %%-%ds %%s\n", len + 1);
+    V_BUF_SETF("   %%-%ds %%s\n", len + 1);
 
     /* Print options */
     v_iterate(entries, iter) {
@@ -556,7 +554,12 @@ v_usage(char *fmt, ...)
         for (i = 0; i < vl_length(list); i++)
             printf(V_BUF_VAL, (i > 0 ? "" : vh_sgetref(entry, "NAME")),
                    vl_sgetref(list, i));
+
+        vl_destroy(list);
     }
+
+    /* Clean up */
+    v_destroy(entries);
 }
 
 /*!
@@ -649,7 +652,7 @@ option(char optletter, char *optname, enum v_oflag type, char *argname,
             short_opthash = vh_create();
         }
 
-        V_BUF_SET1("%c", optletter);
+        V_BUF_SETF("%c", optletter);
         vh_sstore(opt, "SHORT", V_BUF_VAL);
 
         if (vh_exists(short_opthash, V_BUF_VAL))
@@ -671,7 +674,7 @@ option(char optletter, char *optname, enum v_oflag type, char *argname,
 
         vh_sstore(opt, "LONG", optname);
 
-        if (vh_exists(long_opthash, V_BUF_VAL))
+        if (vh_exists(long_opthash, optname))
             v_fatal("v_option(): option '%s' declared twice", optname);
 
         vl_ppush(long_optlist, opt);
@@ -854,7 +857,7 @@ set_short_option(vhash *opts, char opt, char *arg)
     void *var;
 
     /* Set the option */
-    V_BUF_SET1("%c", opt);
+    V_BUF_SETF("%c", opt);
     option = vh_pget(short_opthash, V_BUF_VAL);
     name = vh_sgetref(option, "SHORT");
     type = vh_iget(option, "TYPE");

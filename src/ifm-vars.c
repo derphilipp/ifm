@@ -95,7 +95,7 @@ load_styles(void)
         if (vh_exists(styles, name))
             continue;
 
-        V_BUF_SET1("%s.ifm", name);
+        V_BUF_SETF("%s.ifm", name);
         parse_input(V_BUF_VAL, 1, 0);
 
         if (!vh_exists(styles, name))
@@ -159,7 +159,7 @@ read_colour_defs(FILE *fp)
             continue;
 
         /* Scale RGB values */
-        V_BUF_SET3("%.3g %.3g %.3g",
+        V_BUF_SETF("%.3g %.3g %.3g",
                    red / 255.0, green / 255.0, blue / 255.0);
 
         /* Add colour */
@@ -269,7 +269,7 @@ var_encode(char *driver, char *var)
     if (strchr(var, '.') != NULL)
         V_BUF_SET(var);
     else
-        V_BUF_SET2("%s.%s", driver, var);
+        V_BUF_SETF("%s.%s", driver, var);
 
     return V_BUF_VAL;
 }

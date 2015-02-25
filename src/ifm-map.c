@@ -91,7 +91,7 @@ put_room_at(vhash * room, int sect, int x, int y)
 {
     V_BUF_DECL;
 
-    V_BUF_SET3("%d,%d,%d", sect, x, y);
+    V_BUF_SETF("%d,%d,%d", sect, x, y);
     vh_pstore(rpos, V_BUF_VAL, room);
     vh_istore(room, "X", x);
     vh_istore(room, "Y", y);
@@ -228,7 +228,7 @@ room_at(int sect, int x, int y)
 {
     V_BUF_DECL;
 
-    V_BUF_SET3("%d,%d,%d", sect, x, y);
+    V_BUF_SETF("%d,%d,%d", sect, x, y);
     return vh_pget(rpos, V_BUF_VAL);
 }
 
@@ -244,7 +244,7 @@ room_exit(vhash *room, int xoff, int yoff, int flag)
         fatal("internal: invalid direction offset");
 
     flags = vh_add_hash(room, "EXIT");
-    V_BUF_SET2("%d,%d", xoff, yoff);
+    V_BUF_SETF("%d,%d", xoff, yoff);
     num = vh_iget(flags, V_BUF_VAL);
     num = V_MAX(num, 0);
 

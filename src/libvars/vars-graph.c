@@ -247,7 +247,7 @@ enum {
 };
 
 /* Type variable */
-vtype *vgraph_type = NULL;
+static vtype *vgraph_type = NULL;
 
 /* Global search flags */
 static int searchflag = 0;

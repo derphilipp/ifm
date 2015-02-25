@@ -378,11 +378,11 @@ v_thaw_err(char *fmt, ...)
     V_BUF_FMT(fmt, msg);
 
     if (filename != NULL && line_number > 0)
-        V_NBUF_SET2(ebuf, "%s, line %d: ", filename, line_number);
+        V_NBUF_SETF(ebuf, "%s, line %d: ", filename, line_number);
     else if (line_number > 0)
-        V_NBUF_SET1(ebuf, "line %d: ", line_number);
+        V_NBUF_SETF(ebuf, "line %d: ", line_number);
     else if (filename != NULL)
-        V_NBUF_SET1(ebuf, "%s: ", filename);
+        V_NBUF_SETF(ebuf, "%s: ", filename);
     else
         V_NBUF_INIT(ebuf);
 
@@ -554,16 +554,9 @@ v_thaw_setline(int num)
 void
 v_thaw_start(void)
 {
-    static int decl = 0;
-
-    /* Declare standard types if required */
-    if (!decl) {
-        v_declare();
-        decl++;
-    }
-
     /* Initialise if required */
     if (ft_depth++ == 0) {
+        v_declare();
         line_number = start_line;
         num_errors = 0;
         lookahead = 0;

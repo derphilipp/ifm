@@ -41,7 +41,7 @@
 } while (0)
 
 /* Unknown type */
-vtype *vunknown_type = NULL;
+static vtype *vunknown_type = NULL;
 
 /* List of declared types */
 static int num_types = 0;
@@ -86,7 +86,9 @@ v_create(char *name, char *code)
     t->print = NULL;
     t->traverse = NULL;
     t->destroy = NULL;
-    t->yamldump = NULL;
+    t->yamlimport = NULL;
+    t->yamlexport = NULL;
+    t->yamlcleanup = NULL;
 
     /* Add it to the type list */
     GROW_LIST(vtype *, type_list, max_types, num_types, 10, t);
@@ -360,13 +362,37 @@ v_write_func(vtype *t, int (*func)())
 }
 
 /*!
-  @brief   Set YAML-dump function for a variable type.
+  @brief   Set YAML import function for a variable type.
   @ingroup type
   @param   t Type.
   @param   func Function.
 */
 void
-v_yamldump_func(vtype *t, int (*func)())
+v_yaml_import_func(vtype *t, void *(*func)())
 {
-    t->yamldump = func;
+    t->yamlimport = func;
+}
+
+/*!
+  @brief   Set YAML export function for a variable type.
+  @ingroup type
+  @param   t Type.
+  @param   func Function.
+*/
+void
+v_yaml_export_func(vtype *t, void *(*func)())
+{
+    t->yamlexport = func;
+}
+
+/*!
+  @brief   Set YAML cleanup function for a variable type.
+  @ingroup type
+  @param   t Type.
+  @param   func Function.
+*/
+void
+v_yaml_cleanup_func(vtype *t, void (*func)())
+{
+    t->yamlcleanup = func;
 }

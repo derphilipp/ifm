@@ -45,10 +45,9 @@
 #include "vars-list.h"
 #include "vars-macros.h"
 #include "vars-memory.h"
-#include "vars-yaml.h"
 
 #ifndef LIST_DEFAULT_SIZE
-#define LIST_DEFAULT_SIZE 16
+#define LIST_DEFAULT_SIZE 4
 #endif
 
 #define SENTENCE_END ".!?"
@@ -93,12 +92,11 @@ struct v_list {
 };
 
 /* Type variable */
-vtype *vlist_type = NULL;
+static vtype *vlist_type = NULL;
 
 /* Internal functions */
 static void vl_need_push(vlist *l, int num);
 static void vl_need_unshift(vlist *l, int num);
-static int vl_yamldump(vlist *l, FILE *fp);
 
 /*!
   @brief   Append a list to another list.
@@ -251,7 +249,6 @@ vl_declare(void)
         v_print_func(vlist_type, vl_print);
         v_destroy_func(vlist_type, vl_destroy);
         v_traverse_func(vlist_type, vl_traverse);
-        v_yamldump_func(vlist_type, vl_yamldump);
     }
 
     return vlist_type;
@@ -462,12 +459,12 @@ vl_insert(vlist *l, int num, vscalar *s)
     }
 
     vl_need_push(l, 1);
-    l->end++;
 
     for (i = LLEN(l) - 1; i >= num; i--)
         LVAL(l, i + 1) = LVAL(l, i);
 
     LVAL(l, num) = s;
+    l->end++;
 
     return num;
 }
@@ -893,10 +890,10 @@ vl_remove(vlist *l, int num)
     }
 
     s = LVAL(l, num);
+    l->end--;
 
     for (i = num; i < LLEN(l); i++)
         LVAL(l, i) = LVAL(l, i + 1);
-    l->end--;
 
     return s;
 }
@@ -1009,7 +1006,7 @@ vl_sort(vlist *l, int (*compare)(vscalar **s1, vscalar **s2))
 	compare = vs_cmp;
 
     if (LLEN(l) > 1)
-        qsort(l->list, (size_t) LLEN(l), sizeof(vscalar *),
+        qsort(l->list + l->beg, (size_t) LLEN(l), sizeof(vscalar *),
               (int (*)(const void *, const void *)) compare);
 }
 
@@ -1339,26 +1336,6 @@ vl_write(vlist *l, FILE *fp)
     for (i = l->beg; i <= l->end; i++)
         if (!vs_write(l->list[i], fp))
             return 0;
-
-    return 1;
-}
-
-/* Dump contents of a list in YAML format */
-static int
-vl_yamldump(vlist *l, FILE *fp)
-{
-    int i;
-
-    VL_CHECK(l);
-
-    if (!v_yaml_start(fp))
-        return 0;
-
-    if (!v_yaml_write_list(l, fp))
-        return 0;
-
-    if (!v_yaml_finish(fp))
-        return 0;
 
     return 1;
 }

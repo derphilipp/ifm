@@ -47,7 +47,6 @@
 #include "vars-memory.h"
 #include "vars-scalar.h"
 #include "vars-system.h"
-#include "vars-yaml.h"
 
 #define FLOAT_FORMAT "%.12g"
 
@@ -68,10 +67,7 @@ struct v_scalar {
 static char buf[BUFSIZ];
 
 /* Type variable */
-vtype *vscalar_type = NULL;
-
-/* Internal functions */
-static int vs_yamldump(vscalar *s, FILE *fp);
+static vtype *vscalar_type = NULL;
 
 /*!
   @brief Return case-independent string comparison of two scalars.
@@ -168,9 +164,7 @@ vs_copy(vscalar *s)
     vc = vs_create(s->type);
     vc->v = s->v;
 
-    if (s->type == V_TYPE_STRING)
-	vc->v.s = V_STRDUP(s->v.s);
-    else if (s->type == V_TYPE_POINTER && v_deepcopy)
+    if (s->type == V_TYPE_POINTER && v_deepcopy)
         vc->v.p = v_copy(s->v.p);
 
     return vc;
@@ -237,7 +231,6 @@ vs_declare(void)
         v_print_func(vscalar_type, vs_print);
         v_freeze_func(vscalar_type, vs_freeze);
         v_thaw_func(vscalar_type, (void *(*)()) vs_thaw);
-        v_yamldump_func(vscalar_type, vs_yamldump);
         v_destroy_func(vscalar_type, vs_destroy);
         v_traverse_func(vscalar_type, vs_traverse);
     }
@@ -263,10 +256,6 @@ void
 vs_destroy(vscalar *s)
 {
     VS_CHECK(s);
-
-    if (s->type == V_TYPE_STRING && !vh_interned(s->v.s))
-	V_DEALLOC(s->v.s);
-
     V_DEALLOC(s);
 }
 
@@ -325,9 +314,6 @@ vs_dstore(vscalar *s, double val)
 	s = vs_create(V_TYPE_DOUBLE);
 
     VS_CHECK(s);
-
-    if (s->type == V_TYPE_STRING)
-	V_DEALLOC(s->v.s);
 
     s->type = V_TYPE_DOUBLE;
     s->v.d = val;
@@ -535,9 +521,6 @@ vs_fstore(vscalar *s, float val)
 
     VS_CHECK(s);
 
-    if (s->type == V_TYPE_STRING)
-	V_DEALLOC(s->v.s);
-
     s->type = V_TYPE_FLOAT;
     s->v.f = val;
 
@@ -600,9 +583,6 @@ vs_istore(vscalar *s, int val)
 
     VS_CHECK(s);
 
-    if (s->type == V_TYPE_STRING)
-	V_DEALLOC(s->v.s);
-
     s->type = V_TYPE_INT;
     s->v.i = val;
 
@@ -662,6 +642,7 @@ void
 vs_print(vscalar *s, FILE *fp)
 {
     void *ptr;
+    char *str;
 
     VS_CHECK(s);
 
@@ -683,7 +664,17 @@ vs_print(vscalar *s, FILE *fp)
             v_print(ptr, fp);
         }
     } else {
-        fprintf(fp, "%s\n", vs_sget_buf(s, buf));
+        str = vs_sget_buf(s, buf);
+
+        while (*str != '\0') {
+            if (*str == '\n')
+                fputs("\\n", fp);
+            else
+                fputc(*str, fp);
+            str++;
+        }
+
+        fputc('\n', fp);
     }
 
     v_print_finish();
@@ -705,9 +696,6 @@ vs_pstore(vscalar *s, void *val)
 	s = vs_create(V_TYPE_POINTER);
 
     VS_CHECK(s);
-
-    if (s->type == V_TYPE_STRING)
-	V_DEALLOC(s->v.s);
 
     s->type = V_TYPE_POINTER;
     s->v.p = val;
@@ -927,11 +915,8 @@ vs_sstore(vscalar *s, char *val)
 
     VS_CHECK(s);
 
-    if (s->type == V_TYPE_STRING)
-	V_DEALLOC(s->v.s);
-
     s->type = V_TYPE_STRING;
-    s->v.s = (val == NULL ? NULL : V_STRDUP(val));
+    s->v.s = vh_intern(val);
 
     return s;
 }
@@ -949,6 +934,7 @@ vs_sstore(vscalar *s, char *val)
 vscalar *
 vs_sstore_len(vscalar *s, char *base, size_t len)
 {
+    char *val;
     int i;
 
     if (s == NULL)
@@ -956,16 +942,18 @@ vs_sstore_len(vscalar *s, char *base, size_t len)
 
     VS_CHECK(s);
 
-    if (s->type == V_TYPE_STRING)
-	V_DEALLOC(s->v.s);
-
-    s->type = V_TYPE_STRING;
-    s->v.s = V_ALLOC(char, len + 1);
+    val = V_ALLOC(char, len + 1);
 
     for (i = 0; i < len; i++)
-        s->v.s[i] = base[i];
+        val[i] = base[i];
 
-    s->v.s[len] = '\0';
+    val[len] = '\0';
+
+    s->type = V_TYPE_STRING;
+    s->v.s = vh_intern(val);
+
+    V_DEALLOC(val);
+
     return s;
 }
 
@@ -1083,10 +1071,6 @@ void
 vs_undef(vscalar *s)
 {
     VS_CHECK(s);
-
-    if (s->type == V_TYPE_STRING)
-	V_DEALLOC(s->v.s);
-
     s->type = V_TYPE_UNDEF;
 }
 
@@ -1123,24 +1107,6 @@ vs_write(vscalar *s, FILE *fp)
             return 0;
         break;
     }
-
-    return 1;
-}
-
-/* Dump YAML scalar to file */
-int
-vs_yamldump(vscalar *s, FILE *fp)
-{
-    VS_CHECK(s);
-
-    if (!v_yaml_start(fp))
-        return 0;
-
-    if (!v_yaml_write_scalar(s, fp))
-        return 0;
-
-    if (!v_yaml_finish(fp))
-        return 0;
 
     return 1;
 }

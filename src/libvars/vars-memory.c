@@ -75,9 +75,7 @@ v_duplicate(const void *orig, size_t size)
 void
 v_free(void *ptr)
 {
-    /*@-shadow@*/
     extern vhash *print_funcs, *free_funcs, *copy_funcs;
-    /*@=shadow@*/
     static char kbuf[30];
     char *key;
 

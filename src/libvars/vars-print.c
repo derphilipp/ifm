@@ -35,9 +35,7 @@ static int printaddr = 1;       /* Whether to print addresses */
 static vhash *visited;          /* Hash of visited pointers */
 
 /* Pointer printing functions */
-/*@-exportheadervar@*/ 
 vhash *print_funcs = NULL; 
-/*@=exportheadervar@*/ 
 
 /* Default pointer printing function */
 static void (*printfunc)(void *p, FILE *fp) = NULL;
@@ -119,10 +117,8 @@ v_print(void *ptr, FILE *fp)
             else
                 v_print_type(type, ptr, fp);
         } else if (print_funcs != NULL) {
-            /*@-type@*/ 
             if ((func = vh_pget(print_funcs, key)) != NULL)
                 func(ptr, fp);
-            /*@=type@*/ 
         } else if (printfunc != NULL) {
             printfunc(ptr, fp);
         } else {

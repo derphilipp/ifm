@@ -69,6 +69,13 @@
   tracking is turned off before the program finishes, the debugging
   features that use it will become confused.  So it's a fatal error to do
   these things.
+
+  @par Limitations
+
+  Don't use the memory tracking features with parallel processing.  The
+  debug flag are manipulated during the checking process and one process
+  disable memory tracking when another process requires tracking to be
+  enabled.  This can result in spurious errors.
 */
 
 #include <stdio.h>
@@ -87,10 +94,6 @@
 
 #ifdef HAVE_SYS_TIMES_H
 #include <sys/times.h>
-#endif
-
-#ifndef CLK_TCK
-#define CLK_TCK 1
 #endif
 
 #define MEM_TRACK_FLAGS (V_DBG_MEMORY | V_DBG_PTRALLOC)
@@ -314,7 +317,7 @@ v_times(double *real, double *user, double *sys)
 
     /* Initialise ticksize */
     if (ticksize < 0)
-        ticksize = (double) CLK_TCK;
+        ticksize = (double) CLOCKS_PER_SEC;
 
     /* Calculate times in seconds */
     if (real != NULL)

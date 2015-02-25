@@ -111,7 +111,7 @@ tk_map_section(vhash *sect)
     num++;
 
     if (strlen(title) == 0)
-        V_BUF_SET1("Map section %d", num);
+        V_BUF_SETF("Map section %d", num);
     else
         V_BUF_SET(title);
 

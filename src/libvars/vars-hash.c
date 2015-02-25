@@ -72,7 +72,6 @@
 #include "vars-hash.h"
 #include "vars-macros.h"
 #include "vars-memory.h"
-#include "vars-yaml.h"
 
 /* Calculate a hash value */
 #define VH_HASHVAL(size, key, value) do {       \
@@ -140,7 +139,7 @@ typedef struct v_table {
 } vtable;
 
 /* Type variable */
-vtype *vhash_type = NULL;
+static vtype *vhash_type = NULL;
 
 /* List of primes closest to powers of 2 */
 static int primes[] = {
@@ -163,7 +162,6 @@ char vh_keybuf[V_HEXSTRING_SIZE];
 /* Internal functions */
 static vtable **vh_entries(vhash *h);
 static int vh_entries_cmp(vtable **t1, vtable **t2);
-static int vh_yamldump(vhash *h, FILE *fp);
 
 /*!
   @brief   Create abbreviation table from word list.
@@ -379,7 +377,6 @@ vh_declare(void)
         v_freeze_func(vhash_type, vh_freeze);
         v_thaw_func(vhash_type, (void *(*)()) vh_thaw);
         v_print_func(vhash_type, vh_print);
-        v_yamldump_func(vhash_type, vh_yamldump);
         v_destroy_func(vhash_type, vh_destroy);
         v_traverse_func(vhash_type, vh_traverse);
     }
@@ -1217,26 +1214,6 @@ vh_write(vhash *h, FILE *fp)
                 return 0;
         }
     }
-
-    return 1;
-}
-
-/* Dump contents of a hash in YAML format */
-static int
-vh_yamldump(vhash *h, FILE *fp)
-{
-    int i;
-
-    VH_CHECK(h);
-
-    if (!v_yaml_start(fp))
-        return 0;
-
-    if (!v_yaml_write_hash(h, fp))
-        return 0;
-
-    if (!v_yaml_finish(fp))
-        return 0;
 
     return 1;
 }

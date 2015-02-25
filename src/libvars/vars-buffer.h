@@ -74,53 +74,13 @@
 /*! @brief Print into the buffer using stdargs. */
 #define V_BUF_FMT(fmt, val) V_NBUF_FMT(V_BUF_NAME, fmt, val)
 
-/*! @brief Set buffer in a sprintf() manner with 1 argument. */
-#define V_BUF_SET1(fmt, v1)						\
-	V_NBUF_SET1(V_BUF_NAME, fmt, v1)
+/*! @brief Set buffer in a sprintf() manner. */
+#define V_BUF_SETF(fmt, ...)						\
+	V_NBUF_SETF(V_BUF_NAME, fmt, __VA_ARGS__)
 
-/*! @brief Set buffer in a sprintf() manner with 2 arguments. */
-#define V_BUF_SET2(fmt, v1, v2)						\
-	V_NBUF_SET2(V_BUF_NAME, fmt, v1, v2)
-
-/*! @brief Set buffer in a sprintf() manner with 3 arguments. */
-#define V_BUF_SET3(fmt, v1, v2, v3)					\
-	V_NBUF_SET3(V_BUF_NAME, fmt, v1, v2, v3)
-
-/*! @brief Set buffer in a sprintf() manner with 4 arguments. */
-#define V_BUF_SET4(fmt, v1, v2, v3, v4)					\
-	V_NBUF_SET4(V_BUF_NAME, fmt, v1, v2, v3, v4)
-
-/*! @brief Set buffer in a sprintf() manner with 5 arguments. */
-#define V_BUF_SET5(fmt, v1, v2, v3, v4, v5)				\
-	V_NBUF_SET5(V_BUF_NAME, fmt, v1, v2, v3, v4, v5)
-
-/*! @brief Set buffer in a sprintf() manner with 6 arguments. */
-#define V_BUF_SET6(fmt, v1, v2, v3, v4, v5, v6)				\
-	V_NBUF_SET6(V_BUF_NAME, fmt, v1, v2, v3, v4, v5, v6)
-
-/*! @brief Append to buffer in a sprintf() manner with 1 argument. */
-#define V_BUF_ADD1(fmt, v1)						\
-	V_NBUF_ADD1(V_BUF_NAME, fmt, v1)
-
-/*! @brief Append to buffer in a sprintf() manner with 2 arguments. */
-#define V_BUF_ADD2(fmt, v1, v2)						\
-	V_NBUF_ADD2(V_BUF_NAME, fmt, v1, v2)
-
-/*! @brief Append to buffer in a sprintf() manner with 3 arguments. */
-#define V_BUF_ADD3(fmt, v1, v2, v3)					\
-	V_NBUF_ADD3(V_BUF_NAME, fmt, v1, v2, v3)
-
-/*! @brief Append to buffer in a sprintf() manner with 4 arguments. */
-#define V_BUF_ADD4(fmt, v1, v2, v3, v4)					\
-	V_NBUF_ADD4(V_BUF_NAME, fmt, v1, v2, v3, v4)
-
-/*! @brief Append to buffer in a sprintf() manner with 5 arguments. */
-#define V_BUF_ADD5(fmt, v1, v2, v3, v4, v5)				\
-	V_NBUF_ADD5(V_BUF_NAME, fmt, v1, v2, v3, v4, v5)
-
-/*! @brief Append to buffer in a sprintf() manner with 6 arguments. */
-#define V_BUF_ADD6(fmt, v1, v2, v3, v4, v5, v6)				\
-	V_NBUF_ADD6(V_BUF_NAME, fmt, v1, v2, v3, v4, v5, v6)
+/*! @brief Append to buffer in a sprintf() manner. */
+#define V_BUF_ADDF(fmt, ...)						\
+	V_NBUF_ADDF(V_BUF_NAME, fmt, __VA_ARGS__)
 
 /*! @brief Declare a named buffer. */
 #define V_NBUF_DECL(b) static vbuffer *b = NULL
@@ -162,53 +122,13 @@
         val = V_NBUF_VAL(b);                                            \
 }
 
-/*! @brief Set named buffer in a sprintf() manner with 1 argument. */
-#define V_NBUF_SET1(b, fmt, v1)                                         \
-	(V_NBUF_INIT(b), V_NBUF_ADD1(b, fmt, v1))
+/*! @brief Set named buffer in a sprintf(). */
+#define V_NBUF_SETF(b, fmt, ...)                                        \
+	(V_NBUF_INIT(b), V_NBUF_ADDF(b, fmt, __VA_ARGS__))
 
-/*! @brief Set named buffer in a sprintf() manner with 2 arguments. */
-#define V_NBUF_SET2(b, fmt, v1, v2)					\
-	(V_NBUF_INIT(b), V_NBUF_ADD2(b, fmt, v1, v2))
-
-/*! @brief Set named buffer in a sprintf() manner with 3 arguments. */
-#define V_NBUF_SET3(b, fmt, v1, v2, v3)                                 \
-	(V_NBUF_INIT(b), V_NBUF_ADD3(b, fmt, v1, v2, v3))
-
-/*! @brief Set named buffer in a sprintf() manner with 4 arguments. */
-#define V_NBUF_SET4(b, fmt, v1, v2, v3, v4)				\
-	(V_NBUF_INIT(b), V_NBUF_ADD4(b, fmt, v1, v2, v3, v4))
-
-/*! @brief Set named buffer in a sprintf() manner with 5 arguments. */
-#define V_NBUF_SET5(b, fmt, v1, v2, v3, v4, v5)                         \
-	(V_NBUF_INIT(b), V_NBUF_ADD5(b, fmt, v1, v2, v3, v4, v5))
-
-/*! @brief Set named buffer in a sprintf() manner with 6 arguments. */
-#define V_NBUF_SET6(b, fmt, v1, v2, v3, v4, v5, v6)			\
-	(V_NBUF_INIT(b), V_NBUF_ADD6(b, fmt, v1, v2, v3, v4, v5, v6))
-
-/*! @brief Append to named buffer in a sprintf() manner with 1 argument. */
-#define V_NBUF_ADD1(b, fmt, v1)                                         \
-	(vb_printf(b, fmt, v1), V_NBUF_VAL(b))
-
-/*! @brief Append to named buffer in a sprintf() manner with 2 arguments. */
-#define V_NBUF_ADD2(b, fmt, v1, v2)					\
-	(vb_printf(b, fmt, v1, v2), V_NBUF_VAL(b))
-
-/*! @brief Append to named buffer in a sprintf() manner with 3 arguments. */
-#define V_NBUF_ADD3(b, fmt, v1, v2, v3)                                 \
-	(vb_printf(b, fmt, v1, v2, v3), V_NBUF_VAL(b))
-
-/*! @brief Append to named buffer in a sprintf() manner with 4 arguments. */
-#define V_NBUF_ADD4(b, fmt, v1, v2, v3, v4)				\
-	(vb_printf(b, fmt, v1, v2, v3, v4), V_NBUF_VAL(b))
-
-/*! @brief Append to named buffer in a sprintf() manner with 5 arguments. */
-#define V_NBUF_ADD5(b, fmt, v1, v2, v3, v4, v5)                         \
-	(vb_printf(b, fmt, v1, v2, v3, v4, v5), V_NBUF_VAL(b))
-
-/*! @brief Append to named buffer in a sprintf() manner with 6 arguments. */
-#define V_NBUF_ADD6(b, fmt, v1, v2, v3, v4, v5, v6)			\
-	(vb_printf(b, fmt, v1, v2, v3, v4, v5, v6), V_NBUF_VAL(b))
+/*! @brief Append to named buffer in a sprintf() manner. */
+#define V_NBUF_ADDF(b, fmt, ...)                                        \
+	(vb_printf(b, fmt, __VA_ARGS__), V_NBUF_VAL(b))
 
 /*! @brief Buffer type. */
 typedef struct v_buffer vbuffer;

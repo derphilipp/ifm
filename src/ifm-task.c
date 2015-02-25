@@ -122,7 +122,7 @@ check_cycles(void)
 
         V_BUF_ADD("   cycle:\n");
         v_iterate(list, j)
-            V_BUF_ADD1("      %s\n", vl_iter_svalref(j));
+            V_BUF_ADDF("      %s\n", vl_iter_svalref(j));
     }
 
     count = vl_length(cycles);
@@ -601,20 +601,20 @@ new_task(int type, vhash *data)
 
     switch (type) {
     case T_MOVE:
-        V_BUF_SET1("Move to %s", desc);
+        V_BUF_SETF("Move to %s", desc);
         room = data;
         break;
     case T_GET:
-        V_BUF_SET1("Get %s", desc);
+        V_BUF_SETF("Get %s", desc);
         room = vh_pget(data, "ROOM");
         break;
     case T_DROP:
-        V_BUF_SET1("Drop %s", desc);
+        V_BUF_SETF("Drop %s", desc);
         room = NULL;
         score = 0;
         break;
     case T_GOTO:
-        V_BUF_SET1("Go to %s", desc);
+        V_BUF_SETF("Go to %s", desc);
         room = data;
         break;
     case T_USER:
@@ -1206,7 +1206,7 @@ task_graph(void)
     if (tasklist != NULL) {
         v_iterate(tasklist, i) {
             step = vl_iter_pval(i);
-            V_BUF_SET1("T%d", ++count);
+            V_BUF_SETF("T%d", ++count);
             vh_sstore(step, "NODE", V_BUF_VAL);
             vg_node_pstore(g, V_BUF_VAL, step);
         }
@@ -1397,13 +1397,13 @@ warn_failure(void)
         if (rdesc == NULL)
             V_BUF_SET(tdesc);
         else
-            V_BUF_SET2("%s (%s)", tdesc, rdesc);
+            V_BUF_SETF("%s (%s)", tdesc, rdesc);
 
         vl_spush(list, V_BUF_VAL);
     }
 
     /* Build warning message */
-    V_BUF_SET1("   final location:\n      %s\n",
+    V_BUF_SETF("   final location:\n      %s\n",
                vh_sgetref(location, "DESC"));
 
     keys = vh_keys(reasons);
@@ -1415,10 +1415,10 @@ warn_failure(void)
         entries = vl_join(list, ", ");
 
         list = vl_filltext(entries, 65);
-        V_BUF_ADD1("   %s:\n", reason);
+        V_BUF_ADDF("   %s:\n", reason);
 
         v_iterate(list, iter)
-            V_BUF_ADD1("      %s\n", vl_iter_svalref(iter));
+            V_BUF_ADDF("      %s\n", vl_iter_svalref(iter));
     }
 
     vl_destroy(keys);

@@ -147,7 +147,7 @@ dot_task_finish(void)
 
             V_BUF_SET(vh_sgetref(step, "DESC"));
             if (!show_rooms && strlen(name) > 0)
-                V_BUF_ADD1(" [%s]", name);
+                V_BUF_ADDF(" [%s]", name);
 
             if (word_wrap > 0) {
                 lines = vl_filltext(V_BUF_VAL, word_wrap);

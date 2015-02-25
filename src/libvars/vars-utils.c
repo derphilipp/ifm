@@ -39,6 +39,10 @@
 #include <zlib.h>
 #endif
 
+#ifdef HAVE_LIBUUID
+#include <uuid.h>
+#endif
+
 /* Hook functions */
 static void (*fatal_hook)(char *msg) = NULL;
 static vlist *exception_hooks = NULL;
@@ -430,6 +434,37 @@ v_uncompress(unsigned char *cdata, unsigned long csize, unsigned long size)
     return data;
 #else
     v_unavailable("v_uncompress()");
+    return NULL;
+#endif
+}
+
+/*!
+  @brief   Generate and return a unique UUID.
+  @ingroup util_string
+  @return  UUID string (reused; copy, don't deallocate).
+  @retval  NULL if it failed.
+*/
+char *
+v_uuid(void)
+{
+#ifdef HAVE_LIBUUID
+    static uuid_t *uuid = NULL;
+    static char *str = NULL;
+
+    if (uuid == NULL)
+        uuid_create(&uuid);
+
+    if (str != NULL) {
+        free(str);
+        str = NULL;
+    }
+
+    uuid_make(uuid, UUID_MAKE_V4);
+    uuid_export(uuid, UUID_FMT_STR, &str, NULL);
+
+    return str;
+#else
+    v_unavailable("v_uuid()");
     return NULL;
 #endif
 }

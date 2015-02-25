@@ -87,7 +87,7 @@ find_file(char *name)
     viter iter;
 
     v_iterate(ifm_search, iter) {
-        path = V_BUF_SET2("%s/%s", vl_iter_svalref(iter), name);
+        path = V_BUF_SETF("%s/%s", vl_iter_svalref(iter), name);
         if (v_exists(path))
             return path;
     }
@@ -405,7 +405,7 @@ setup_room_names(void)
         v_iterate(rooms, iter) {
             room = vl_iter_pval(iter);
             if (vh_exists(room, "TAG")) {
-                V_BUF_SET2("%s [%s]",
+                V_BUF_SETF("%s [%s]",
                            vh_sgetref(room, "RDESC"),
                            vh_sgetref(room, "TAG"));
                 vh_sstore(room, "RDESC", V_BUF_VAL);

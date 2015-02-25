@@ -20,7 +20,9 @@ struct v_type {
     int (*write)();             /* Write function */
     int (*freeze)();            /* Freeze function */
     void *(*thaw)();            /* Thaw function */
-    int (*yamldump)();          /* Dump-YAML function */
+    void *(*yamlimport)();      /* Import-YAML function */
+    void *(*yamlexport)();      /* Export-YAML function */
+    void (*yamlcleanup)();      /* Cleanup-YAML function */
     int (*traverse)();          /* Traversal function */
     void (*destroy)();          /* Destruction function */
 };
@@ -71,7 +73,9 @@ extern void v_read_func(vtype *t, void *(*func)());
 extern void v_thaw_func(vtype *t, void *(*func)());
 extern void v_traverse_func(vtype *t, int (*func)());
 extern void v_write_func(vtype *t, int (*func)());
-extern void v_yamldump_func(vtype *t, int (*func)());
+extern void v_yaml_import_func(vtype *t, void *(*func)());
+extern void v_yaml_export_func(vtype *t, void *(*func)());
+extern void v_yaml_cleanup_func(vtype *t, void (*func)());
 
 #ifdef __cplusplus
 }

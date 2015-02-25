@@ -26,9 +26,7 @@
 static vlist *pointers = NULL; 
 
 /* Pointer destruction functions */
-/*@-exportheadervar@*/ 
 vhash *free_funcs = NULL; 
-/*@=exportheadervar@*/ 
 
 /* Default destruction function */
 static void (*freefunc)(void *p) = NULL;
@@ -86,7 +84,6 @@ v_destroy(void *ptr)
         } else {
             key = vh_pkey_buf(p, buf);
 
-            /*@-type@*/ 
             if (free_funcs != NULL &&
                 (func = vh_pget(free_funcs, key)) != NULL) {
                 /* Use explicit destruction function */
@@ -96,7 +93,6 @@ v_destroy(void *ptr)
                 /* Use default function */
                 freefunc(p);
             }
-            /*@=type@*/ 
         }
     }
 

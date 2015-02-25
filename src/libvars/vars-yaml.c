@@ -3,6 +3,9 @@
   @ingroup methods
 
   These functions read and write Vars objects in YAML format.
+
+  @bug: memory access problems when reading YAML stream; strings in stream
+  are checked via vl_check() etc, and cause memory overrun.
 */
 
 /*!
@@ -38,10 +41,30 @@
 #include "vars-type.h"
 #include "vars-yaml.h"
 
-#define FLOAT_FORMAT "%.12g"
+#define TAG_PREFIX "vars/"
 
 /* Output width */
 #define WIDTH 65
+
+#define GET_EVENT(parser, event)                            \
+    do {                                                    \
+        if (!yaml_parser_parse(parser, event)) {            \
+            v_yaml_read_err(NULL, parser);                  \
+            return NULL;                                    \
+        }                                                   \
+    } while (0)
+
+#define NEXT_EVENT(parser, event)               \
+    yaml_event_delete(event);                   \
+    GET_EVENT(parser, event)
+
+#define GET_TAG(item, buf)                                      \
+    do {                                                        \
+        if (item.tag != NULL)                                   \
+            strcpy(buf, item.tag);                              \
+        else                                                    \
+            strcpy(buf, "");                                    \
+    } while (0)
 
 /* Current YAML filename */
 static char *filename = NULL;
@@ -59,162 +82,21 @@ V_NBUF_DECL(ebuf);
 
 /* Internal functions */
 #ifdef HAVE_LIBYAML
-static void *v_yaml_read_object(vlist *events);
-static int v_yaml_next_event(vlist *events);
+static void *v_yaml_read_object(yaml_parser_t *parser, yaml_event_t *event);
+static void *v_yaml_import_object(void *ptr, char *tag);
+static vscalar *v_yaml_scalar(void *ptr);
 static void v_yaml_read_err(char *msg, yaml_parser_t *parser);
+static int v_yaml_write_scalar(vscalar *s, FILE *fp);
+static int v_yaml_write_list(vlist *l, char *tag, FILE *fp);
+static int v_yaml_write_hash(vhash *h, char *tag, FILE *fp);
+static int v_yaml_write_string(char *val, FILE *fp);
+static int v_yaml_start(FILE *fp);
+static int v_yaml_finish(FILE *fp);
+static int v_yaml_start_list(FILE *fp, char *tag);
+static int v_yaml_finish_list(FILE *fp);
+static int v_yaml_start_hash(FILE *fp, char *tag);
+static int v_yaml_finish_hash(FILE *fp);
 static char *v_yaml_tag(char *tag);
-#endif
-
-/*!
-  @brief   Read YAML objects from a stream.
-  @ingroup yaml_high
-  @param   fp Stream to read.
-  @return  Pointer to Vars object.
-  @retval  NULL if it failed.
-*/
-void *
-v_yaml_read(FILE *fp)
-{
-#ifdef HAVE_LIBYAML
-    vlist *events = NULL, *objects = NULL;
-    yaml_parser_t parser;
-    void *object = NULL;
-    yaml_event_t event;
-    int loop = 1;
-
-    /* Initalize */
-    if (yaml_parser_initialize(&parser)) {
-        yaml_parser_set_input_file(&parser, fp);
-    } else {
-        v_yaml_read_err("can't initialize parser", NULL);
-        return NULL;
-    }
-
-    /* Parse input stream into events */
-    events = vl_create();
-
-    while (loop) {
-        if (yaml_parser_parse(&parser, &event)) {
-            switch (event.type) {
-
-            case YAML_SEQUENCE_START_EVENT:
-            case YAML_SEQUENCE_END_EVENT:
-            case YAML_MAPPING_START_EVENT:
-            case YAML_MAPPING_END_EVENT:
-                vl_ipush(events, event.type);
-                break;
-
-            case YAML_SCALAR_EVENT:
-                vl_spush(events, event.data.scalar.value);
-                break;
-
-            case YAML_STREAM_END_EVENT:
-                loop = 0;
-                break;
-            }
-
-            yaml_event_delete(&event);
-        } else {
-            v_yaml_read_err(NULL, &parser);
-            goto cleanup;
-        }
-    }
-
-    /* Scan event list and build data structure */
-    objects = vl_create();
-    while ((object = v_yaml_read_object(events)) != NULL)
-        vl_ppush(objects, object);
-
-  cleanup:
-    /* Clean up */
-    yaml_parser_delete(&parser);
-
-    if (events != NULL)
-        vl_destroy(events);
-
-    /* If more than one document, return list of them */
-    if (objects != NULL && vl_length(objects) > 1)
-        return objects;
-
-    /* Otherwise, extract the document and return it */
-    if (objects != NULL) {
-        object = vl_phead(objects);
-        vl_destroy(objects);
-    }
-
-    return object;
-#else
-    v_unavailable("v_yaml_read()");
-#endif
-}
-
-#ifdef HAVE_LIBYAML
-/* Read an object from a parsed YAML event list */
-static void *
-v_yaml_read_object(vlist *events)
-{
-    void *object;
-    vlist *list;
-    vhash *hash;
-    char *key;
-
-    if (vl_length(events) == 0)
-        return NULL;
-
-    switch (v_yaml_next_event(events)) {
-
-    case YAML_SEQUENCE_START_EVENT:
-        vl_ishift(events);
-        list = vl_create();
-
-        while (v_yaml_next_event(events) != YAML_SEQUENCE_END_EVENT) {
-            object = v_yaml_read_object(events);
-
-            if (vl_check(object) || vh_check(object))
-                vl_ppush(list, object);
-            else
-                vl_spush(list, object);
-        }
-
-        vl_ishift(events);
-        return list;
-
-    case YAML_MAPPING_START_EVENT:
-        vl_ishift(events);
-        hash = vh_create();
-
-        while (v_yaml_next_event(events) != YAML_MAPPING_END_EVENT) {
-            key = v_yaml_read_object(events);
-            object = v_yaml_read_object(events);
-
-            if (vl_check(object) || vh_check(object))
-                vh_pstore(hash, key, object);
-            else
-                vh_sstore(hash, key, object);
-        }
-
-        vl_ishift(events);
-        return hash;
-
-    case YAML_SCALAR_EVENT:
-        return vl_sshift(events);
-    }
-
-    v_exception("unhandled yaml event: %d\n", vl_ihead(events));
-    return NULL;
-}
-
-/* Return next event from a YAML event list */
-static int
-v_yaml_next_event(vlist *events)
-{
-    vscalar *s = vl_head(events);
-
-    if (vs_type(s) == V_TYPE_INT)
-        return vs_iget(s);
-    else
-        return YAML_SCALAR_EVENT;
-}
 #endif
 
 /*!
@@ -238,7 +120,7 @@ v_yaml_read_file(char *file)
         filename = NULL;
         v_close(fp);
     } else {
-        V_BUF_SET2("can't open %s: %s", file, strerror(errno));
+        V_BUF_SETF("can't open %s: %s", file, strerror(errno));
         v_yaml_read_err(V_BUF_VAL, NULL);
     }
 
@@ -248,25 +130,263 @@ v_yaml_read_file(char *file)
 #endif
 }
 
+/*!
+  @brief   Read YAML objects from a stream.
+  @ingroup yaml_high
+  @param   fp Stream to read.
+  @return  Pointer to Vars object.
+  @retval  NULL if it failed.
+*/
+void *
+v_yaml_read(FILE *fp)
+{
 #ifdef HAVE_LIBYAML
+    vlist *objects = NULL;
+    void *object = NULL;
+    vscalar *value;
+
+    yaml_parser_t parser;
+    yaml_event_t event;
+
+    /* Initalize */
+    v_declare();
+
+    if (yaml_parser_initialize(&parser)) {
+        yaml_parser_set_input_file(&parser, fp);
+    } else {
+        v_yaml_read_err("can't initialize parser", NULL);
+        return NULL;
+    }
+
+    /* Read initial YAML event */
+    GET_EVENT(&parser, &event);
+
+    /* Parse events and build objects */
+    objects = vl_create();
+    while ((object = v_yaml_read_object(&parser, &event)) != NULL) {
+        if (vl_check(object) || vh_check(object)) {
+            vl_ppush(objects, object);
+        } else {
+            value = v_yaml_scalar(object);
+            vl_push(objects, value);
+            NEXT_EVENT(&parser, &event);
+        }
+    }
+
+    /* Clean up */
+    yaml_event_delete(&event);
+    yaml_parser_delete(&parser);
+
+    /* If more than one document, return list of them */
+    if (vl_length(objects) > 1)
+        return objects;
+
+    /* Otherwise, extract the document and return it */
+    value = vl_head(objects);
+    if (vs_type(value) == V_TYPE_POINTER)
+        object = vl_pshift(objects);
+    else
+        object = vl_shift(objects);
+
+    vl_destroy(objects);
+    return object;
+#else
+    v_unavailable("v_yaml_read()");
+#endif
+}
+
+/*!
+  @brief   Return last YAML parser error.
+  @ingroup yaml_high
+  @return  Error string.
+  @retval  NULL if no errors found.
+*/
+char *
+v_yaml_error(void)
+{
+    if (ebuf != NULL)
+        return vb_get(ebuf);
+
+    return NULL;
+}
+
+#ifdef HAVE_LIBYAML
+/* Read a Vars object from a YAML parser */
+static void *
+v_yaml_read_object(yaml_parser_t *parser, yaml_event_t *event)
+{
+    void *object = NULL;
+    char *key, *tag;
+    vscalar *value;
+    vlist *list;
+    vhash *hash;
+
+    while (1) {
+        switch (event->type) {
+
+        case YAML_MAPPING_START_EVENT:
+            tag = V_STRDUP(event->data.mapping_start.tag);
+            hash = vh_create();
+
+            while (1) {
+                NEXT_EVENT(parser, event);
+
+                if (event->type == YAML_MAPPING_END_EVENT)
+                    break;
+
+                key = V_STRDUP(event->data.scalar.value);
+                NEXT_EVENT(parser, event);
+                if ((object = v_yaml_read_object(parser, event)) == NULL) {
+                    v_yaml_read_err("incomplete hash", parser);
+                    return NULL;
+                }
+
+                if (vl_check(object) || vh_check(object)) {
+                    vh_pstore(hash, key, object);
+                } else {
+                    value = v_yaml_scalar(object);
+                    vh_store(hash, key, value);
+                }
+
+                V_DEALLOC(key);
+            }
+
+            if (tag != NULL)
+                object = v_yaml_import_object(hash, tag);
+            else
+                object = hash;
+
+            V_DEALLOC(tag);
+            return object;
+
+        case YAML_SEQUENCE_START_EVENT:
+            tag = V_STRDUP(event->data.sequence_start.tag);
+            list = vl_create();
+
+            while (1) {
+                NEXT_EVENT(parser, event);
+                if (event->type == YAML_SEQUENCE_END_EVENT)
+                    break;
+
+                if ((object = v_yaml_read_object(parser, event)) == NULL) {
+                    v_yaml_read_err("incomplete list", parser);
+                    return NULL;
+                }
+
+                if (vl_check(object) || vh_check(object)) {
+                    vl_ppush(list, object);
+                } else {
+                    value = v_yaml_scalar(object);
+                    vl_push(list, value);
+                }
+            }
+
+            if (tag != NULL)
+                object = v_yaml_import_object(list, tag);
+            else
+                object = list;
+
+            V_DEALLOC(tag);
+            return object;
+
+        case YAML_SCALAR_EVENT:
+            return vs_screate(event->data.scalar.value);
+
+        case YAML_STREAM_END_EVENT:
+            return NULL;
+
+        default:
+            NEXT_EVENT(parser, event);
+            break;
+        }
+    }
+}
+
+/* Import an object based on its tag */
+static void *
+v_yaml_import_object(void *ptr, char *tag)
+{
+    static char buf[30];
+    void *newptr;
+    vtype *t;
+    char *cp;
+
+    strcpy(buf, tag);
+    if ((tag = strstr(buf, TAG_PREFIX)) != NULL) {
+        tag += strlen(TAG_PREFIX);
+        for (cp = tag; *cp != '\0'; cp++)
+            *cp = toupper(*cp);
+
+        if      ((t = v_find_name(tag)) == NULL)
+            v_fatal("unrecognized Vars type: %s", tag);
+        else if (t->yamlimport == NULL)
+            v_fatal("type %s has no YAML import function", tag);
+
+        if ((newptr = t->yamlimport(ptr)) == NULL)
+            v_fatal("invalid %s import function", tag);
+
+        if      (vl_check(ptr))
+            vl_destroy(ptr);
+        else if (vh_check(ptr))
+            vh_destroy(ptr);
+
+        ptr = newptr;
+    }
+
+    return ptr;
+}
+
+/* Convert pointer to a scalar */
+static vscalar *
+v_yaml_scalar(void *ptr)
+{
+    vscalar *s = ptr;
+    char *sval, *end;
+    double dval;
+    int ival;
+
+    /* If scalar, try converting to number */
+    if (vs_check(ptr)) {
+        sval = vs_sgetref(s);
+
+        /* Try double value */
+        dval = strtod(sval, &end);
+        if (*end == '\0') {
+            vs_dstore(s, dval);
+            return s;
+        }
+
+        /* Try int value */
+        ival = strtol(sval, &end, 0);
+        if (*end == '\0') {
+            vs_istore(s, ival);
+            return s;
+        }
+
+        /* Nope, it's a string */
+        return s;
+    }
+
+    /* Otherwise, it's a Vars pointer */
+    return vs_pcreate(ptr);
+}
+
 /* Give a YAML read error */
 static void
 v_yaml_read_err(char *msg, yaml_parser_t *parser)
 {
-    V_BUF_DECL;
-
     V_NBUF_SET(ebuf, filename ? filename : "<stdin>");
 
     if (parser != NULL)
-        V_NBUF_ADD2(ebuf, ", line %d, column %d",
+        V_NBUF_ADDF(ebuf, ", line %d, column %d",
                     parser->problem_mark.line,
                     parser->problem_mark.column);
 
     if (msg != NULL)
-        V_NBUF_ADD1(ebuf, ": %s", msg);
+        V_NBUF_ADDF(ebuf, ": %s", msg);
 
     if (parser != NULL)
-        V_NBUF_ADD1(ebuf, ": %s", parser->problem);
+        V_NBUF_ADDF(ebuf, ": %s", parser->problem);
 
     v_exception("%s", V_NBUF_VAL(ebuf));
 }
@@ -284,24 +404,51 @@ int
 v_yaml_write(void *ptr, FILE *fp)
 {
 #ifdef HAVE_LIBYAML
+    void *object = NULL;
+    char *tag = NULL;
     vtype *t;
-    int ok;
 
     if (!v_yaml_start(fp))
         return 0;
 
     if (ptr != NULL) {
-        /* Get pointer type */
-        if ((t = v_type(ptr)) == NULL)
-            v_fatal("v_yaml_write(): unknown pointer type");
+        /* If not list or hash, it must be exported */
+        if (!vl_check(ptr) && !vh_check(ptr)) {
+            /* Get pointer type */
+            if ((t = v_type(ptr)) == NULL)
+                v_fatal("v_yaml_write(): unknown pointer type");
 
-        /* Get dump function */
-        if (t->yamldump == NULL)
-            v_fatal("v_yaml_write(): type %s has no yamldump function", t->name);
+            /* Get export function */
+            if (t->yamlexport == NULL)
+                v_fatal("v_yaml_write(): type %s has no YAML export function",
+                        t->name);
 
-        /* Call it */
-        if (!t->yamldump(ptr, fp))
-            return 0;
+            /* Export object to list or hash */
+            object = t->yamlexport(ptr);
+
+            /* See what we got */
+            if (vl_check(object) || vh_check(object))
+                ptr = object;
+            else
+                v_fatal("v_yaml_write(): invalid %s export function", t->name);
+
+            /* Set the tag */
+            tag = v_name(t);
+        }
+
+        /* Write object */
+        if      (vl_check(ptr))
+            v_yaml_write_list(ptr, tag, fp);
+        else if (vh_check(ptr))
+            v_yaml_write_hash(ptr, tag, fp);
+
+        /* Clean up if required */
+        if (object != NULL) {
+            if (t->yamlcleanup != NULL)
+                t->yamlcleanup(object);
+            else
+                v_destroy(object);
+        }
     }
 
     if (!v_yaml_finish(fp))
@@ -335,7 +482,7 @@ v_yaml_write_file(void *ptr, char *file)
         filename = NULL;
         v_close(fp);
     } else {
-        V_BUF_SET2("can't open %s: %s", file, strerror(errno));
+        V_BUF_SETF("can't open %s: %s", file, strerror(errno));
     }
 
     return ok;
@@ -344,8 +491,9 @@ v_yaml_write_file(void *ptr, char *file)
 #endif
 }
 
+#ifdef HAVE_LIBYAML
 /* Write a scalar to YAML stream */
-int
+static int
 v_yaml_write_scalar(vscalar *s, FILE *fp)
 {
     int ok;
@@ -365,13 +513,13 @@ v_yaml_write_scalar(vscalar *s, FILE *fp)
 }
 
 /* Write a list to YAML stream */
-int
-v_yaml_write_list(vlist *l, FILE *fp)
+static int
+v_yaml_write_list(vlist *l, char *tag, FILE *fp)
 {
     vscalar *s;
     viter i;
 
-    if (!v_yaml_start_list(fp, NULL))
+    if (!v_yaml_start_list(fp, tag))
         return 0;
 
     v_iterate(l, i) {
@@ -387,14 +535,14 @@ v_yaml_write_list(vlist *l, FILE *fp)
 }
 
 /* Write a hash to YAML stream */
-int
-v_yaml_write_hash(vhash *h, FILE *fp)
+static int
+v_yaml_write_hash(vhash *h, char *tag, FILE *fp)
 {
     vscalar *s;
     char *key;
     viter i;
 
-    if (!v_yaml_start_hash(fp, NULL))
+    if (!v_yaml_start_hash(fp, tag))
         return 0;
 
     v_iterate(h, i) {
@@ -413,29 +561,10 @@ v_yaml_write_hash(vhash *h, FILE *fp)
     return 1;
 }
 
-/* Write a double to YAML stream */
-int
-v_yaml_write_double(double val, FILE *fp)
-{
-    V_BUF_DECL;
-    V_BUF_SET1(FLOAT_FORMAT, val);
-    return v_yaml_write_string(V_BUF_VAL, fp);
-}
-
-/* Write an integer to YAML stream */
-int
-v_yaml_write_int(int val, FILE *fp)
-{
-    V_BUF_DECL;
-    V_BUF_SET1("%d", val);
-    return v_yaml_write_string(V_BUF_VAL, fp);
-}
-
 /* Write a string to YAML stream */
-int
+static int
 v_yaml_write_string(char *val, FILE *fp)
 {
-#ifdef HAVE_LIBYAML
     yaml_event_t event;
 
     if (!yaml_scalar_event_initialize(&event, NULL, NULL, val, strlen(val), 
@@ -446,16 +575,12 @@ v_yaml_write_string(char *val, FILE *fp)
         return 0;
 
     return 1;
-#else
-    v_unavailable("v_yaml_string()");
-#endif
 }
 
 /* Start writing YAML */
-int
+static int
 v_yaml_start(FILE *fp)
 {
-#ifdef HAVE_LIBYAML
     yaml_event_t event;
 
     if (depth++ == 0) {
@@ -469,7 +594,7 @@ v_yaml_start(FILE *fp)
         }
 
         /* Write header */
-        fprintf(fp, "%YAML 1.1\n");
+        fprintf(fp, "%%YAML 1.1\n");
         fprintf(fp, "---\n");
 
         /* Send initial events */
@@ -491,16 +616,12 @@ v_yaml_start(FILE *fp)
   fail:
     yaml_emitter_delete(&emitter);
     return 0;
-#else
-    v_unavailable("v_yaml_start()");
-#endif
 }
 
 /* Finish writing YAML */
-int
+static int
 v_yaml_finish(FILE *fp)
 {
-#ifdef HAVE_LIBYAML
     yaml_event_t event;
 
     if (--depth == 0) {
@@ -526,16 +647,12 @@ v_yaml_finish(FILE *fp)
   fail:
     yaml_emitter_delete(&emitter);
     return 0;
-#else
-    v_unavailable("v_yaml_finish()");
-#endif
 }
 
 /* Write a list start marker to YAML stream */
-int
+static int
 v_yaml_start_list(FILE *fp, char *tag)
 {
-#ifdef HAVE_LIBYAML
     yaml_event_t event;
 
     tag = v_yaml_tag(tag);
@@ -547,16 +664,12 @@ v_yaml_start_list(FILE *fp, char *tag)
         return 0;
 
     return 1;
-#else
-    v_unavailable("v_yaml_start_list()");
-#endif
 }
 
 /* Write a list end marker to YAML stream */
-int
+static int
 v_yaml_finish_list(FILE *fp)
 {
-#ifdef HAVE_LIBYAML
     yaml_event_t event;
 
     if (!yaml_sequence_end_event_initialize(&event))
@@ -566,16 +679,12 @@ v_yaml_finish_list(FILE *fp)
         return 0;
 
     return 1;
-#else
-    v_unavailable("v_yaml_finish_list()");
-#endif
 }
 
 /* Write a hash start marker to YAML stream */
-int
+static int
 v_yaml_start_hash(FILE *fp, char *tag)
 {
-#ifdef HAVE_LIBYAML
     yaml_event_t event;
 
     tag = v_yaml_tag(tag);
@@ -587,16 +696,12 @@ v_yaml_start_hash(FILE *fp, char *tag)
         return 0;
 
     return 1;
-#else
-    v_unavailable("v_yaml_start_hash()");
-#endif
 }
 
 /* Write a hash end marker to YAML stream */
-int
+static int
 v_yaml_finish_hash(FILE *fp)
 {
-#ifdef HAVE_LIBYAML
     yaml_event_t event;
 
     if (!yaml_mapping_end_event_initialize(&event))
@@ -606,35 +711,19 @@ v_yaml_finish_hash(FILE *fp)
         return 0;
 
     return 1;
-#else
-    v_unavailable("v_yaml_finish_hash()");
-#endif
 }
 
-/*!
-  @brief   Return last YAML parser error.
-  @ingroup yaml_high
-  @return  Error string.
-  @retval  NULL if no errors found.
-*/
-char *
-v_yaml_error(void)
-{
-    if (ebuf != NULL)
-        return vb_get(ebuf);
-
-    return NULL;
-}
-
-#ifdef HAVE_LIBYAML
 /* Return a Vars yaml tag */
 static char *
 v_yaml_tag(char *tag)
 {
     static char buf[30];
+    char *cp;
 
     if (tag != NULL) {
-        sprintf(buf, "vars/%s", tag);
+        sprintf(buf, "%s%s", TAG_PREFIX, tag);
+        for (cp = buf; *cp != '\0'; cp++)
+            *cp = tolower(*cp);
         tag = buf;
     }
 

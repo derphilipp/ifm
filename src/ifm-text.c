@@ -85,7 +85,7 @@ text_item_entry(vhash *item)
             if ((room = vh_pget(task, "ROOM")) == NULL)
                 V_BUF_SET(vh_sgetref(task, "DESC"));
             else
-                V_BUF_SET2("%s (%s)",
+                V_BUF_SETF("%s (%s)",
                            vh_sgetref(task, "DESC"),
                            vh_sgetref(room, "DESC"));
             put_string("      %s\n", V_BUF_VAL);
@@ -99,7 +99,7 @@ text_item_entry(vhash *item)
             if ((room = vh_pget(task, "ROOM")) == NULL)
                 V_BUF_SET(vh_sgetref(task, "DESC"));
             else
-                V_BUF_SET2("%s (%s)",
+                V_BUF_SETF("%s (%s)",
                            vh_sgetref(task, "DESC"),
                            vh_sgetref(room, "DESC"));
             put_string("      %s\n", V_BUF_VAL);

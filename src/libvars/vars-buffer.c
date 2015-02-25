@@ -104,7 +104,7 @@ typedef union packer_st {
 } packer;
 
 /* Type variable */
-vtype *vbuffer_type = NULL;
+static vtype *vbuffer_type = NULL;
 
 /* Default buffer allocation size */
 static unsigned int bufsize = BUFFER_DEFAULT_SIZE;

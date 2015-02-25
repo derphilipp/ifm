@@ -28,6 +28,7 @@ extern int *v_permute_next(void);
 extern void v_unavailable(char *name);
 extern unsigned char *v_uncompress(unsigned char *cdata, unsigned long csize,
                                    unsigned long size);
+extern char *v_uuid(void);
 extern void v_warn(char *fmt, ...);
 extern void v_warn_internal(char *fmt, ...);
 

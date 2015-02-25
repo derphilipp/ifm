@@ -53,7 +53,7 @@ struct v_queue {
 typedef struct v_elt velt;
 
 /* Type variable */
-vtype *vqueue_type = NULL;
+static vtype *vqueue_type = NULL;
 
 /* Internal functions */
 static void vq_downheap(vqueue *q, int n);
