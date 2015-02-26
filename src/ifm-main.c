@@ -30,6 +30,7 @@
 #define PATHSEP ";"
 #endif
 
+#define STRINGIFY_DEF(name) STRINGIFY(name)
 #define STRINGIFY(name) #name
 
 /* Whether any output is required */
@@ -201,7 +202,7 @@ run_main(int argc, char *argv[])
         vl_destroy(ifm_search);
 
     ifm_search = vl_create();
-    vl_spush(ifm_search, STRINGIFY(IFMLIB));
+    vl_spush(ifm_search, STRINGIFY_DEF(IFMLIB));
 
     if ((env = getenv("IFMPATH")) != NULL) {
         list = vl_split(env, PATHSEP);
