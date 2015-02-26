@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 
 dnl Initialize autoconf.
-AC_INIT(ifm, [5.4], [zondo42@gmail.com])
+AC_INIT(ifm, [5.5], [zondo42@gmail.com])
 AC_CONFIG_SRCDIR(src/ifm-main.c)
 AC_CONFIG_AUX_DIR(etc)
 AC_CONFIG_HEADERS([etc/config.h])
