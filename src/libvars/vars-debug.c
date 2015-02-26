@@ -393,7 +393,7 @@ exit_function(void)
 
     /* Print memory usage if required */
     if (V_DEBUG(V_DBG_MEMORY))
-        fprintf(stderr, "Vars used %ld bytes\n", max_memory);
+        fprintf(stderr, "Vars used %ld bytes\n", (long) max_memory);
 }
 
 /* Print timing profile */

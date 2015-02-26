@@ -71,9 +71,9 @@ static void
 fig_write_object(vhash *object, FILE *fp)
 {
     int radius = 1, npoints, type, subtype, pen_style = 0, cap_style = 0;
-    float style_val = 1.0, width, height;
     int i, font_flags = 4, direction = 0;
     vlist *objects, *xp, *yp, *shape;
+    float style_val = 1.0;
     viter iter;
 
     type = vh_iget(object, "TYPE");

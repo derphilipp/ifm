@@ -279,6 +279,7 @@ v_parse_date(char *string)
     return get_date(string, NULL);
 #else
     v_unavailable("v_parse_date()");
+    return -1;
 #endif
 }
 
@@ -386,7 +387,9 @@ v_tempfile(char *prefix, char *buffer)
 {
     static char tmpbuf[200];
     char *dir;
+#ifdef HAVE_MKSTEMP
     int fd;
+#endif
 
     if ((dir = getenv("TMPDIR")) == NULL)
         dir = V_TEMPDIR;

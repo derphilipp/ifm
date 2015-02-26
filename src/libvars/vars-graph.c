@@ -1002,7 +1002,7 @@ vg_node_links(vgraph *g, char *node, int *from, int *to)
     for (l = n->fhead; l != NULL; l = l->fnext) {
         links++;
         if (from != NULL)
-            *from++;
+            from++;
     }
 
     if (to != NULL)
@@ -1011,7 +1011,7 @@ vg_node_links(vgraph *g, char *node, int *from, int *to)
     for (l = n->thead; l != NULL; l = l->tnext) {
         links++;
         if (to != NULL)
-            *to++;
+            to++;
     }
 
     return links;

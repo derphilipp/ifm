@@ -16,7 +16,6 @@ static vhash *fig_create_object(vhash *parent, int type);
 vhash *
 fig_create(int units, float scale)
 {
-    vlist *objects;
     char *uname;
     vhash *obj;
 
@@ -261,10 +260,10 @@ fig_create_textbox(vhash *parent,
     vhash *figure = fig_get_figure(parent);
     float scale = vh_dget(figure, "SCALE");
 
-    float xt, yt, textwidth, textheight, linegap, offset;
-    int i, nrows, ncols, count;
-    vhash *obj, *text;
+    float xt, yt, linegap, offset;
+    int i, nrows, ncols;
     vlist *lines;
+    vhash *obj;
     char *str;
 
     V_ALLOCA_FMT(str, fmt);
@@ -319,7 +318,7 @@ fig_create_textbox(vhash *parent,
         offset = i + 0.7 - nrows / 2.0;
         yt = y + height / 2;
         yt += offset * linegap;
-        text = fig_create_text(obj, xt, yt, "%s", vl_sgetref(lines, i));
+        fig_create_text(obj, xt, yt, "%s", vl_sgetref(lines, i));
     }
 
     vl_destroy(lines);

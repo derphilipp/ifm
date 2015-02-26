@@ -30,7 +30,7 @@
 
 #include "vars-hash.h"
 
-#define PUSH if (depth++ == 0) vh_init(visited)
+#define PUSH if (depth++ == 0) {vh_init(visited);}
 #define POP  depth--
 
 #define VISIT(ptr)                                                      \

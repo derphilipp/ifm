@@ -60,7 +60,7 @@ v_seed(unsigned long seed)
         char tbuf[30], rev[30];
         int pos = 0;
 
-        sprintf(tbuf, "%ld", time(NULL));
+        sprintf(tbuf, "%ld", (long) time(NULL));
         for (i = strlen(tbuf) - 1; i >= 0; i--)
             rev[pos++] = tbuf[i];
 

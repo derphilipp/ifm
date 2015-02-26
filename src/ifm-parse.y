@@ -168,7 +168,6 @@ room_stmt	: ROOM STRING
                 {
                     vhash *near, *link, *sect = NULL;
                     vlist *list, *dirs;
-                    char *str;
 
                     /* Build new room */
                     vl_ppush(rooms, curobj);
