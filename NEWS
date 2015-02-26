@@ -1,5 +1,12 @@
+Version 5.5 (unreleased)
+========================
+
+* New output format: YAML.
+
 Version 5.4 (13 Feb 2009)
 =========================
+
+* Some documentation updates and fixes.
 
 * Fixed build problems on various systems.
 

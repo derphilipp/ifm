@@ -2,7 +2,7 @@
 
 # Create IFM test programs.
 
-$ifmprog = shift;
+$ifmprog = shift() . " -I../lib";
 $srcdir = '$SRCDIR';
 $builddir = '$BUILDDIR';
 

@@ -4,6 +4,11 @@
 #define IFM_DRIVER_H
 
 /* Driver structs */
+typedef struct outputfuncs_st {
+    void (*output_start)(void);
+    void (*output_finish)(void);
+} outputfuncs;
+
 typedef struct mapfuncs_st {
     void (*map_start)(void);
     void (*map_section)(vhash *sect);
@@ -33,10 +38,11 @@ typedef struct errfuncs_st {
 
 typedef struct driver_st {
     char *name, *desc;
-    mapfuncs  *mfunc;
-    itemfuncs *ifunc;
-    taskfuncs *tfunc;
-    errfuncs  *efunc;
+    outputfuncs *ofunc;
+    mapfuncs    *mfunc;
+    itemfuncs   *ifunc;
+    taskfuncs   *tfunc;
+    errfuncs    *efunc;
 } driver;
 
 /* Driver list */
@@ -66,8 +72,10 @@ extern int show_map_border;
 extern void set_map_vars(void);
 extern void set_room_vars(void);
 extern void set_link_vars(void);
+extern void print_start(int dnum);
 extern void print_map(int dnum, vlist *sections);
 extern void print_items(int dnum);
 extern void print_tasks(int dnum);
+extern void print_finish(int dnum);
 
 #endif

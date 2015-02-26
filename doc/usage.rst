@@ -150,16 +150,16 @@ of tasks) and several different output formats, which are described in the
 following sections.  Not all types of output are produced by each output
 format.  The table below shows what's available for each format.
 
-    ====== ========== === === ==== === === ===
-    Output PostScript Fig Tk  Text Rec Dot Raw
-    ====== ========== === === ==== === === ===
-    Map    |X|        |X| |X|
-    Items                     |X|          |X|
-    Tasks                     |X|  |X| |X| |X|
-    ====== ========== === === ==== === === ===
+    ====== ========== === === ==== === === ==== ===
+    Output PostScript Fig Tk  Text Rec Dot YAML Raw
+    ====== ========== === === ==== === === ==== ===
+    Map    |X|        |X| |X|              |X|  |X|
+    Items                     |X|          |X|  |X|
+    Tasks                     |X|  |X| |X| |X|  |X|
+    ====== ========== === === ==== === === ==== ===
 
-All the map output formats display map sections in the same way, so that
-what you get with one format looks much the same as another. [1]_
+All the graphical map output formats display map sections in the same way,
+so that what you get with one format looks much the same as another. [1]_
 
 .. index::
    pair: PostScript; Types of output
@@ -268,6 +268,17 @@ display the graph.
 .. index::
    pair: Raw data; Types of output
 
+YAML data (``yaml``)
+--------------------
+
+This produces YAML__ data for all output formats, intended for use by other
+programs.  Each entry consists of a number of data lines, and is separated
+from other entries by a blank line.  Each data line consists of an
+attribute, a colon, and its value.  The attributes should be
+self-explanatory. [2]_
+
+__ http://yaml.org
+
 Raw data (``raw``)
 ------------------
 
@@ -275,7 +286,7 @@ This produces raw data for all output formats, intended for use by other
 programs (and the IFM regression test suite).  Each entry consists of a
 number of data lines, and is separated from other entries by a blank line.
 Each data line consists of an attribute, a colon, and its value.  The
-attributes should be self-explanatory. [2]_
+attributes should be self-explanatory (see YAML, above).
 
 .. index::
    single: style; Customization

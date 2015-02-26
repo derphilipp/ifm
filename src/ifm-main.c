@@ -336,6 +336,9 @@ run_main(int argc, char *argv[])
         if (!OUTPUT && !TASK_VERBOSE)
             output("Syntax appears OK\n");
 
+        if (OUTPUT)
+            print_start(ifm_driver);
+
         if (write_map)
             print_map(ifm_driver, sections);
 
@@ -344,6 +347,9 @@ run_main(int argc, char *argv[])
 
         if (write_tasks)
             print_tasks(ifm_driver);
+
+        if (OUTPUT)
+            print_finish(ifm_driver);
     } else {
         show_info(info);
     }

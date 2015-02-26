@@ -24,32 +24,36 @@
 #include "ifm-tk.h"
 #include "ifm-raw.h"
 #include "ifm-rec.h"
+#include "ifm-yaml.h"
 #include "ifm-dot.h"
 
 /* Driver info */
 driver drivers[] = {
     { "ps", "PostScript",
-      &ps_mapfuncs, NULL, NULL, NULL },
+      NULL, &ps_mapfuncs, NULL, NULL, NULL },
 
     { "fig", "Fig drawing commands",
-      &fig_mapfuncs, NULL, NULL, NULL },
+      NULL, &fig_mapfuncs, NULL, NULL, NULL },
 
     { "text", "Nicely-formatted ASCII text",
-      NULL, &text_itemfuncs, &text_taskfuncs, NULL },
+      NULL, NULL, &text_itemfuncs, &text_taskfuncs, NULL },
 
     { "rec", "Recording of game commands",
-      NULL, NULL, &rec_taskfuncs, NULL },
+      NULL, NULL, NULL, &rec_taskfuncs, NULL },
 
     { "dot", "Graph of task dependencies",
-      NULL, NULL, &dot_taskfuncs, NULL },
+      NULL, NULL, NULL, &dot_taskfuncs, NULL },
+
+    { "yaml", "YAML maps, items and tasks",
+      &yaml_outputfuncs, &yaml_mapfuncs, &yaml_itemfuncs, &yaml_taskfuncs, NULL },
 
     { "raw", "Raw ASCII text fields",
-      &raw_mapfuncs, &raw_itemfuncs, &raw_taskfuncs, NULL },
+      NULL, &raw_mapfuncs, &raw_itemfuncs, &raw_taskfuncs, NULL },
 
     { "tk", "Tcl/Tk program commands (tkifm)",
-      &tk_mapfuncs, &tk_itemfuncs, &tk_taskfuncs, &tk_errfuncs },
+      NULL, &tk_mapfuncs, &tk_itemfuncs, &tk_taskfuncs, &tk_errfuncs },
 
-    { NULL, NULL, NULL, NULL, NULL, NULL } /* Terminator */
+    { NULL, NULL, NULL, NULL, NULL, NULL, NULL } /* Terminator */
 };
 
 /* Macros for setting variables */
@@ -176,6 +180,28 @@ set_link_vars(void)
 
     SET_STRING(link_inout_string);
     SET_STRING(link_updown_string);
+}
+
+/* Print starting stuff */
+void
+print_start(int dnum)
+{
+    driver drv = drivers[dnum];
+    outputfuncs *func = drv.ofunc;
+
+    if (func != NULL && func->output_start != NULL)
+        func->output_start();
+}
+
+/* Print finishing stuff */
+void
+print_finish(int dnum)
+{
+    driver drv = drivers[dnum];
+    outputfuncs *func = drv.ofunc;
+
+    if (func != NULL && func->output_finish != NULL)
+        func->output_finish();
 }
 
 /* Print the map */
