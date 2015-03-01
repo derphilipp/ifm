@@ -313,7 +313,7 @@ setup_exits(void)
 void
 setup_links(void)
 {
-    int x, y, xt, yt, xoff, yoff, dir, num, count, ndirs;
+    int x, y, xt, yt, xoff = 0, yoff = 0, dir, num, count, ndirs;
     vhash *link, *from, *to, *other, *sect;
     vlist *dirs, *xpos, *ypos, *list;
     char *fname, *tname;
@@ -538,7 +538,7 @@ setup_rooms(void)
 void
 setup_sections(void)
 {
-    int minx, miny, maxx, maxy, x, y, first, pos;
+    int minx = 0, miny = 0, maxx = 0, maxy = 0, x, y, first, pos;
     vhash *sect, *room, *link;
     vlist *list, *xpos, *ypos;
     viter i, j, k;

@@ -39,25 +39,27 @@
 char *ifm_format = NULL;        /* Output format name */
 int line_number;                /* Current line number */
 
-int write_map = 0;              /* Whether to write map */
-int write_items = 0;            /* Whether to write item list */
-int write_tasks = 0;            /* Whether to write task list */
-
 vlist *ifm_search = NULL;       /* Search path */
 vlist *ifm_styles = NULL;       /* Global styles */
 
 static char *progname;          /* Program name */
-static char ifm_input[BUFSIZ];  /* Input filename */
+static char infile[BUFSIZ];     /* Input filename */
 
-static int ifm_driver = -1;     /* Output driver ID */
-static int ifm_errors = 0;      /* No. of errors */
+static int write_map = 0;       /* Whether to write map */
+static int write_items = 0;     /* Whether to write item list */
+static int write_tasks = 0;     /* Whether to write task list */
+
+static int driver_idx = -1;     /* Output driver index */
+static int errors = 0;          /* No. of errors */
 static int nowarn = 0;          /* Whether to suppress warnings */
 static int max_errors = 10;     /* Print this many errors before abort */
 
 static vlist *sections = NULL;  /* List of map sections to output */
 
+/* Output handlers */
+static void (*output_func)(int type, char *msg);
+
 /* Internal functions */
-static void message(char *type, char *msg);
 static void print_version(void);
 static int select_format(char *str);
 static void show_info(char *type);
@@ -76,20 +78,12 @@ static struct show_st {
     { NULL,   NULL,                NULL }
 };
 
-#ifdef IFM_LIBRARY
-
-static vbuffer *command_output = NULL;
-
-#else
-
 /* Main routine */
 int
 main(int argc, char *argv[])
 {
     return run_main(argc, argv);
 }
-
-#endif
 
 /* Main function */
 int
@@ -190,7 +184,7 @@ run_main(int argc, char *argv[])
     }
 
     if (format != NULL)
-        ifm_driver = select_format(format);
+        driver_idx = select_format(format);
 
     if (ifm_styles != NULL) {
         v_iterate(ifm_styles, iter)
@@ -264,7 +258,7 @@ run_main(int argc, char *argv[])
     /* Load style definitions */
     set_style_list(ifm_styles);
     load_styles();
-    if (ifm_errors)
+    if (errors)
         return 1;
 
     /* Set any variables from command line */
@@ -280,8 +274,8 @@ run_main(int argc, char *argv[])
     }
 
     /* Set output format if not already specified */
-    if (OUTPUT && ifm_driver < 0)
-        ifm_driver = select_format(NULL);
+    if (OUTPUT && driver_idx < 0)
+        driver_idx = select_format(NULL);
 
     /* Open output file if required */
     if (vh_exists(opts, "output")) {
@@ -292,7 +286,7 @@ run_main(int argc, char *argv[])
 
     /* Resolve tags */
     resolve_tags();
-    if (ifm_errors)
+    if (errors)
         return 1;
 
     /* Set up rooms */
@@ -300,7 +294,7 @@ run_main(int argc, char *argv[])
 
     /* Set up links */
     setup_links();
-    if (ifm_errors)
+    if (errors)
         return 1;
 
     /* Set up room exits */
@@ -311,26 +305,26 @@ run_main(int argc, char *argv[])
 
     /* Connect rooms together */
     connect_rooms();
-    if (ifm_errors)
+    if (errors)
         return 1;
 
     /* Set up tasks */
     setup_tasks();
-    if (ifm_errors)
+    if (errors)
         return 1;
 
     /* Solve game if required */
     if (!OUTPUT || write_tasks) {
         check_cycles();
-        if (!ifm_errors)
+        if (!errors)
             solve_game();
         else
             return 1;
     }
 
     /* Do what's required */
-    if (ifm_driver >= 0)
-        ifm_format = drivers[ifm_driver].name;
+    if (driver_idx >= 0)
+        ifm_format = drivers[driver_idx].name;
 
     /* Just show info if required */
     if (info == NULL) {
@@ -338,19 +332,19 @@ run_main(int argc, char *argv[])
             output("Syntax appears OK\n");
 
         if (OUTPUT)
-            print_start(ifm_driver);
+            print_start(driver_idx);
 
         if (write_map)
-            print_map(ifm_driver, sections);
+            print_map(driver_idx, sections);
 
         if (write_items)
-            print_items(ifm_driver);
+            print_items(driver_idx);
 
         if (write_tasks)
-            print_tasks(ifm_driver);
+            print_tasks(driver_idx);
 
         if (OUTPUT)
-            print_finish(ifm_driver);
+            print_finish(driver_idx);
     } else {
         show_info(info);
     }
@@ -360,15 +354,12 @@ run_main(int argc, char *argv[])
 }
 
 /* Run a command and return its output */
-char *
+void
 run_command(char *command)
 {
-#ifdef IFM_LIBRARY
-    int argc, i, code;
-    char **argv;
     vlist *parts;
-
-    vb_init(command_output);
+    int argc, i;
+    char **argv;
 
     /* Split command into bits */
     parts = vl_qsplit(command, NULL, "'");
@@ -384,16 +375,10 @@ run_command(char *command)
     argv[argc + 1] = NULL;
 
     /* Run command */
-    code = run_main(argc, argv);
+    run_main(argc, argv);
 
     /* Clean up */
     vl_destroy(parts);
-
-    /* Return result */
-    return code == 0 ? vb_get(command_output) : NULL;
-#else
-    return NULL;
-#endif
 }
 
 /* Parse input from a file */
@@ -410,7 +395,7 @@ parse_input(char *file, int libflag, int required)
     line_number = 0;
 
     if (file == NULL || V_STREQ(file, "-")) {
-        strcpy(ifm_input, "<stdin>");
+        strcpy(infile, "<stdin>");
         path = NULL;
     } else {
         if (libflag)
@@ -424,11 +409,11 @@ parse_input(char *file, int libflag, int required)
         else if (!v_exists(path))
             fatal("file '%s' not found", path);
 
-        strcpy(ifm_input, path);
+        strcpy(infile, path);
     }
 
     line_number = 1;
-    ifm_errors = 0;
+    errors = 0;
 
     if (path == NULL)
         yyin = stdin;
@@ -442,16 +427,16 @@ parse_input(char *file, int libflag, int required)
 
     fclose(yyin);
     line_number = 0;
-    strcpy(ifm_input, "");
+    strcpy(infile, "");
 
-    return (ifm_errors == 0);
+    return (errors == 0);
 }
 
 /* Select an output format */
 static int
 select_format(char *str)
 {
-    int i, match, nmatch = 0, len = 0;
+    int i, match = 0, nmatch = 0, len = 0;
 
     if (str != NULL)
         len = strlen(str);
@@ -489,112 +474,92 @@ select_format(char *str)
 
 /* Write output */
 void
-output(char *fmt, ...)
-{
-    V_BUF_DECL;
-    char *msg;
-
-    V_BUF_FMT(fmt, msg);
-
-#ifdef IFM_LIBRARY
-    vb_puts(command_output, msg);
-#else
-    printf("%s", msg);
-#endif
-}
-
-/* Give a parse error */
-void
-err(char *fmt, ...)
+do_output(int type, char *fmt, ...)
 {
     errfuncs *func = NULL;
     V_BUF_DECL;
     char *msg;
 
-    ifm_errors++;
-    V_BUF_FMT(fmt, msg);
+    V_BUF_INIT;
 
-    if (ifm_driver >= 0)
-        func = drivers[ifm_driver].efunc;
+    switch (type) {
+    case OUT_ERROR:
+    case OUT_FATAL:
+        errors++;
+        /* fallthrough */
 
-    if (func == NULL) {
-        message("error", msg);
-        if (max_errors > 0 && ifm_errors >= max_errors)
-            fatal("too many errors.  Goodbye!");
-    } else {
-        func->error(ifm_input, line_number, msg);
+    case OUT_WARNING:
+        if (strlen(infile) > 0) {
+            V_BUF_ADD(infile);
+            if (line_number > 0)
+                V_BUF_ADDF(", line %d", line_number);
+            V_BUF_ADD(": ");
+        }
+
+        break;
+    }
+
+    V_ALLOCA_FMT(msg, fmt);
+    msg = V_BUF_ADD(msg);
+
+    if (output_func != NULL) {
+        output_func(type, msg);
+        return;
+    }
+
+    switch (type) {
+
+    case OUT_TEXT:
+        printf("%s", msg);
+        break;
+
+    case OUT_WARNING:
+        if (!nowarn) {
+            if (driver_idx >= 0)
+                func = drivers[driver_idx].efunc;
+
+            if (func == NULL)
+                fprintf(stderr, "%s\n", msg);
+            else
+                func->warning(infile, line_number, msg);
+        }
+
+        break;
+
+    case OUT_ERROR:
+        if (driver_idx >= 0)
+            func = drivers[driver_idx].efunc;
+
+        if (func == NULL) {
+            fprintf(stderr, "%s\n", msg);
+            if (max_errors > 0 && errors >= max_errors)
+                fatal("too many errors.  Goodbye!");
+        } else {
+            func->error(infile, line_number, msg);
+        }
+
+        break;
+
+    case OUT_FATAL:
+        fprintf(stderr, "%s: fatal: %s\n", progname, msg);
+        exit(1);
+        break;
+
+    case OUT_DEBUG:
+        if (getenv("IFM_DEBUG")) {
+            V_BUF_FMT(fmt, msg);
+            fprintf(stderr, "IFM: %s\n", msg);
+        }
+
+        break;
     }
 }
 
-/* Parser-called parse error */
+/* Set output handler */
 void
-yyerror(char *msg)
+set_output(void (*func)(int type, char *msg))
 {
-    if (V_STREQ(msg, "parse error"))
-        err("syntax error");
-    else
-        err(msg);
-}
-
-/* Give a parse warning */
-void
-warn(char *fmt, ...)
-{
-    errfuncs *func = NULL;
-    V_BUF_DECL;
-    char *msg;
-
-    if (!nowarn) {
-        V_BUF_FMT(fmt, msg);
-
-        if (ifm_driver >= 0)
-            func = drivers[ifm_driver].efunc;
-
-        if (func == NULL)
-            message("warning", msg);
-        else
-            func->warning(ifm_input, line_number, msg);
-    }
-}
-
-/* Give a debugging message */
-void
-debug(char *fmt, ...)
-{
-    V_BUF_DECL;
-    char *msg;
-
-    if (getenv("IFM_DEBUG")) {
-        V_BUF_FMT(fmt, msg);
-        fprintf(stderr, "IFM: %s\n", msg);
-    }
-}
-
-/* Give a general message */
-static void
-message(char *type, char *msg)
-{
-    fprintf(stderr, "%s: %s", progname, type);
-
-    if (strlen(ifm_input) > 0) {
-        fprintf(stderr, ": %s", ifm_input);
-        if (line_number > 0)
-            fprintf(stderr, ", line %d", line_number);
-    }
-
-    fprintf(stderr, ": %s\n", msg);
-}
-
-/* Give a *fatal* error */
-void
-fatal(char *fmt, ...)
-{
-    V_BUF_DECL;
-    char *msg;
-
-    V_BUF_FMT(fmt, msg);
-    fprintf(stderr, "%s: error: %s\n", progname, msg);
-    exit(1);
+    output_func = func;
 }
 
 /* Print program version and exit */
@@ -623,7 +588,7 @@ print_version(void)
 static void
 show_info(char *type)
 {
-    int i, match, nmatch = 0, len = strlen(type);
+    int i, match = 0, nmatch = 0, len = strlen(type);
 
     /* Find info type */
     for (i = 0; showopts[i].name != NULL; i++) {
@@ -699,4 +664,14 @@ usage()
     output("\nShow options (may be abbreviated):\n");
     for (i = 0; showopts[i].name != NULL; i++)
         output("    %-15s     %s\n", showopts[i].name, showopts[i].desc);
+}
+
+/* Parser-called parse error */
+void
+yyerror(char *msg)
+{
+    if (V_STREQ(msg, "parse error"))
+        err("syntax error");
+    else
+        err(msg);
 }
