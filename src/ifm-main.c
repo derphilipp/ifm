@@ -188,6 +188,8 @@ run_main(int argc, char *argv[])
     }
 
     /* Set search path if required */
+    strcpy(infile, "");
+
     if (ifm_search != NULL)
         vl_destroy(ifm_search);
 
@@ -391,6 +393,7 @@ parse_input(char *file, int libflag, int required)
     char *path = file;
 
     line_number = 0;
+    strcpy(infile, "");
 
     if (file == NULL || V_STREQ(file, "-")) {
         strcpy(infile, "<stdin>");
