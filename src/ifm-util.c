@@ -407,7 +407,7 @@ setup_room_names(void)
 vlist *
 split_line(char *string, double ratio)
 {
-    int llen = (int) (sqrt((double) strlen(string)) * ratio);
+    unsigned int llen = (int) (sqrt((double) strlen(string)) * ratio);
     vlist *list = vl_create();
     char *tok, *val;
     V_BUF_DECL;

@@ -341,7 +341,7 @@ filter_tasks(int print)
 {
     int canfilter, filter, filtered, numfiltered = 0, alldone;
     vhash *task, *otask, *item, *step;
-    char *reason;
+    char *reason = "unknown";
     vlist *list;
     viter i, j;
 
@@ -590,8 +590,8 @@ new_task(int type, vhash *data)
 {
     char *desc = vh_sgetref(data, "DESC");
     int i, score = vh_iget(data, "SCORE");
+    vhash *room = NULL, *step;
     static int taskid = 0;
-    vhash *room, *step;
     vscalar *val;
     V_BUF_DECL;
 

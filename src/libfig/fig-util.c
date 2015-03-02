@@ -10,8 +10,8 @@
 int
 fig_calc_bbox(vhash *object)
 {
+    int type, bxmin = 0, bxmax = 0, bymin = 0, bymax = 0, width, height;
     int i, num, xmin, xmax, ymin, ymax, x, y, justify, count = 0;
-    int type, bxmin, bxmax, bymin, bymax, width, height;
     vlist *objects, *xp, *yp;
     vhash *obj, *figure;
     float fontsize;

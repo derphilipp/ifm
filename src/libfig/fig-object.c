@@ -16,7 +16,7 @@ static vhash *fig_create_object(vhash *parent, int type);
 vhash *
 fig_create(int units, float scale)
 {
-    char *uname;
+    char *uname = "Unknown";
     vhash *obj;
 
     switch (units) {
@@ -260,8 +260,8 @@ fig_create_textbox(vhash *parent,
     vhash *figure = fig_get_figure(parent);
     float scale = vh_dget(figure, "SCALE");
 
-    float xt, yt, linegap, offset;
-    int i, nrows, ncols;
+    float xt = 0.0, yt = 0.0, linegap, offset;
+    unsigned int i, nrows, ncols;
     vlist *lines;
     vhash *obj;
     char *str;
