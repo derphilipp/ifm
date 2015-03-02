@@ -3,6 +3,8 @@ Version 5.5 (unreleased)
 
 * New output format: YAML.
 
+* The ``-e`` option (specify max errors before exiting) has been removed.
+
 Version 5.4 (13 Feb 2009)
 =========================
 

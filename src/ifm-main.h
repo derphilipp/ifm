@@ -5,12 +5,11 @@
 
 /* Output types */
 enum {
-    OUT_TEXT, OUT_WARNING, OUT_ERROR, OUT_DEBUG, OUT_FATAL
+    OUT_TEXT, OUT_WARNING, OUT_ERROR, OUT_DEBUG
 };
 
 #define debug(fmt, ...)   do_output(OUT_DEBUG,   fmt, ##__VA_ARGS__)
 #define err(fmt, ...)     do_output(OUT_ERROR,   fmt, ##__VA_ARGS__)
-#define fatal(fmt, ...)   do_output(OUT_FATAL,   fmt, ##__VA_ARGS__)
 #define output(fmt, ...)  do_output(OUT_TEXT,    fmt, ##__VA_ARGS__)
 #define warn(fmt, ...)    do_output(OUT_WARNING, fmt, ##__VA_ARGS__)
 

@@ -77,14 +77,14 @@ ps_map_start(void)
 {
     int ylen, c, num_pages, width, height;
     char *title, *prolog, *file;
+    FILE *fp = NULL;
     vhash *sect;
     viter iter;
-    FILE *fp;
 
     /* Locate prolog file */
     file = var_string("prolog_file");
     if ((prolog = find_file(file)) == NULL)
-        fatal("can't find PostScript prolog '%s'", file);
+        err("can't find PostScript prolog '%s'", file);
 
     /* Allow title space for sections with titles */
     v_iterate(sects, iter) {
@@ -123,13 +123,14 @@ ps_map_start(void)
     output("%%%%EndComments\n\n");
 
     /* Print PostScript prolog */
-    if ((fp = fopen(prolog, "r")) == NULL)
-        fatal("can't open '%s'", prolog);
+    if (prolog != NULL && (fp = fopen(prolog, "r")) == NULL)
+        err("can't read '%s'", prolog);
 
-    while ((c = fgetc(fp)) != EOF)
-        putchar(c);
-
-    fclose(fp);
+    if (fp != NULL) {
+        while ((c = fgetc(fp)) != EOF)
+            putchar(c);
+        fclose(fp);
+    }
 
     /* Page variables */
     output("/page_margin %g cm def\n", var_real("page_margin"));

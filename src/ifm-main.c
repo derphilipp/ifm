@@ -52,7 +52,6 @@ static int write_tasks = 0;     /* Whether to write task list */
 static int driver_idx = -1;     /* Output driver index */
 static int errors = 0;          /* No. of errors */
 static int nowarn = 0;          /* Whether to suppress warnings */
-static int max_errors = 10;     /* Print this many errors before abort */
 
 static vlist *sections = NULL;  /* List of map sections to output */
 
@@ -146,9 +145,6 @@ run_main(int argc, char *argv[])
     v_option_flag('w', "nowarn", &nowarn,
                   "Don't print warnings");
 
-    v_option_int('e', "errors", "num", &max_errors,
-                 "Max errors before giving up (default: %d)", max_errors);
-
     v_optgroup("Information options:");
 
     v_option_string('\0', "show", "type", &info,
@@ -180,7 +176,7 @@ run_main(int argc, char *argv[])
         write_map = 1;
         spec = vh_sgetref(opts, "map");
         if (strlen(spec) > 0 && (sections = vl_parse_list(spec)) == NULL)
-            fatal("invalid map section spec: %s", spec);
+            err("invalid map section spec: %s", spec);
     }
 
     if (format != NULL)
@@ -280,8 +276,10 @@ run_main(int argc, char *argv[])
     /* Open output file if required */
     if (vh_exists(opts, "output")) {
         file = vh_sgetref(opts, "output");
-        if (freopen(file, "w", stdout) == NULL)
-            fatal("can't open %s", file);
+        if (freopen(file, "w", stdout) == NULL) {
+            err("can't open %s", file);
+            return 1;
+        }
     }
 
     /* Resolve tags */
@@ -405,12 +403,15 @@ parse_input(char *file, int libflag, int required)
             return 1;
 
         if (path == NULL)
-            fatal("can't locate file '%s'", file);
+            err("can't locate file '%s'", file);
         else if (!v_exists(path))
-            fatal("file '%s' not found", path);
-
-        strcpy(infile, path);
+            err("file '%s' not found", path);
+        else
+            strcpy(infile, path);
     }
+
+    if (errors)
+        return 1;
 
     line_number = 1;
     errors = 0;
@@ -418,14 +419,17 @@ parse_input(char *file, int libflag, int required)
     if (path == NULL)
         yyin = stdin;
     else if ((yyin = fopen(path, "r")) == NULL)
-        fatal("can't read '%s'", path);
+        err("can't read '%s'", path);
 
-    if (parses++)
-        yyrestart(yyin);
+    if (errors == 0) {
+        if (parses++)
+            yyrestart(yyin);
+        yyparse();
+    }
 
-    yyparse();
+    if (yyin != NULL)
+        fclose(yyin);
 
-    fclose(yyin);
     line_number = 0;
     strcpy(infile, "");
 
@@ -436,7 +440,7 @@ parse_input(char *file, int libflag, int required)
 static int
 select_format(char *str)
 {
-    int i, match = 0, nmatch = 0, len = 0;
+    int i, match = -1, nmatch = 0, len = 0;
 
     if (str != NULL)
         len = strlen(str);
@@ -463,11 +467,11 @@ select_format(char *str)
     }
 
     if (str == NULL)
-        fatal("internal: no output format found");
+        err("internal: no output format found");
     else if (nmatch == 0)
-        fatal("unknown output format: %s", str);
+        err("unknown output format: %s", str);
     else if (nmatch > 1)
-        fatal("ambiguous output format: %s", str);
+        err("ambiguous output format: %s", str);
 
     return match;
 }
@@ -484,7 +488,6 @@ do_output(int type, char *fmt, ...)
 
     switch (type) {
     case OUT_ERROR:
-    case OUT_FATAL:
         errors++;
         /* fallthrough */
 
@@ -530,19 +533,11 @@ do_output(int type, char *fmt, ...)
         if (driver_idx >= 0)
             func = drivers[driver_idx].efunc;
 
-        if (func == NULL) {
+        if (func == NULL)
             fprintf(stderr, "%s\n", msg);
-            if (max_errors > 0 && errors >= max_errors)
-                fatal("too many errors.  Goodbye!");
-        } else {
+        else
             func->error(infile, line_number, msg);
-        }
 
-        break;
-
-    case OUT_FATAL:
-        fprintf(stderr, "%s: fatal: %s\n", progname, msg);
-        exit(1);
         break;
 
     case OUT_DEBUG:
@@ -588,7 +583,7 @@ print_version(void)
 static void
 show_info(char *type)
 {
-    int i, match = 0, nmatch = 0, len = strlen(type);
+    int i, match, nmatch = 0, len = strlen(type);
 
     /* Find info type */
     for (i = 0; showopts[i].name != NULL; i++) {
@@ -599,11 +594,11 @@ show_info(char *type)
     }
 
     if (nmatch == 0)
-        fatal("unknown info type: %s", type);
+        err("unknown info type: %s", type);
     else if (nmatch > 1)
-        fatal("ambiguous info type: %s", type);
-
-    showopts[match].func();
+        err("ambiguous info type: %s", type);
+    else
+        showopts[match].func();
 }
 
 /* Print map sections */

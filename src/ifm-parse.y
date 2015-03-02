@@ -145,8 +145,8 @@ ctrl_stmt       : TITLE STRING ';'
                     float version;
                     sscanf(VERSION, "%f", &version);
                     if ($2 - version > 0.001)
-                        fatal("version %g of IFM is required (this is %s)",
-                              $2, VERSION);
+                        err("version %g of IFM is required (this is %s)",
+                            $2, VERSION);
                 }
                 ;
 

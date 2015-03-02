@@ -22,7 +22,7 @@
 
 #define VAR_CHECK(id, var)                                              \
         if ((var = var_get(id)) == NULL)                                \
-            fatal("variable '%s' is not defined", id)
+            err("variable '%s' is not defined", id)
 
 #define ALPHA(c) (c == '_' || isalpha(c))
 #define ALNUM(c) (c == '_' || isalnum(c))
@@ -227,7 +227,7 @@ var_colour(char *id)
     static vhash *defs = NULL;
     char *name, *file, *path;
     double red, green, blue;
-    FILE *fp;
+    FILE *fp = NULL;
 
     /* Get colour name */
     name = var_string(id);
@@ -241,18 +241,25 @@ var_colour(char *id)
         file = var_string("colour_file");
 
         if ((path = find_file(file)) == NULL)
-            fatal("can't locate colour definitions file '%s'", file);
+            err("can't locate colour definitions file '%s'", file);
 
-        if ((fp = fopen(path, "r")) == NULL)
-            fatal("can't open '%s'", path);
+        if (path != NULL && (fp = fopen(path, "r")) == NULL)
+            err("can't open '%s'", path);
 
-        defs = read_colour_defs(fp);
-        fclose(fp);
+        if (fp != NULL) {
+            defs = read_colour_defs(fp);
+            fclose(fp);
+        }
     }
 
     /* Look up colour name */
-    if (!vh_exists(defs, name))
-        fatal("colour '%s' is not defined", name);
+    if (defs == NULL)
+        return id;
+
+    if (defs != NULL && !vh_exists(defs, name)) {
+        err("colour '%s' is not defined", name);
+        return id;
+    }
 
     return vh_sgetref(defs, name);
 }

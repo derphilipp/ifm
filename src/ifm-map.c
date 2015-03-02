@@ -241,7 +241,7 @@ room_exit(vhash *room, int xoff, int yoff, int flag)
     int num;
 
     if (xoff == 0 && yoff == 0)
-        fatal("internal: invalid direction offset");
+        err("internal: invalid direction offset");
 
     flags = vh_add_hash(room, "EXIT");
     V_BUF_SETF("%d,%d", xoff, yoff);

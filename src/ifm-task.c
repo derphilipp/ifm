@@ -626,8 +626,6 @@ new_task(int type, vhash *data)
                 vh_store(step, taskattr[i], vs_copy(val));
 
         break;
-    default:
-        fatal("internal: unknown task type");
     }
 
     if (vh_exists(data, "SAFE"))

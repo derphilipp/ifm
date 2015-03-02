@@ -119,14 +119,15 @@ set_map_vars(void)
     SET_FONTSIZE(page_title_fontsize);
 
     SET_STRING(page_size);
-    if (!get_papersize(page_size, &page_width, &page_height))
-        fatal("invalid paper size: %s", page_size);
+    if (get_papersize(page_size, &page_width, &page_height)) {
+        if (VAR_DEF("page_width"))
+            SET_REAL(page_width);
 
-    if (VAR_DEF("page_width"))
-        SET_REAL(page_width);
-
-    if (VAR_DEF("page_height"))
-        SET_REAL(page_height);
+        if (VAR_DEF("page_height"))
+            SET_REAL(page_height);
+    } else {
+        err("invalid paper size: %s", page_size);
+    }
 
     SET_REAL(room_size);
     room_size = V_MAX(room_size, 0.1);
@@ -216,8 +217,10 @@ print_map(int dnum, vlist *sections)
     int num = 1;
     viter i, j;
 
-    if (func == NULL)
-        fatal("no map driver for %s output", drv.name);
+    if (func == NULL) {
+        err("no map driver for %s output", drv.name);
+        return;
+    }
 
     sects = vh_pget(map, "SECTS");
     v_iterate(sects, i) {    
@@ -297,8 +300,10 @@ print_items(int dnum)
 
     items = vh_pget(map, "ITEMS");
 
-    if (func == NULL)
-        fatal("no item driver for %s output", drv.name);
+    if (func == NULL) {
+        err("no item driver for %s output", drv.name);
+        return;
+    }
 
     if (func->item_start != NULL)
         func->item_start();
@@ -328,8 +333,10 @@ print_tasks(int dnum)
 
     tasks = vh_pget(map, "TASKS");
 
-    if (func == NULL)
-        fatal("no task driver for %s output", drv.name);
+    if (func == NULL) {
+        err("no task driver for %s output", drv.name);
+        return;
+    }
 
     if (func->task_start != NULL)
         func->task_start();
