@@ -51,6 +51,7 @@ static int write_tasks = 0;     /* Whether to write task list */
 
 static int driver_idx = -1;     /* Output driver index */
 static int errors = 0;          /* No. of errors */
+static int verbose = 0;         /* Whether to be verbose */
 static int nowarn = 0;          /* Whether to suppress warnings */
 
 static vlist *sections = NULL;  /* List of map sections to output */
@@ -88,7 +89,7 @@ main(int argc, char *argv[])
 int
 run_main(int argc, char *argv[])
 {
-    char *env, *file = NULL, *info = NULL, *spec, *format = NULL;
+    char *env, *file, *outfile = NULL, *info = NULL, *spec, *format = NULL;
     vlist *args, *list, *include = NULL, *vars = NULL;
     int noinit = 0, version = 0, help = 0, debug = 0;
     vhash *opts;
@@ -125,7 +126,7 @@ run_main(int argc, char *argv[])
     v_option_string('f', "format", "name", &format,
                     "Select output format");
 
-    v_option_string('o', "output", "file", &file,
+    v_option_string('o', "output", "file", &outfile,
                     "Write output to specified file");
 
     v_optgroup("Auxiliary options:");
@@ -142,6 +143,9 @@ run_main(int argc, char *argv[])
     v_option_flag('\0', "noinit", &noinit,
                   "Don't read personal init file");
 
+    v_option_flag('v', "verbose", &verbose,
+                  "Be verbose about things");
+
     v_option_flag('w', "nowarn", &nowarn,
                   "Don't print warnings");
 
@@ -150,7 +154,7 @@ run_main(int argc, char *argv[])
     v_option_string('\0', "show", "type", &info,
                     "Show information");
 
-    v_option_flag('v', "version", &version,
+    v_option_flag('\0', "version", &version,
                   "Print program version");
 
     v_option_flag('h', "help", &help,
@@ -276,12 +280,9 @@ run_main(int argc, char *argv[])
         driver_idx = select_format(NULL);
 
     /* Open output file if required */
-    if (vh_exists(opts, "output")) {
-        file = vh_sgetref(opts, "output");
-        if (freopen(file, "w", stdout) == NULL) {
-            err("can't open %s", file);
-            return 1;
-        }
+    if (outfile != NULL && freopen(outfile, "w", stdout) == NULL) {
+        err("can't open '%s'", outfile);
+        return 1;
     }
 
     /* Resolve tags */
@@ -416,6 +417,8 @@ parse_input(char *file, int libflag, int required)
     if (errors)
         return 1;
 
+    info("Reading '%s'", infile);
+
     line_number = 1;
     errors = 0;
 
@@ -489,20 +492,16 @@ do_output(int type, char *fmt, ...)
 
     V_BUF_INIT;
 
-    switch (type) {
-    case OUT_ERROR:
+    if (type == O_ERROR)
         errors++;
-        /* fallthrough */
 
-    case OUT_WARNING:
+    if (type == O_ERROR || type == O_WARNING) {
         if (strlen(infile) > 0) {
             V_BUF_ADD(infile);
             if (line_number > 0)
                 V_BUF_ADDF(", line %d", line_number);
             V_BUF_ADD(": ");
         }
-
-        break;
     }
 
     V_ALLOCA_FMT(msg, fmt);
@@ -510,46 +509,51 @@ do_output(int type, char *fmt, ...)
 
     if (output_func != NULL) {
         output_func(type, msg);
-        return;
-    }
+    } else {
+        switch (type) {
 
-    switch (type) {
+        case O_TEXT:
+            printf("%s", msg);
+            break;
 
-    case OUT_TEXT:
-        printf("%s", msg);
-        break;
+        case O_INFO:
+            if (verbose)
+                fprintf(stderr, "%s\n", msg);
 
-    case OUT_WARNING:
-        if (!nowarn) {
+            break;
+
+        case O_WARNING:
+            if (!nowarn) {
+                if (driver_idx >= 0)
+                    func = drivers[driver_idx].efunc;
+
+                if (func == NULL)
+                    fprintf(stderr, "%s\n", msg);
+                else
+                    func->warning(infile, line_number, msg);
+            }
+
+            break;
+
+        case O_ERROR:
             if (driver_idx >= 0)
                 func = drivers[driver_idx].efunc;
 
             if (func == NULL)
                 fprintf(stderr, "%s\n", msg);
             else
-                func->warning(infile, line_number, msg);
+                func->error(infile, line_number, msg);
+
+            break;
+
+        case O_DEBUG:
+            if (getenv("IFM_DEBUG")) {
+                V_BUF_FMT(fmt, msg);
+                fprintf(stderr, "IFM: %s\n", msg);
+            }
+
+            break;
         }
-
-        break;
-
-    case OUT_ERROR:
-        if (driver_idx >= 0)
-            func = drivers[driver_idx].efunc;
-
-        if (func == NULL)
-            fprintf(stderr, "%s\n", msg);
-        else
-            func->error(infile, line_number, msg);
-
-        break;
-
-    case OUT_DEBUG:
-        if (getenv("IFM_DEBUG")) {
-            V_BUF_FMT(fmt, msg);
-            fprintf(stderr, "IFM: %s\n", msg);
-        }
-
-        break;
     }
 }
 

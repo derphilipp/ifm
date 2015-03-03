@@ -5,13 +5,14 @@
 
 /* Output types */
 enum {
-    OUT_TEXT, OUT_WARNING, OUT_ERROR, OUT_DEBUG
+    O_TEXT, O_INFO, O_WARNING, O_ERROR, O_DEBUG
 };
 
-#define debug(fmt, ...)   do_output(OUT_DEBUG,   fmt, ##__VA_ARGS__)
-#define err(fmt, ...)     do_output(OUT_ERROR,   fmt, ##__VA_ARGS__)
-#define output(fmt, ...)  do_output(OUT_TEXT,    fmt, ##__VA_ARGS__)
-#define warn(fmt, ...)    do_output(OUT_WARNING, fmt, ##__VA_ARGS__)
+#define output(fmt, ...)  do_output(O_TEXT,    fmt, ##__VA_ARGS__)
+#define info(fmt, ...)    do_output(O_INFO,    fmt, ##__VA_ARGS__)
+#define warn(fmt, ...)    do_output(O_WARNING, fmt, ##__VA_ARGS__)
+#define err(fmt, ...)     do_output(O_ERROR,   fmt, ##__VA_ARGS__)
+#define debug(fmt, ...)   do_output(O_DEBUG,   fmt, ##__VA_ARGS__)
 
 /* External vars */
 extern int line_number;

@@ -3,6 +3,8 @@ Version 5.5 (unreleased)
 
 * New output format: YAML.
 
+* New option: ``-v`` (verbose), which shows more information when running.
+
 * The ``-e`` option (specify max errors before exiting) has been removed.
 
 Version 5.4 (13 Feb 2009)
