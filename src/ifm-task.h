@@ -10,9 +10,6 @@ enum {
     T_MOVE, T_GET, T_DROP, T_GOTO, T_USER
 };
 
-/* Task list */
-extern vlist *tasklist;
-
 /* Advertised functions */
 extern void check_cycles(void);
 extern vhash *require_task(vhash *step);

@@ -7,7 +7,7 @@
 extern vhash *map, *startroom;
 extern vlist *rooms, *links, *joins, *items, *tasks, *sects;
 extern vhash *roomtags, *itemtags, *tasktags, *linktags, *jointags;
-extern vlist *taskorder, *sectnames;
+extern vlist *tasklist, *taskorder, *sectnames;
 
 /* Advertised functions */
 extern void init_map(void);

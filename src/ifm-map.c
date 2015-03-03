@@ -37,7 +37,9 @@ vhash *tasktags = NULL;         /* Tag -> task mapping */
 
 vhash *startroom = NULL;        /* Starting room */
 
+vlist *tasklist = NULL;         /* Task step list */
 vlist *taskorder = NULL;        /* Ordered task list */
+
 vlist *sectnames = NULL;	/* List of section names */
 
 /* Internal stuff */
@@ -53,7 +55,13 @@ static void resolve_tag_list(char *type, vlist *list, vhash *table);
 void
 init_map(void)
 {
+#if 0
+    if (map != NULL)
+        v_destroy(map);
+#endif
+
     map = vh_create();
+
     rooms = vl_create();
     links = vl_create();
     items = vl_create();
@@ -69,19 +77,25 @@ init_map(void)
     jointags = vh_create();
     tasktags = vh_create();
 
+    tasklist = vl_create();
     taskorder = vl_create();
 
     vh_pstore(map, "ROOMS", rooms);
     vh_pstore(map, "LINKS", links);
     vh_pstore(map, "ITEMS", items);
     vh_pstore(map, "JOINS", joins);
-    vh_pstore(map, "TASKS", taskorder);
     vh_pstore(map, "SECTS", sects);
+
+    vh_pstore(map, "TASKS", taskorder);
+    vh_pstore(map, "TSTEP", tasklist);
+    vh_pstore(map, "TDATA", tasks);
 
     vh_pstore(map, "RPOS", rpos);
 
     vh_pstore(map, "ROOMTAGS", roomtags);
     vh_pstore(map, "ITEMTAGS", itemtags);
+    vh_pstore(map, "LINKTAGS", linktags);
+    vh_pstore(map, "JOINTAGS", jointags);
     vh_pstore(map, "TASKTAGS", tasktags);
 }
 

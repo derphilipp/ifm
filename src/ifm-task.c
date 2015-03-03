@@ -36,9 +36,6 @@ enum {
     TS_INVALID, TS_IGNORED, TS_UNSAFE, TS_SAFE
 };
 
-/* Task step list */
-vlist *tasklist = NULL;
-
 /* Current location */
 static vhash *location = NULL;
 static char *location_desc = "nowhere";
@@ -68,9 +65,6 @@ static void
 add_task(vhash *task)
 {
     if (!vh_exists(task, "DEPEND")) {
-        if (tasklist == NULL)
-            tasklist = vl_create();
-
         vl_ppush(tasklist, task);
         vh_pstore(task, "DEPEND", vl_create());
     }
@@ -90,7 +84,7 @@ check_cycles(void)
     int count;
 
     /* Don't bother if no tasks */
-    if (tasklist == NULL || vl_length(tasklist) == 0)
+    if (vl_length(tasklist) == 0)
         return;
 
     /* Build task graph */
@@ -1056,7 +1050,7 @@ solve_game(void)
     viter iter;
 
     /* Don't bother if no tasks */
-    if (tasklist == NULL || vl_length(tasklist) == 0)
+    if (vl_length(tasklist) == 0)
         return;
 
     /* Set control variables */
