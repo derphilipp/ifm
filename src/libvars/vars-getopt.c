@@ -68,6 +68,9 @@
         option(letter, name, otype, argname, vtype, var, desc);         \
 }
 
+/* All option data */
+static vlist *option_data = NULL;
+
 /* Option lists */
 static vlist *option_list = NULL;
 
@@ -86,9 +89,9 @@ static void option(char optletter, char *optname, enum v_oflag type,
                    char *argname, int vtype, void *var, char *fmt, ...);
 static char *optstring(void);
 static int set_long_option(vhash *opts, char *opt, char *arg);
+static int set_short_option(vhash *opts, char opt, char *arg);
 static int set_option(vhash *opts, char *name, enum v_oflag type, void *var,
                       enum v_stype vtype, char *arg);
-static int set_short_option(vhash *opts, char opt, char *arg);
 
 /*!
   @brief   Parse command-line options.
@@ -150,7 +153,7 @@ v_getopts(int argc, char *argv[])
     vh_pstore(opts, "ARGS", args);
 
     /* Parse arguments */
-    if (long_optlist == NULL) {
+    if (long_optlist == NULL || vl_length(long_optlist) == 0) {
         /* Single-letter options only */
         while ((c = getopt(argc, argv, optstring())) != EOF) {
             if (c == '?')
@@ -478,7 +481,7 @@ v_usage(char *fmt, ...)
                 continue;
 
             if (strlen(sname) == 0) {
-                if (short_optlist == NULL)
+                if (vl_length(short_optlist) == 0)
                     V_BUF_SETF("--%s", lname);    
                 else
                     V_BUF_SETF("    --%s", lname);
@@ -572,30 +575,21 @@ v_usage(char *fmt, ...)
 void
 v_initopts(void)
 {
-    if (option_list != NULL) {
-        v_destroy(option_list);
-        option_list = NULL;
-    }
+    if (option_data != NULL)
+        v_destroy(option_data);
 
-    if (short_optlist != NULL) {
-        v_destroy(short_optlist);
-        short_optlist = NULL;
-    }
+    option_list = vl_create();
+    short_optlist = vl_create();
+    long_optlist = vl_create();
+    short_opthash = vh_create();
+    long_opthash = vh_create();
 
-    if (long_optlist != NULL) {
-        v_destroy(long_optlist);
-        long_optlist = NULL;
-    }
-
-    if (short_opthash != NULL) {
-        v_destroy(short_opthash);
-        short_opthash = NULL;
-    }
-
-    if (long_opthash != NULL) {
-        v_destroy(long_opthash);
-        long_opthash = NULL;
-    }
+    option_data = vl_list(V_TYPE_POINTER, option_list,
+                          V_TYPE_POINTER, short_optlist,
+                          V_TYPE_POINTER, long_optlist,
+                          V_TYPE_POINTER, short_opthash,
+                          V_TYPE_POINTER, long_opthash,
+                          V_TYPE_NULL);
 
     optgroup = NULL;
     optind = 1;
@@ -650,9 +644,8 @@ option(char optletter, char *optname, enum v_oflag type, char *argname,
     char *desc = NULL;
     V_BUF_DECL;
 
-    /* Initialise */
-    if (option_list == NULL)
-        option_list = vl_create();
+    if (option_data == NULL)
+        v_initopts();
 
     if (optletter == '\0' && optname == NULL)
         v_fatal("v_option(): no option letter or long name specified");
@@ -686,11 +679,6 @@ option(char optletter, char *optname, enum v_oflag type, char *argname,
 
     /* Add single-letter option if required */
     if (optletter != '\0') {
-        if (short_optlist == NULL) {
-            short_optlist = vl_create();
-            short_opthash = vh_create();
-        }
-
         V_BUF_SETF("%c", optletter);
         vh_sstore(opt, "SHORT", V_BUF_VAL);
 
@@ -705,11 +693,6 @@ option(char optletter, char *optname, enum v_oflag type, char *argname,
     if (optname != NULL) {
         if (strlen(optname) < (size_t) 2)
             v_fatal("v_option(): long name must be at least 2 characters");
-
-        if (long_optlist == NULL) {
-            long_optlist = vl_create();
-            long_opthash = vh_create();
-        }
 
         vh_sstore(opt, "LONG", optname);
 
@@ -731,7 +714,7 @@ optstring(void)
     V_BUF_DECL;
     int type;
 
-    if (short_optlist == NULL)
+    if (vl_length(short_optlist) == 0)
         return "";
 
     V_BUF_INIT;
@@ -784,6 +767,35 @@ set_long_option(vhash *opts, char *opt, char *arg)
 
     /* Set equivalent short option as well */
     name = vh_sgetref(option, "SHORT");
+    if (strlen(name) > 0 && !set_option(opts, name, type, NULL, vtype, arg))
+        return 0;
+
+    return 1;
+}
+
+/* Set a short option */
+static int
+set_short_option(vhash *opts, char opt, char *arg)
+{
+    int type, vtype;
+    vhash *option;
+    V_BUF_DECL;
+    char *name;
+    void *var;
+
+    /* Set the option */
+    V_BUF_SETF("%c", opt);
+    option = vh_pget(short_opthash, V_BUF_VAL);
+    name = vh_sgetref(option, "SHORT");
+    type = vh_iget(option, "TYPE");
+    var = vh_pget(option, "VAR");
+    vtype = vh_iget(option, "VTYPE");
+
+    if (!set_option(opts, name, type, var, vtype, arg))
+        return 0;
+
+    /* Set equivalent long option as well */
+    name = vh_sgetref(option, "LONG");
     if (strlen(name) > 0 && !set_option(opts, name, type, NULL, vtype, arg))
         return 0;
 
@@ -881,35 +893,6 @@ set_option(vhash *opts, char *name, enum v_oflag type,
         SET_VAR(int, var, 1);
         break;
     }
-
-    return 1;
-}
-
-/* Set a short option */
-static int
-set_short_option(vhash *opts, char opt, char *arg)
-{
-    int type, vtype;
-    vhash *option;
-    V_BUF_DECL;
-    char *name;
-    void *var;
-
-    /* Set the option */
-    V_BUF_SETF("%c", opt);
-    option = vh_pget(short_opthash, V_BUF_VAL);
-    name = vh_sgetref(option, "SHORT");
-    type = vh_iget(option, "TYPE");
-    var = vh_pget(option, "VAR");
-    vtype = vh_iget(option, "VTYPE");
-
-    if (!set_option(opts, name, type, var, vtype, arg))
-        return 0;
-
-    /* Set equivalent long option as well */
-    name = vh_sgetref(option, "LONG");
-    if (strlen(name) > 0 && !set_option(opts, name, type, NULL, vtype, arg))
-        return 0;
 
     return 1;
 }
