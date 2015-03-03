@@ -30,6 +30,12 @@
 #define PATHSEP ";"
 #endif
 
+#define CHECK_ERR(stmt) do {                                            \
+    stmt;                                                               \
+    if (errors)                                                         \
+        return 1;                                                       \
+} while (0)
+
 #define STRINGIFY_DEF(name) STRINGIFY(name)
 #define STRINGIFY(name) #name
 
@@ -61,7 +67,7 @@ static void (*output_func)(int type, char *msg);
 
 /* Internal functions */
 static void print_version(void);
-static int select_format(char *str);
+static int select_driver(char *name);
 static void show_info(char *type);
 static void show_maps(void);
 static void show_path(void);
@@ -96,6 +102,7 @@ run_main(int argc, char *argv[])
     V_BUF_DECL;
     viter iter;
 
+    /* Set up debugging options */
 #ifdef BISON_DEBUG
     extern int yydebug;
 #endif
@@ -105,13 +112,17 @@ run_main(int argc, char *argv[])
     yy_flex_debug = 0;
 #endif
 
-    /* Initialise */
+#ifdef VARS_DEBUG
     v_debug_env();
+#endif
+
+    /* Set program name */
     progname = argv[0];
 
-    /* Define options */
-    v_initopts();
+    /* Initialise */
+    initialize();
 
+    /* Define options */
     v_optgroup("Output options:");
 
     v_option('m', "map", V_OPT_OPTARG, "sections",
@@ -176,41 +187,6 @@ run_main(int argc, char *argv[])
         return 0;
     }
 
-    if (vh_exists(opts, "map")) {
-        write_map = 1;
-        spec = vh_sgetref(opts, "map");
-        if (strlen(spec) > 0 && (sections = vl_parse_list(spec)) == NULL)
-            err("invalid map section spec: %s", spec);
-    }
-
-    if (format != NULL)
-        driver_idx = select_format(format);
-
-    if (ifm_styles != NULL) {
-        v_iterate(ifm_styles, iter)
-            ref_style(vl_iter_svalref(iter));
-    }
-
-    /* Set search path if required */
-    strcpy(infile, "");
-
-    if (ifm_search != NULL)
-        vl_destroy(ifm_search);
-
-    ifm_search = vl_create();
-    vl_spush(ifm_search, STRINGIFY_DEF(IFMLIB));
-
-    if ((env = getenv("IFMPATH")) != NULL) {
-        list = vl_split(env, PATHSEP);
-        while (vl_length(list) > 0)
-            vl_sunshift(ifm_search, vl_spop(list));
-    }
-
-    if (include != NULL)
-        while (vl_length(include) > 0)
-            vl_sunshift(ifm_search, vl_spop(include));
-
-    /* Set internal debugging options */
 #ifdef FLEX_DEBUG
     if (debug & 1)
         yy_flex_debug = 1;
@@ -221,9 +197,29 @@ run_main(int argc, char *argv[])
         yydebug = 1;
 #endif
 
-    /* Initialise things */
-    init_map();
-    init_vars();
+    /* Get map sections to output */
+    if (vh_exists(opts, "map")) {
+        write_map = 1;
+        spec = vh_sgetref(opts, "map");
+        if (strlen(spec) > 0 && !set_map_sections(spec))
+            err("invalid map section spec: %s", spec);
+    }
+
+    /* Set output format */
+    CHECK_ERR(set_output_driver(format));
+
+    /* Set search path */
+    add_search_dir(STRINGIFY_DEF(IFMLIB), 0);
+
+    if ((env = getenv("IFMPATH")) != NULL) {
+        list = vl_split(env, PATHSEP);
+        while (vl_length(list) > 0)
+            add_search_dir(vl_spop(list), 1);
+    }
+
+    if (include != NULL)
+        while (vl_length(include) > 0)
+            add_search_dir(vl_spop(include), 1);
 
     /* Parse system init file */
     if (!parse_input(SYSINIT, 1, 1))
@@ -239,30 +235,34 @@ run_main(int argc, char *argv[])
         }
 
         V_BUF_SETF("%s/.ifmrc", home);
-        if (!parse_input(V_BUF_VAL, 0, 0))
-            return 1;
+        CHECK_ERR(parse_input(V_BUF_VAL, 0, 0));
 
         V_BUF_SETF("%s/ifm.ini", home);
-        if (!parse_input(V_BUF_VAL, 0, 0))
-            return 1;
+        CHECK_ERR(parse_input(V_BUF_VAL, 0, 0));
     }
 
-    /* Parse input files (or stdin) */
+    /* Parse input files (or stdin) if required */
     args = v_getargs(opts);
+
     if (vl_length(args) > 0) {
         v_iterate(args, iter) {
             file = vl_iter_svalref(iter);
             parse_input(file, 0, 1);
         }
-    } else if (info == NULL && !parse_input(NULL, 0, 1)) {
-        return 1;
+    } else if (info == NULL) {
+        parse_input(NULL, 0, 1);
     }
 
+    CHECK_ERR();
+
     /* Load style definitions */
-    set_style_list(ifm_styles);
-    load_styles();
-    if (errors)
-        return 1;
+    if (ifm_styles != NULL) {
+        set_style_list(ifm_styles);
+        v_iterate(ifm_styles, iter)
+            ref_style(vl_iter_svalref(iter));
+    }
+
+    CHECK_ERR(load_styles());
 
     /* Set any variables from command line */
     if (vars != NULL) {
@@ -271,14 +271,10 @@ run_main(int argc, char *argv[])
             spec = vl_iter_svalref(iter);
             if ((cp = strchr(spec, '=')) != NULL) {
                 *cp++ = '\0';
-                var_set(NULL, spec, vs_screate(cp));
+                set_variable(NULL, spec, cp);
             }
         }
     }
-
-    /* Set output format if not already specified */
-    if (OUTPUT && driver_idx < 0)
-        driver_idx = select_format(NULL);
 
     /* Open output file if required */
     if (outfile != NULL && freopen(outfile, "w", stdout) == NULL) {
@@ -287,48 +283,36 @@ run_main(int argc, char *argv[])
     }
 
     /* Resolve tags */
-    resolve_tags();
-    if (errors)
-        return 1;
+    CHECK_ERR(resolve_tags());
 
     /* Set up rooms */
-    setup_rooms();
+    CHECK_ERR(setup_rooms());
 
     /* Set up links */
-    setup_links();
-    if (errors)
-        return 1;
+    CHECK_ERR(setup_links());
 
     /* Set up room exits */
-    setup_exits();
+    CHECK_ERR(setup_exits());
 
     /* Set up map sections */
-    setup_sections();
+    CHECK_ERR(setup_sections());
 
     /* Connect rooms together */
-    connect_rooms();
-    if (errors)
-        return 1;
+    CHECK_ERR(connect_rooms());
 
     /* Set up tasks */
-    setup_tasks();
-    if (errors)
-        return 1;
+    CHECK_ERR(setup_tasks());
 
     /* Solve game if required */
     if (!OUTPUT || write_tasks) {
-        check_cycles();
-        if (!errors)
-            solve_game();
-        else
-            return 1;
+        CHECK_ERR(check_cycles());
+        CHECK_ERR(solve_game());
     }
 
-    /* Do what's required */
+    /* Write output */
     if (driver_idx >= 0)
         ifm_format = drivers[driver_idx].name;
 
-    /* Just show info if required */
     if (info == NULL) {
         if (!OUTPUT && !TASK_VERBOSE)
             output("Syntax appears OK\n");
@@ -353,6 +337,79 @@ run_main(int argc, char *argv[])
 
     /* Er... that's it */
     return 0;
+}
+
+/* Initialize everything */
+void
+initialize(void)
+{
+    v_initopts();
+
+    init_map();
+    init_vars();
+
+    strcpy(infile, "");
+
+    if (ifm_search != NULL)
+        vl_destroy(ifm_search);
+
+    ifm_search = vl_create();
+
+    if (ifm_styles != NULL)
+        vl_destroy(ifm_styles);
+
+    ifm_styles = NULL;
+
+    if (sections != NULL)
+        vl_destroy(sections);
+
+    sections = NULL;
+}
+
+/* Add to the search path */
+void
+add_search_dir(char *path, int prepend)
+{
+    if (prepend)
+        vl_sunshift(ifm_search, path);
+    else
+        vl_spush(ifm_search, path);
+}
+
+/* Set the output map sections */
+int
+set_map_sections(char *spec)
+{
+    if (sections != NULL)
+        vl_destroy(sections);
+
+    sections = vl_parse_list(spec);
+    return sections != NULL;
+}
+
+/* Set a variable */
+void
+set_variable(char *driver, char *name, char *value)
+{
+    var_set(driver, name, vs_screate(value));
+}
+
+/* Set output driver */
+void
+set_output_driver(char *name)
+{
+    if (name != NULL)
+        driver_idx = select_driver(name);
+
+    if (OUTPUT && driver_idx < 0)
+        driver_idx = select_driver(NULL);
+}
+
+/* Set output handler */
+void
+set_output_handler(void (*func)(int type, char *msg))
+{
+    output_func = func;
 }
 
 /* Run a command and return its output */
@@ -385,7 +442,7 @@ run_command(char *command)
 
 /* Parse input from a file */
 int
-parse_input(char *file, int libflag, int required)
+parse_input(char *file, int search, int required)
 {
     void yyrestart(FILE *input_file);
     int yyparse(void);
@@ -401,7 +458,7 @@ parse_input(char *file, int libflag, int required)
         strcpy(infile, "<stdin>");
         path = NULL;
     } else {
-        if (libflag)
+        if (search)
             path = find_file(file);
 
         if (!required && (path == NULL || !v_exists(path)))
@@ -441,46 +498,6 @@ parse_input(char *file, int libflag, int required)
     strcpy(infile, "");
 
     return (errors == 0);
-}
-
-/* Select an output format */
-static int
-select_format(char *str)
-{
-    int i, match = -1, nmatch = 0, len = 0;
-
-    if (str != NULL)
-        len = strlen(str);
-
-    for (i = 0; drivers[i].name != NULL; i++) {
-        if (str == NULL) {
-            if (write_map && drivers[i].mfunc != NULL)
-                return i;
-
-            if (write_items && drivers[i].ifunc != NULL)
-                return i;
-
-            if (write_tasks && drivers[i].tfunc != NULL)
-                return i;
-        } else {
-            if (strcmp(drivers[i].name, str) == 0)
-                return i;
-
-            if (strncmp(drivers[i].name, str, len) == 0) {
-                nmatch++;
-                match = i;
-            }
-        }
-    }
-
-    if (str == NULL)
-        err("internal: no output format found");
-    else if (nmatch == 0)
-        err("unknown output format: %s", str);
-    else if (nmatch > 1)
-        err("ambiguous output format: %s", str);
-
-    return match;
 }
 
 /* Write output */
@@ -558,11 +575,44 @@ do_output(int type, char *fmt, ...)
     }
 }
 
-/* Set output handler */
-void
-set_output(void (*func)(int type, char *msg))
+/* Select an output driver */
+static int
+select_driver(char *name)
 {
-    output_func = func;
+    int i, match = -1, nmatch = 0, len = 0;
+
+    if (name != NULL)
+        len = strlen(name);
+
+    for (i = 0; drivers[i].name != NULL; i++) {
+        if (name == NULL) {
+            if (write_map && drivers[i].mfunc != NULL)
+                return i;
+
+            if (write_items && drivers[i].ifunc != NULL)
+                return i;
+
+            if (write_tasks && drivers[i].tfunc != NULL)
+                return i;
+        } else {
+            if (strcmp(drivers[i].name, name) == 0)
+                return i;
+
+            if (strncmp(drivers[i].name, name, len) == 0) {
+                nmatch++;
+                match = i;
+            }
+        }
+    }
+
+    if (name == NULL)
+        err("internal: no output format found");
+    else if (nmatch == 0)
+        err("unknown output format: %s", name);
+    else if (nmatch > 1)
+        err("ambiguous output format: %s", name);
+
+    return match;
 }
 
 /* Print program version and exit */

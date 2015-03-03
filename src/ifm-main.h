@@ -22,10 +22,15 @@ extern vlist *ifm_styles;
 
 /* Advertised functions */
 extern int run_main(int argc, char *argv[]);
+extern void initialize(void);
+extern void add_search_dir(char *path, int prepend);
+extern int set_map_sections(char *spec);
+extern void set_variable(char *driver, char *name, char *value);
+extern void set_output_driver(char *name);
+extern void set_output_handler(void (*func)(int type, char *msg));
 extern void run_command(char *command);
-extern int parse_input(char *file, int libflag, int required);
+extern int parse_input(char *file, int search, int required);
 extern void do_output(int type, char *fmt, ...);
-extern void set_output(void (*func)(int type, char *msg));
 extern void yyerror(char *msg);
 
 #endif

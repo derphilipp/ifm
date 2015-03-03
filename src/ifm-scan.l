@@ -45,10 +45,7 @@ VAR             \${ID}
     int c, quote = 0, eatspace = 0;
 
     /* Initialise buffer */
-    if (sbuf == NULL)
-        sbuf = vb_create();
-    else
-        vb_empty(sbuf);
+    vb_init(sbuf);
 
     /* Slurp string in, one char at a time */
     while (1) {
