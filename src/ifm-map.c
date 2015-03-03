@@ -55,12 +55,11 @@ static void resolve_tag_list(char *type, vlist *list, vhash *table);
 void
 init_map(void)
 {
-#if 0
     if (map != NULL)
         v_destroy(map);
-#endif
 
     map = vh_create();
+    startroom = NULL;
 
     rooms = vl_create();
     links = vl_create();
