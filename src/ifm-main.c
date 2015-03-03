@@ -221,8 +221,9 @@ run_main(int argc, char *argv[])
         yydebug = 1;
 #endif
 
-    /* Initialise map stuff */
+    /* Initialise things */
     init_map();
+    init_vars();
 
     /* Parse system init file */
     if (!parse_input(SYSINIT, 1, 1))

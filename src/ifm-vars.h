@@ -6,6 +6,7 @@
 #define VAR_DEF(var)  (var_get(var) != NULL)
 
 /* Advertised functions */
+extern void init_vars(void);
 extern void add_style(char *name);
 extern char *current_style(void);
 extern vlist *current_styles(void);

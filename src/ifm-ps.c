@@ -269,10 +269,8 @@ ps_map_room(vhash *room)
     if (ex != NULL) {
         double x1, y1, x2, y2;
 
-        if (px == NULL) {
-            px = vl_create();
-            py = vl_create();
-        }
+        vl_init(px);
+        vl_init(py);
 
         while (vl_length(ex) > 0) {
             vl_istore(px, 0, x);
@@ -422,11 +420,7 @@ ps_string(char *str)
 {
     static vbuffer *b = NULL;
 
-    if (b == NULL)
-        b = vb_create();
-    else
-        vb_empty(b);
-
+    vb_init(b);
     vb_putc(b, '(');
 
     while (*str != '\0') {

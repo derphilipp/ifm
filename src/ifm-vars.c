@@ -15,11 +15,6 @@
 #include "ifm-util.h"
 #include "ifm-vars.h"
 
-#define INIT_VARS                                                       \
-        if (nvars == NULL) cvars = nvars = vh_create();                 \
-        if (styles == NULL) styles = vh_create();                       \
-        if (rstyles == NULL) rstyles = vh_create()
-
 #define VAR_CHECK(id, var)                                              \
         if ((var = var_get(id)) == NULL)                                \
             err("variable '%s' is not defined", id)
@@ -46,6 +41,29 @@ static vlist *style_list = NULL;
 static vhash *read_colour_defs(FILE *fp);
 static char *var_encode(char *driver, char *var);
 static void var_print(vhash *vars, char *style);
+
+/* Initialise variables */
+void
+init_vars(void)
+{
+    if (nvars != NULL)
+        v_destroy(nvars);
+
+    if (styles != NULL)
+        v_destroy(styles);
+
+    if (rstyles != NULL)
+        v_destroy(rstyles);
+
+    cvars = nvars = vh_create();
+    styles = vh_create();
+    rstyles = vh_create();
+
+    if (style_list != NULL)
+        vl_destroy(style_list);
+
+    style_list = NULL;
+}
 
 /* Add a style to the style list */
 void
@@ -173,7 +191,6 @@ read_colour_defs(FILE *fp)
 void
 ref_style(char *name)
 {
-    INIT_VARS;
     vh_istore(rstyles, name, 1);
 }
 
@@ -181,8 +198,6 @@ ref_style(char *name)
 void
 set_style(char *name)
 {
-    INIT_VARS;
-
     if (name != NULL && strlen(name) > 0)
         cvars = vh_add_hash(styles, name);
     else
@@ -290,8 +305,6 @@ var_get(char *id)
     vhash *svars;
     int i, len;
 
-    INIT_VARS;
-
     /* Check style list if required */
     if (style_list != NULL) {
         len = vl_length(style_list);
@@ -355,8 +368,6 @@ var_list(void)
     vlist *slist;
     char *style;
     viter iter;
-
-    INIT_VARS;
 
     output("# IFM defined variables.\n");
 
@@ -443,8 +454,6 @@ void
 var_set(char *driver, char *id, vscalar *val)
 {
     char *key;
-
-    INIT_VARS;
 
     key = var_encode(driver, id);
 
