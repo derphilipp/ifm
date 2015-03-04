@@ -254,7 +254,7 @@ main(int argc, char *argv[])
             spec = vl_iter_svalref(iter);
             if ((cp = strchr(spec, '=')) != NULL) {
                 *cp++ = '\0';
-                set_variable(NULL, spec, cp);
+                set_variable(spec, cp);
             }
         }
     }
@@ -329,9 +329,10 @@ set_map_sections(char *spec)
 
 /* Set a variable */
 void
-set_variable(char *driver, char *name, char *value)
+set_variable(char *name, char *value)
 {
-    var_set(driver, name, vs_screate(value));
+    info("Setting %s to '%s'", name, value);
+    var_set(NULL, name, vs_screate(value));
 }
 
 /* Set what's required on output */

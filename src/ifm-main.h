@@ -24,7 +24,7 @@ extern vlist *ifm_styles;
 extern void initialize(void);
 extern void add_search_dir(char *path, int prepend);
 extern void set_map_sections(char *spec);
-extern void set_variable(char *driver, char *name, char *value);
+extern void set_variable(char *name, char *value);
 extern void set_output_options(int map, int items, int tasks);
 extern void set_output_driver(char *name);
 extern void set_output_handler(void (*func)(int type, char *msg));
