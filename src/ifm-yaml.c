@@ -221,30 +221,42 @@ yaml_item_entry(vhash *item)
         output("  finish: true\n");
 
     if ((list = vh_pget(item, "RTASKS")) != NULL) {
-        output("  after:\n");
+        output("  after: [");
 
         v_iterate(list, iter) {
             task = vl_iter_pval(iter);
-            output("  - %d\n", vh_iget(task, "ID"));
+            if (v_iter_count(iter) > 0)
+                output(", ");
+            output("%d", vh_iget(task, "ID"));
         }
+
+        output("]\n");
     }
 
     if ((list = vh_pget(item, "TASKS")) != NULL) {
-        output("  needed:\n");
+        output("  needed: [");
 
         v_iterate(list, iter) {
             task = vl_iter_pval(iter);
-            output("  - %d\n", vh_iget(task, "ID"));
+            if (v_iter_count(iter) > 0)
+                output(", ");
+            output("%d", vh_iget(task, "ID"));
         }
+
+        output("]\n");
     }
 
     if ((list = vh_pget(item, "NROOMS")) != NULL) {
-        output("  enter:\n");
+        output("  enter: [");
 
         v_iterate(list, iter) {
             room = vl_iter_pval(iter);
-            output("  - %d\n", vh_iget(room, "ID"));
+            if (v_iter_count(iter) > 0)
+                output(", ");
+            output("%d", vh_iget(room, "ID"));
         }
+
+        output("]\n");
     }
 
     if ((list = vh_pget(item, "NLINKS")) != NULL) {
