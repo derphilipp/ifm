@@ -194,8 +194,8 @@ main(int argc, char *argv[])
     if (vh_exists(opts, "map")) {
         write_map = 1;
         spec = vh_sgetref(opts, "map");
-        if (strlen(spec) > 0 && !set_map_sections(spec))
-            err("invalid map section spec: %s", spec);
+        if (strlen(spec) > 0)
+            CHECK_ERR(set_map_sections(spec));
     }
 
     /* Set output format */
@@ -317,14 +317,14 @@ add_search_dir(char *path, int prepend)
 }
 
 /* Set the output map sections */
-int
+void
 set_map_sections(char *spec)
 {
     if (sections != NULL)
         vl_destroy(sections);
 
-    sections = vl_parse_list(spec);
-    return sections != NULL;
+    if ((sections = vl_parse_list(spec)) == NULL)
+        err("invalid map section spec: %s", spec);
 }
 
 /* Set a variable */
