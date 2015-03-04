@@ -84,16 +84,9 @@ static struct show_st {
     { NULL,   NULL,                NULL }
 };
 
-/* Main routine */
-int
-main(int argc, char *argv[])
-{
-    return run_main(argc, argv);
-}
-
 /* Main function */
 int
-run_main(int argc, char *argv[])
+main(int argc, char *argv[])
 {
     char *env, *file, *outfile = NULL, *info = NULL, *spec, *format = NULL;
     vlist *args, *list, *include = NULL, *vars = NULL;
@@ -222,8 +215,7 @@ run_main(int argc, char *argv[])
             add_search_dir(vl_spop(include), 1);
 
     /* Parse system init file */
-    if (!parse_input(SYSINIT, 1, 1))
-        return 1;
+    CHECK_ERR(read_input(SYSINIT, 1, 1));
 
     /* Parse personal init file(s) if available */
     if (!noinit) {
@@ -235,10 +227,10 @@ run_main(int argc, char *argv[])
         }
 
         V_BUF_SETF("%s/.ifmrc", home);
-        CHECK_ERR(parse_input(V_BUF_VAL, 0, 0));
+        CHECK_ERR(read_input(V_BUF_VAL, 0, 0));
 
         V_BUF_SETF("%s/ifm.ini", home);
-        CHECK_ERR(parse_input(V_BUF_VAL, 0, 0));
+        CHECK_ERR(read_input(V_BUF_VAL, 0, 0));
     }
 
     /* Parse input files (or stdin) if required */
@@ -247,22 +239,13 @@ run_main(int argc, char *argv[])
     if (vl_length(args) > 0) {
         v_iterate(args, iter) {
             file = vl_iter_svalref(iter);
-            parse_input(file, 0, 1);
+            read_input(file, 0, 1);
         }
     } else if (info == NULL) {
-        parse_input(NULL, 0, 1);
+        read_input(NULL, 0, 1);
     }
 
     CHECK_ERR();
-
-    /* Load style definitions */
-    if (ifm_styles != NULL) {
-        set_style_list(ifm_styles);
-        v_iterate(ifm_styles, iter)
-            ref_style(vl_iter_svalref(iter));
-    }
-
-    CHECK_ERR(load_styles());
 
     /* Set any variables from command line */
     if (vars != NULL) {
@@ -276,64 +259,20 @@ run_main(int argc, char *argv[])
         }
     }
 
+    /* Prepare output for writing */
+    CHECK_ERR(prepare_output());
+
     /* Open output file if required */
     if (outfile != NULL && freopen(outfile, "w", stdout) == NULL) {
         err("can't open '%s'", outfile);
         return 1;
     }
 
-    /* Resolve tags */
-    CHECK_ERR(resolve_tags());
-
-    /* Set up rooms */
-    CHECK_ERR(setup_rooms());
-
-    /* Set up links */
-    CHECK_ERR(setup_links());
-
-    /* Set up room exits */
-    CHECK_ERR(setup_exits());
-
-    /* Set up map sections */
-    CHECK_ERR(setup_sections());
-
-    /* Connect rooms together */
-    CHECK_ERR(connect_rooms());
-
-    /* Set up tasks */
-    CHECK_ERR(setup_tasks());
-
-    /* Solve game if required */
-    if (!OUTPUT || write_tasks) {
-        CHECK_ERR(check_cycles());
-        CHECK_ERR(solve_game());
-    }
-
     /* Write output */
-    if (driver_idx >= 0)
-        ifm_format = drivers[driver_idx].name;
-
-    if (info == NULL) {
-        if (!OUTPUT && !TASK_VERBOSE)
-            output("Syntax appears OK\n");
-
-        if (OUTPUT)
-            print_start(driver_idx);
-
-        if (write_map)
-            print_map(driver_idx, sections);
-
-        if (write_items)
-            print_items(driver_idx);
-
-        if (write_tasks)
-            print_tasks(driver_idx);
-
-        if (OUTPUT)
-            print_finish(driver_idx);
-    } else {
+    if (info != NULL)
         show_info(info);
-    }
+    else
+        write_output();
 
     /* Er... that's it */
     return 0;
@@ -343,8 +282,6 @@ run_main(int argc, char *argv[])
 void
 initialize(void)
 {
-    v_initopts();
-
     init_map();
     init_vars();
 
@@ -370,10 +307,13 @@ initialize(void)
 void
 add_search_dir(char *path, int prepend)
 {
-    if (prepend)
+    if (prepend) {
+        info("Prepending '%s' to search path", path);
         vl_sunshift(ifm_search, path);
-    else
+    } else {
+        info("Appending '%s' to search path", path);
         vl_spush(ifm_search, path);
+    }
 }
 
 /* Set the output map sections */
@@ -394,15 +334,21 @@ set_variable(char *driver, char *name, char *value)
     var_set(driver, name, vs_screate(value));
 }
 
+/* Set what's required on output */
+void
+set_output_options(int map, int items, int tasks)
+{
+    write_map = map;
+    write_items = items;
+    write_tasks = tasks;
+}
+
 /* Set output driver */
 void
 set_output_driver(char *name)
 {
     if (name != NULL)
         driver_idx = select_driver(name);
-
-    if (OUTPUT && driver_idx < 0)
-        driver_idx = select_driver(NULL);
 }
 
 /* Set output handler */
@@ -412,37 +358,9 @@ set_output_handler(void (*func)(int type, char *msg))
     output_func = func;
 }
 
-/* Run a command and return its output */
-void
-run_command(char *command)
-{
-    vlist *parts;
-    int argc, i;
-    char **argv;
-
-    /* Split command into bits */
-    parts = vl_qsplit(command, NULL, "'");
-
-    /* Build command args */
-    argc = vl_length(parts) + 1;
-    argv = V_ALLOCA(char *, argc + 2);
-    argv[0] = "ifm";
-
-    for (i = 1; i <= argc; i++)
-        argv[i] = vl_sgetref(parts, i - 1);
-
-    argv[argc + 1] = NULL;
-
-    /* Run command */
-    run_main(argc, argv);
-
-    /* Clean up */
-    vl_destroy(parts);
-}
-
-/* Parse input from a file */
+/* Read input from a file */
 int
-parse_input(char *file, int search, int required)
+read_input(char *file, int search, int required)
 {
     void yyrestart(FILE *input_file);
     int yyparse(void);
@@ -500,7 +418,85 @@ parse_input(char *file, int search, int required)
     return (errors == 0);
 }
 
-/* Write output */
+/* Prepare output for writing */
+int
+prepare_output(void)
+{
+    viter iter;
+
+    /* Load style definitions */
+    if (ifm_styles != NULL) {
+        set_style_list(ifm_styles);
+        v_iterate(ifm_styles, iter)
+            ref_style(vl_iter_svalref(iter));
+    }
+
+    CHECK_ERR(load_styles());
+
+    /* Resolve tags */
+    CHECK_ERR(resolve_tags());
+
+    /* Set up rooms */
+    CHECK_ERR(setup_rooms());
+
+    /* Set up links */
+    CHECK_ERR(setup_links());
+
+    /* Set up room exits */
+    CHECK_ERR(setup_exits());
+
+    /* Set up map sections */
+    CHECK_ERR(setup_sections());
+
+    /* Connect rooms together */
+    CHECK_ERR(connect_rooms());
+
+    /* Set up tasks */
+    CHECK_ERR(setup_tasks());
+
+    /* Solve game if required */
+    if (!OUTPUT || write_tasks) {
+        CHECK_ERR(check_cycles());
+        CHECK_ERR(solve_game());
+    }
+
+    return 0;
+}
+
+/* Write required output */
+void
+write_output(void)
+{
+
+    if (OUTPUT && driver_idx < 0)
+        driver_idx = select_driver(NULL);
+
+    if (driver_idx >= 0)
+        ifm_format = drivers[driver_idx].name;
+
+    if (!OUTPUT && !TASK_VERBOSE)
+        output("Syntax appears OK\n");
+
+    if (OUTPUT)
+        info("Using '%s' output driver", ifm_format);
+
+    if (OUTPUT)
+        print_start(driver_idx);
+
+    if (write_map)
+        print_map(driver_idx, sections);
+
+    if (write_items)
+        print_items(driver_idx);
+
+    if (write_tasks)
+        print_tasks(driver_idx);
+
+    if (OUTPUT)
+        print_finish(driver_idx);
+}
+
+/* Write a line of output */
 void
 do_output(int type, char *fmt, ...)
 {
@@ -579,10 +575,7 @@ do_output(int type, char *fmt, ...)
 static int
 select_driver(char *name)
 {
-    int i, match = -1, nmatch = 0, len = 0;
-
-    if (name != NULL)
-        len = strlen(name);
+    int i, match = -1, nmatch = 0;
 
     for (i = 0; drivers[i].name != NULL; i++) {
         if (name == NULL) {
@@ -598,7 +591,7 @@ select_driver(char *name)
             if (strcmp(drivers[i].name, name) == 0)
                 return i;
 
-            if (strncmp(drivers[i].name, name, len) == 0) {
+            if (strncmp(drivers[i].name, name, strlen(name)) == 0) {
                 nmatch++;
                 match = i;
             }

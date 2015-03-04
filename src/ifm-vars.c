@@ -114,7 +114,7 @@ load_styles(void)
             continue;
 
         V_BUF_SETF("%s.ifm", name);
-        parse_input(V_BUF_VAL, 1, 0);
+        read_input(V_BUF_VAL, 1, 0);
 
         if (!vh_exists(styles, name))
             warn("style '%s' referenced but not defined", name);
