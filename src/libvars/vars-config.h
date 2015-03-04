@@ -52,21 +52,6 @@
 # endif
 #endif
 
-/* Shut splint up about unrecognized functions */
-#ifdef S_SPLINT_S
-#define	M_PI 3.1415926535897932384626433832795
-#define	M_E  2.7182818284590452353602874713527
-
-extern FILE *popen(const char *command, const char *type);
-extern char *strdup(const char *s);
-extern char *tempnam(const char *dir, const char *pfx);
-extern double drem(double x, double y);
-extern double hypot(double x, double y);
-extern int mkstemp(char *template);
-extern int pclose(FILE *stream);
-extern int strcasecmp(const char *s1, const char *s2);
-#endif
-
 extern double v_drem(double x, double y);
 
 #endif

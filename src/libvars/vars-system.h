@@ -10,12 +10,6 @@
 #include <vars-list.h>
 #include <vars-hash.h>
 
-/*! @brief File locking types. */
-enum v_locktype {
-    V_LOCK_READ,                /*!< Read lock */
-    V_LOCK_WRITE                /*!< Write lock */
-};
-
 /*! @brief File tests. */
 enum v_testtype {
     V_TEST_EXISTS,              /*!< Does it exist? */
@@ -45,8 +39,6 @@ extern "C" {
 extern char *v_dirname(char *path);
 extern vhash *v_environ(void);
 extern char *v_filename(char *path);
-extern vlist *v_glob(char *dir, char *pat);
-extern int v_lock(FILE *fp, enum v_locktype locktype, int wait);
 extern time_t v_parse_date(char *string);
 extern vlist *v_stat(char *file);
 extern char *v_suffix(char *path);
