@@ -208,7 +208,7 @@ set_style(char *name)
 void
 set_style_list(vlist *list)
 {
-    style_list = vl_copy(list);
+    style_list = list ? vl_copy(list) : NULL;
 }
 
 /* Return whether a variable has changed since last accessed */
