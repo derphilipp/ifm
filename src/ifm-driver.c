@@ -218,7 +218,7 @@ print_map(int dnum, vlist *sections)
     viter i, j;
 
     if (func != NULL) {
-        info("writing map output");
+        info("Writing map output");
     } else {
         err("no map driver for %s output", drv.name);
         return;
@@ -303,7 +303,7 @@ print_items(int dnum)
     items = vh_pget(map, "ITEMS");
 
     if (func != NULL) {
-        info("writing item output");
+        info("Writing item output");
     } else {
         err("no item driver for %s output", drv.name);
         return;
@@ -338,7 +338,7 @@ print_tasks(int dnum)
     tasks = vh_pget(map, "TASKS");
 
     if (func != NULL) {
-        info("writing task output");
+        info("Writing task output");
     } else {
         err("no task driver for %s output", drv.name);
         return;
