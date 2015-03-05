@@ -1,9 +1,9 @@
-/* Raw output driver header */
+/* Raw output format header */
 
 #ifndef IFM_RAW_H
 #define IFM_RAW_H
 
-#include "ifm-driver.h"
+#include "ifm-format.h"
 
 extern mapfuncs raw_mapfuncs;
 extern itemfuncs raw_itemfuncs;

@@ -1,9 +1,9 @@
-/* Tcl/Tk output driver header */
+/* Tcl/Tk output format header */
 
 #ifndef IFM_TK_H
 #define IFM_TK_H
 
-#include "ifm-driver.h"
+#include "ifm-format.h"
 
 extern mapfuncs tk_mapfuncs;
 extern itemfuncs tk_itemfuncs;

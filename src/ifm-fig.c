@@ -1,4 +1,4 @@
-/* Fig output driver */
+/* Fig output format */
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -13,7 +13,7 @@
 #include <vars.h>
 #include <fig.h>
 
-#include "ifm-driver.h"
+#include "ifm-format.h"
 #include "ifm-fig.h"
 #include "ifm-main.h"
 #include "ifm-map.h"

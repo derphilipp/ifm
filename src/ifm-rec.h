@@ -1,9 +1,9 @@
-/* Recording output driver header */
+/* Recording output format header */
 
 #ifndef IFM_REC_H
 #define IFM_REC_H
 
-#include "ifm-driver.h"
+#include "ifm-format.h"
 
 extern taskfuncs rec_taskfuncs;
 

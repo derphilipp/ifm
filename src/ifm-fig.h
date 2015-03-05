@@ -1,9 +1,9 @@
-/* Fig output driver header */
+/* Fig output format header */
 
 #ifndef IFM_FIG_H
 #define IFM_FIG_H
 
-#include "ifm-driver.h"
+#include "ifm-format.h"
 
 extern mapfuncs fig_mapfuncs;
 

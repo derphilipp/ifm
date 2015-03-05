@@ -1,9 +1,9 @@
-/* Text output driver header */
+/* Text output format header */
 
 #ifndef IFM_TEXT_H
 #define IFM_TEXT_H
 
-#include "ifm-driver.h"
+#include "ifm-format.h"
 
 extern itemfuncs text_itemfuncs;
 extern taskfuncs text_taskfuncs;

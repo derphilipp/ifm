@@ -1,9 +1,9 @@
-/* YAML output driver header */
+/* YAML output format header */
 
 #ifndef IFM_YAML_H
 #define IFM_YAML_H
 
-#include "ifm-driver.h"
+#include "ifm-format.h"
 
 extern outputfuncs yaml_outputfuncs;
 extern mapfuncs yaml_mapfuncs;

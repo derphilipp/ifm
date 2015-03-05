@@ -1,4 +1,4 @@
-/* Recording output driver */
+/* Recording output format */
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -10,7 +10,7 @@
 #include <string.h>
 #include <vars.h>
 
-#include "ifm-driver.h"
+#include "ifm-format.h"
 #include "ifm-map.h"
 #include "ifm-util.h"
 #include "ifm-vars.h"

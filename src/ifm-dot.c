@@ -1,4 +1,4 @@
-/* Graphviz output driver */
+/* Graphviz output format */
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -12,7 +12,7 @@
 #include <math.h>
 #include <vars.h>
 
-#include "ifm-driver.h"
+#include "ifm-format.h"
 #include "ifm-main.h"
 #include "ifm-map.h"
 #include "ifm-task.h"

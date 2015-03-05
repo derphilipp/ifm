@@ -1,4 +1,4 @@
-/* Driver functions */
+/* Output format functions */
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -12,8 +12,8 @@
 #include <math.h>
 #include <vars.h>
 
+#include "ifm-format.h"
 #include "ifm-main.h"
-#include "ifm-driver.h"
 #include "ifm-map.h"
 #include "ifm-util.h"
 #include "ifm-vars.h"
@@ -27,8 +27,8 @@
 #include "ifm-yaml.h"
 #include "ifm-dot.h"
 
-/* Driver info */
-driver drivers[] = {
+/* Format info */
+format formats[] = {
     { "ps", "PostScript",
       NULL, &ps_mapfuncs, NULL, NULL, NULL },
 
@@ -187,7 +187,7 @@ set_link_vars(void)
 void
 print_start(int dnum)
 {
-    driver drv = drivers[dnum];
+    format drv = formats[dnum];
     outputfuncs *func = drv.ofunc;
 
     if (func != NULL && func->output_start != NULL)
@@ -198,7 +198,7 @@ print_start(int dnum)
 void
 print_finish(int dnum)
 {
-    driver drv = drivers[dnum];
+    format drv = formats[dnum];
     outputfuncs *func = drv.ofunc;
 
     if (func != NULL && func->output_finish != NULL)
@@ -209,7 +209,7 @@ print_finish(int dnum)
 void
 print_map(int dnum, vlist *sections)
 {
-    driver drv = drivers[dnum];
+    format drv = formats[dnum];
     mapfuncs *func = drv.mfunc;
 
     vhash *sect, *room, *link, *join;
@@ -220,7 +220,7 @@ print_map(int dnum, vlist *sections)
     if (func != NULL) {
         info("Writing map output");
     } else {
-        err("no map driver for %s output", drv.name);
+        err("no map format for %s output", drv.name);
         return;
     }
 
@@ -294,7 +294,7 @@ print_map(int dnum, vlist *sections)
 void
 print_items(int dnum)
 {
-    driver drv = drivers[dnum];
+    format drv = formats[dnum];
     itemfuncs *func = drv.ifunc;
     vlist *items;
     vhash *item;
@@ -305,7 +305,7 @@ print_items(int dnum)
     if (func != NULL) {
         info("Writing item output");
     } else {
-        err("no item driver for %s output", drv.name);
+        err("no item format for %s output", drv.name);
         return;
     }
 
@@ -329,7 +329,7 @@ print_items(int dnum)
 void
 print_tasks(int dnum)
 {
-    driver drv = drivers[dnum];
+    format drv = formats[dnum];
     taskfuncs *func = drv.tfunc;
     vlist *tasks;
     vhash *task;
@@ -340,7 +340,7 @@ print_tasks(int dnum)
     if (func != NULL) {
         info("Writing task output");
     } else {
-        err("no task driver for %s output", drv.name);
+        err("no task format for %s output", drv.name);
         return;
     }
 

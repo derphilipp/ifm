@@ -1,9 +1,9 @@
-/* Output driver definitions */
+/* Output format definitions */
 
-#ifndef IFM_DRIVER_H
-#define IFM_DRIVER_H
+#ifndef IFM_FORMAT_H
+#define IFM_FORMAT_H
 
-/* Driver structs */
+/* Format structs */
 typedef struct outputfuncs_st {
     void (*output_start)(void);
     void (*output_finish)(void);
@@ -36,17 +36,17 @@ typedef struct errfuncs_st {
     void (*error)(char *file, int line, char *msg);
 } errfuncs;
 
-typedef struct driver_st {
+typedef struct format_st {
     char *name, *desc;
     outputfuncs *ofunc;
     mapfuncs    *mfunc;
     itemfuncs   *ifunc;
     taskfuncs   *tfunc;
     errfuncs    *efunc;
-} driver;
+} format;
 
-/* Driver list */
-extern driver drivers[];
+/* Format list */
+extern format formats[];
 
 /* Control variables */
 extern char *room_text_font, *room_text_colour, *room_colour;

@@ -39,7 +39,7 @@ static vlist *style_list = NULL;
 
 /* Internal functions */
 static vhash *read_colour_defs(FILE *fp);
-static char *var_encode(char *driver, char *var);
+static char *var_encode(char *format, char *var);
 static void var_print(vhash *vars, char *style);
 
 /* Initialise variables */
@@ -281,17 +281,17 @@ var_colour(char *id)
 
 /* Encode a variable */
 static char *
-var_encode(char *driver, char *var)
+var_encode(char *format, char *var)
 {
     V_BUF_DECL;
 
-    if (driver == NULL)
-        driver = "global";
+    if (format == NULL)
+        format = "global";
 
     if (strchr(var, '.') != NULL)
         V_BUF_SET(var);
     else
-        V_BUF_SETF("%s.%s", driver, var);
+        V_BUF_SETF("%s.%s", format, var);
 
     return V_BUF_VAL;
 }
@@ -451,11 +451,11 @@ var_real(char *id)
 
 /* Set a scalar variable */
 void
-var_set(char *driver, char *id, vscalar *val)
+var_set(char *format, char *id, vscalar *val)
 {
     char *key;
 
-    key = var_encode(driver, id);
+    key = var_encode(format, id);
 
     if (val != NULL)
         vh_store(cvars, key, val);

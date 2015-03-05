@@ -1,9 +1,9 @@
-/* Text output driver header */
+/* Text output format header */
 
 #ifndef IFM_DOT_H
 #define IFM_DOT_H
 
-#include "ifm-driver.h"
+#include "ifm-format.h"
 
 extern taskfuncs dot_taskfuncs;
 

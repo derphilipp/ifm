@@ -1,9 +1,9 @@
-/* Postscript output driver header */
+/* Postscript output format header */
 
 #ifndef IFM_PS_H
 #define IFM_PS_H
 
-#include "ifm-driver.h"
+#include "ifm-format.h"
 
 extern mapfuncs ps_mapfuncs;
 

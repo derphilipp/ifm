@@ -12,7 +12,7 @@
 #include <math.h>
 #include <vars.h>
 
-#include "ifm-driver.h"
+#include "ifm-format.h"
 #include "ifm-main.h"
 #include "ifm-map.h"
 #include "ifm-path.h"
@@ -55,7 +55,7 @@ static int write_map = 0;       /* Whether to write map */
 static int write_items = 0;     /* Whether to write item list */
 static int write_tasks = 0;     /* Whether to write task list */
 
-static int driver_idx = -1;     /* Output driver index */
+static int format_idx = -1;     /* Output format index */
 static int errors = 0;          /* No. of errors */
 static int verbose = 0;         /* Whether to be verbose */
 static int nowarn = 0;          /* Whether to suppress warnings */
@@ -67,7 +67,7 @@ static void (*output_func)(int type, char *msg);
 
 /* Internal functions */
 static void print_version(void);
-static int select_driver(char *name);
+static int select_format(char *name);
 static void show_info(char *type);
 static void show_maps(void);
 static void show_path(void);
@@ -199,7 +199,7 @@ main(int argc, char *argv[])
     }
 
     /* Set output format */
-    CHECK_ERR(set_output_driver(format));
+    CHECK_ERR(set_output_format(format));
 
     /* Set search path */
     add_search_dir(STRINGIFY_DEF(IFMLIB), 0);
@@ -344,12 +344,12 @@ set_output_options(int map, int items, int tasks)
     write_tasks = tasks;
 }
 
-/* Set output driver */
+/* Set output format */
 void
-set_output_driver(char *name)
+set_output_format(char *name)
 {
     if (name != NULL)
-        driver_idx = select_driver(name);
+        format_idx = select_format(name);
 }
 
 /* Set output handler */
@@ -469,32 +469,32 @@ void
 write_output(void)
 {
 
-    if (OUTPUT && driver_idx < 0)
-        driver_idx = select_driver(NULL);
+    if (OUTPUT && format_idx < 0)
+        format_idx = select_format(NULL);
 
-    if (driver_idx >= 0)
-        ifm_format = drivers[driver_idx].name;
+    if (format_idx >= 0)
+        ifm_format = formats[format_idx].name;
 
     if (!OUTPUT && !TASK_VERBOSE)
         output("Syntax appears OK\n");
 
     if (OUTPUT)
-        info("Using '%s' output driver", ifm_format);
+        info("Using '%s' output format", ifm_format);
 
     if (OUTPUT)
-        print_start(driver_idx);
+        print_start(format_idx);
 
     if (write_map)
-        print_map(driver_idx, sections);
+        print_map(format_idx, sections);
 
     if (write_items)
-        print_items(driver_idx);
+        print_items(format_idx);
 
     if (write_tasks)
-        print_tasks(driver_idx);
+        print_tasks(format_idx);
 
     if (OUTPUT)
-        print_finish(driver_idx);
+        print_finish(format_idx);
 }
 
 /* Write a line of output */
@@ -539,8 +539,8 @@ do_output(int type, char *fmt, ...)
 
         case O_WARNING:
             if (!nowarn) {
-                if (driver_idx >= 0)
-                    func = drivers[driver_idx].efunc;
+                if (format_idx >= 0)
+                    func = formats[format_idx].efunc;
 
                 if (func == NULL)
                     fprintf(stderr, "%s\n", msg);
@@ -551,8 +551,8 @@ do_output(int type, char *fmt, ...)
             break;
 
         case O_ERROR:
-            if (driver_idx >= 0)
-                func = drivers[driver_idx].efunc;
+            if (format_idx >= 0)
+                func = formats[format_idx].efunc;
 
             if (func == NULL)
                 fprintf(stderr, "%s\n", msg);
@@ -584,27 +584,51 @@ get_version(void)
 #endif
 }
 
-/* Select an output driver */
+char *
+get_format_name(int format)
+{
+    int i;
+
+    for (i = 0; formats[i].name != NULL; i++)
+        if (i == format)
+            return formats[i].name;
+
+    return NULL;
+}
+
+char *
+get_format_desc(int format)
+{
+    int i;
+
+    for (i = 0; formats[i].name != NULL; i++)
+        if (i == format)
+            return formats[i].desc;
+
+    return NULL;
+}
+
+/* Select an output format */
 static int
-select_driver(char *name)
+select_format(char *name)
 {
     int i, match = -1, nmatch = 0;
 
-    for (i = 0; drivers[i].name != NULL; i++) {
+    for (i = 0; formats[i].name != NULL; i++) {
         if (name == NULL) {
-            if (write_map && drivers[i].mfunc != NULL)
+            if (write_map && formats[i].mfunc != NULL)
                 return i;
 
-            if (write_items && drivers[i].ifunc != NULL)
+            if (write_items && formats[i].ifunc != NULL)
                 return i;
 
-            if (write_tasks && drivers[i].tfunc != NULL)
+            if (write_tasks && formats[i].tfunc != NULL)
                 return i;
         } else {
-            if (strcmp(drivers[i].name, name) == 0)
+            if (strcmp(formats[i].name, name) == 0)
                 return i;
 
-            if (strncmp(drivers[i].name, name, strlen(name)) == 0) {
+            if (strncmp(formats[i].name, name, strlen(name)) == 0) {
                 nmatch++;
                 match = i;
             }
@@ -717,8 +741,8 @@ usage()
     v_usage("Usage: %s [options] [file...]", progname);
 
     output("\nOutput formats (may be abbreviated):\n");
-    for (i = 0; drivers[i].name != NULL; i++)
-        output("    %-15s     %s\n", drivers[i].name, drivers[i].desc);
+    for (i = 0; formats[i].name != NULL; i++)
+        output("    %-15s     %s\n", formats[i].name, formats[i].desc);
 
     output("\nShow options (may be abbreviated):\n");
     for (i = 0; showopts[i].name != NULL; i++)

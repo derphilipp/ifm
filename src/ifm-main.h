@@ -26,12 +26,14 @@ extern void add_search_dir(char *path, int prepend);
 extern void set_map_sections(char *spec);
 extern void set_variable(char *name, char *value);
 extern void set_output_options(int map, int items, int tasks);
-extern void set_output_driver(char *name);
+extern void set_output_format(char *name);
 extern void set_output_handler(void (*func)(int type, char *msg));
 extern int read_input(char *file, int search, int required);
 extern int prepare_output(void);
 extern void write_output(void);
 extern char *get_version(void);
+extern char *get_format_name(int format);
+extern char *get_format_desc(int format);
 extern void do_output(int type, char *fmt, ...);
 extern void yyerror(char *msg);
 
