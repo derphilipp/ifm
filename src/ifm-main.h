@@ -31,6 +31,7 @@ extern void set_output_handler(void (*func)(int type, char *msg));
 extern int read_input(char *file, int search, int required);
 extern int prepare_output(void);
 extern void write_output(void);
+extern char *get_version(void);
 extern void do_output(int type, char *fmt, ...);
 extern void yyerror(char *msg);
 

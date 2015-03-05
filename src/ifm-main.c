@@ -572,6 +572,18 @@ do_output(int type, char *fmt, ...)
     }
 }
 
+/* Return a version string */
+char *
+get_version(void)
+{
+#ifdef HGVERSION
+    V_BUF_DECL;
+    return V_BUF_SETF("%s [%s]", VERSION, HGVERSION);
+#else
+    return VERSION;
+#endif
+}
+
 /* Select an output driver */
 static int
 select_driver(char *name)
@@ -613,7 +625,7 @@ select_driver(char *name)
 static void
 print_version(void)
 {
-    output("IFM version %s\n", VERSION);
+    output("IFM version %s\n", get_version());
     output("Copyright (C) Glenn Hutchings <%s>\n\n", PACKAGE_BUGREPORT);
 
     output("This program is free software; you can redistribute it and/or modify\n");

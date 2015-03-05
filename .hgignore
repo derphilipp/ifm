@@ -51,7 +51,6 @@ etc/install-sh
 etc/missing
 etc/ylwrap
 etc/config.*
-etc/stamp-*
 etc/test-driver
 
 tests/*.trs
@@ -60,3 +59,4 @@ tests/*.log
 win32/ifm-*
 
 .ditz-config
+stamp-*
