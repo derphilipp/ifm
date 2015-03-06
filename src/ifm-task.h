@@ -11,6 +11,7 @@ enum {
 };
 
 /* Advertised functions */
+extern void init_tasks(void);
 extern void check_cycles(void);
 extern vhash *require_task(vhash *step);
 extern void setup_tasks(void);

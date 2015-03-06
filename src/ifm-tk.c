@@ -76,6 +76,8 @@ errfuncs tk_errfuncs = {
     tk_error
 };
 
+static int sectnum = 0;
+
 /* Internal functions */
 static void tk_print_room_vars(void);
 static void tk_print_link_vars(void);
@@ -84,6 +86,9 @@ static void tk_print_link_vars(void);
 void
 tk_map_start(void)
 {
+    /* Initialize */
+    sectnum = 0;
+
     /* Set room names */
     setup_room_names();
 
@@ -106,13 +111,12 @@ void
 tk_map_section(vhash *sect)
 {
     char *title = vh_sgetref(sect, "TITLE");
-    static int num = 0;
     V_BUF_DECL;
 
-    num++;
+    sectnum++;
 
     if (strlen(title) == 0)
-        V_BUF_SETF("Map section %d", num);
+        V_BUF_SETF("Map section %d", sectnum);
     else
         V_BUF_SET(title);
 

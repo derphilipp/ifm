@@ -6,6 +6,7 @@
 #define NOPATH -1
 
 /* Advertised functions */
+extern void init_paths(void);
 extern void connect_rooms(void);
 extern int find_path(vhash *step, vhash *from, vhash *to);
 extern vlist *get_path(vhash *step, vhash *room);

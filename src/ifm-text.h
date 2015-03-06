@@ -5,6 +5,7 @@
 
 #include "ifm-format.h"
 
+extern outputfuncs text_outputfuncs;
 extern itemfuncs text_itemfuncs;
 extern taskfuncs text_taskfuncs;
 

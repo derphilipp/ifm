@@ -76,6 +76,21 @@ static int repeat = 0;          /* String repeat count */
 static int instyle = 0;         /* Set variable in different style? */
 
 extern int yylex(void);
+
+void
+init_parser(void)
+{
+    curobj = NULL;
+    currooms = curitems = curtasks = NULL;
+    lastroom = lastitem = lasttask = NULL;
+    itroom = ititem = ittask = NULL;
+    themitems = NULL;
+
+    roomid = itemid = 0;
+    curdirs = NULL;
+
+    modify = implicit = allflag = repeat = instyle = 0;
+}
 %}
 
 %union {

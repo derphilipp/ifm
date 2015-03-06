@@ -19,6 +19,15 @@
 #include "ifm-raw.h"
 #include "ifm-vars.h"
 
+/* Internal functions */
+static void raw_init(void);
+
+/* Output function list */
+outputfuncs raw_outputfuncs = {
+    raw_init,
+    NULL
+};
+
 /* Map function list */
 mapfuncs raw_mapfuncs = {
     raw_map_start,
@@ -44,6 +53,8 @@ taskfuncs raw_taskfuncs = {
     NULL
 };
 
+static int count = 0;
+
 /* Map functions */
 void
 raw_map_start(void)
@@ -61,7 +72,6 @@ raw_map_start(void)
 void
 raw_map_section(vhash *sect)
 {
-    static int count = 0;
     char buf[100];
 
     count++;
@@ -247,4 +257,11 @@ raw_task_entry(vhash *task)
         v_iterate(notes, iter)
             output("note: %s\n", vl_iter_svalref(iter));
     }
+}
+
+/* Initialise raw output */
+static void
+raw_init(void)
+{
+    count = 0;
 }

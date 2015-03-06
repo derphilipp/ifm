@@ -43,7 +43,7 @@
 #define OUTPUT (write_map || write_items || write_tasks)
 
 char *ifm_format = NULL;        /* Output format name */
-int line_number;                /* Current line number */
+int line_number = 0;            /* Current line number */
 
 vlist *ifm_search = NULL;       /* Search path */
 vlist *ifm_styles = NULL;       /* Global styles */
@@ -62,8 +62,8 @@ static int nowarn = 0;          /* Whether to suppress warnings */
 
 static vlist *sections = NULL;  /* List of map sections to output */
 
-/* Output handlers */
-static void (*output_func)(int type, char *msg);
+/* Output handler */
+static void (*output_func)(int type, char *msg) = NULL;
 
 /* Internal functions */
 static void print_version(void);
@@ -282,10 +282,16 @@ main(int argc, char *argv[])
 void
 initialize(void)
 {
+    extern void init_parser(void);
+
     init_map();
+    init_tasks();
     init_vars();
+    init_parser();
 
     strcpy(infile, "");
+    line_number = 0;
+    format_idx = -1;
 
     if (ifm_search != NULL)
         vl_destroy(ifm_search);

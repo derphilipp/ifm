@@ -20,6 +20,15 @@
 #include "ifm-vars.h"
 #include "ifm-text.h"
 
+/* Internal functions */
+static void text_init(void);
+
+/* Output function list */
+outputfuncs text_outputfuncs = {
+    text_init,
+    NULL
+};
+
 /* Item function list */
 itemfuncs text_itemfuncs = {
     NULL,
@@ -40,19 +49,26 @@ static int total = 0;
 /* Total distance travelled */
 static int travel = 0;
 
+/* Task/item counts */
+static int taskcount = 0;
+static int itemcount = 0;
+
+/* Task settings */
+static vhash *lastroom = NULL;
+static int moved = 0;
+
 /* Item functions */
 void
 text_item_entry(vhash *item)
 {
     vlist *notes = vh_pget(item, "NOTE");
     vhash *room, *task, *reach;
-    static int count = 0;
     vlist *list;
     char *title;
     V_BUF_DECL;
     viter iter;
 
-    if (count++ == 0) {
+    if (itemcount++ == 0) {
         if (vh_exists(map, "TITLE"))
             title = vh_sgetref(map, "TITLE");
         else
@@ -140,15 +156,12 @@ text_task_entry(vhash *task)
     vlist *notes = vh_pget(task, "NOTE");
     vhash *room = vh_pget(task, "ROOM");
     vlist *cmds = vh_pget(task, "CMD");
-    static vhash *lastroom = NULL;
-    static int moved = 0;
-    static int count = 0;
     int type, score;
     vhash *otask;
     char *title;
     viter iter;
 
-    if (count == 0) {
+    if (taskcount == 0) {
         if (vh_exists(map, "TITLE"))
             title = vh_sgetref(map, "TITLE");
         else
@@ -159,7 +172,7 @@ text_task_entry(vhash *task)
     type = vh_iget(task, "TYPE");
 
     if (type == T_MOVE) {
-        if (count == 0)
+        if (taskcount == 0)
             output("\nStart: %s\n", vh_sgetref(startroom, "DESC"));
 
         if (!moved)
@@ -175,7 +188,7 @@ text_task_entry(vhash *task)
     } else {
         if (room != NULL && (moved || room != lastroom))
             output("\n%s:\n", vh_sgetref(room, "DESC"));
-        else if (!count)
+        else if (!taskcount)
             output("\nFirstly:\n");
 
         output("   %s\n", vh_sgetref(task, "DESC"));
@@ -223,7 +236,7 @@ text_task_entry(vhash *task)
         lastroom = room;
 
     total += score;
-    count++;
+    taskcount++;
 }
 
 void
@@ -233,4 +246,18 @@ text_task_finish(void)
         output("\nTotal distance travelled: %d\n", travel);
     if (total > 0)
         output("\nTotal score: %d\n", total);
+}
+
+/* Initialise text output */
+static void
+text_init(void)
+{
+    total = 0;
+    travel = 0;
+    moved = 0;
+
+    taskcount = 0;
+    itemcount = 0;
+
+    lastroom = NULL;
 }

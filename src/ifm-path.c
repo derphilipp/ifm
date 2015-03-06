@@ -48,6 +48,24 @@ static int sort_tasks(vscalar **v1, vscalar **v2);
 static int use_link(char *fnode, char *tnode, vscalar *s);
 static int use_node(char *node, vscalar *s, double dist);
 
+/* Initialize paths */
+void
+init_paths(void)
+{
+    if (graph != NULL)
+        vg_destroy(graph);
+
+    graph = NULL;
+
+    path_room = NULL;
+    path_task = NULL;
+    path_modify = 0;
+
+#ifdef SHOW_VISIT
+    start_room = NULL;
+#endif
+}
+
 /* Connect rooms as a directed graph */
 void
 connect_rooms(void)

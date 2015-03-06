@@ -36,7 +36,7 @@ format formats[] = {
       NULL, &fig_mapfuncs, NULL, NULL, NULL },
 
     { "text", "ASCII text",
-      NULL, NULL, &text_itemfuncs, &text_taskfuncs, NULL },
+      &text_outputfuncs, NULL, &text_itemfuncs, &text_taskfuncs, NULL },
 
     { "rec", "Recording of game commands",
       NULL, NULL, NULL, &rec_taskfuncs, NULL },
@@ -48,10 +48,10 @@ format formats[] = {
       &yaml_outputfuncs, &yaml_mapfuncs, &yaml_itemfuncs, &yaml_taskfuncs, NULL },
 
     { "raw", "Raw ASCII text fields",
-      NULL, &raw_mapfuncs, &raw_itemfuncs, &raw_taskfuncs, NULL },
+      &raw_outputfuncs, &raw_mapfuncs, &raw_itemfuncs, &raw_taskfuncs, NULL },
 
     { "tk", "TkIFM program commands",
-      NULL, &tk_mapfuncs, &tk_itemfuncs, &tk_taskfuncs, &tk_errfuncs },
+      &text_outputfuncs, &tk_mapfuncs, &tk_itemfuncs, &tk_taskfuncs, &tk_errfuncs },
 
     { NULL, NULL, NULL, NULL, NULL, NULL, NULL } /* Terminator */
 };

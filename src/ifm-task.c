@@ -44,6 +44,10 @@ static char *location_desc = "nowhere";
 static int all_tasks_safe = 0;
 static int keep_unused_items = 0;
 
+/* Internal counters */
+static int invertnum = 0;
+static int taskid = 0;
+
 /* Internal functions */
 static void add_task(vhash *task);
 static int do_task(vhash *task, int print, int recurse);
@@ -59,6 +63,17 @@ static void order_tasks(vhash *before, vhash *after);
 static int task_status(vhash *room, vhash *step);
 static int want_item(vhash *item);
 static void warn_failure(void);
+
+/* Initialize task output */
+void
+init_tasks(void)
+{
+    location = NULL;
+    location_desc = "nowhere";
+
+    taskid = 0;
+    invertnum = 0;
+}
 
 /* Add a task to the task list (if not already there) */
 static void
@@ -524,23 +539,22 @@ static void
 invert_items(vhash *obj, char *attr)
 {
     vlist *list, *newlist = NULL;
-    static int num = 0;
     vhash *item;
     viter iter;
 
     list = vh_pget(obj, attr);
-    num++;
+    invertnum++;
 
     if (list != NULL) {
         v_iterate(list, iter) {
             item = vl_iter_pval(iter);
-            vh_istore(item, "INVERT", num);
+            vh_istore(item, "INVERT", invertnum);
         }
     }
 
     v_iterate(items, iter) {
         item = vl_iter_pval(iter);
-        if (vh_iget(item, "INVERT") == num)
+        if (vh_iget(item, "INVERT") == invertnum)
             continue;
 
         if (newlist == NULL)
@@ -585,7 +599,6 @@ new_task(int type, vhash *data)
     char *desc = vh_sgetref(data, "DESC");
     int i, score = vh_iget(data, "SCORE");
     vhash *room = NULL, *step;
-    static int taskid = 0;
     vscalar *val;
     V_BUF_DECL;
 

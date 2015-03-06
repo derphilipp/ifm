@@ -37,6 +37,9 @@ static vhash *rstyles = NULL;
 /* Style list */
 static vlist *style_list = NULL;
 
+/* Current variable values */
+static vhash *values = NULL;
+
 /* Internal functions */
 static vhash *read_colour_defs(FILE *fp);
 static char *var_encode(char *format, char *var);
@@ -63,6 +66,8 @@ init_vars(void)
         vl_destroy(style_list);
 
     style_list = NULL;
+
+    vh_init(values);
 }
 
 /* Add a style to the style list */
@@ -215,12 +220,8 @@ set_style_list(vlist *list)
 int
 var_changed(char *id)
 {
-    static vhash *values = NULL;
     vscalar *sval, *cval;
     int changed = 1;
-
-    if (values == NULL)
-        values = vh_create();
 
     sval = var_get(id);
 
