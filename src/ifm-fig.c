@@ -57,6 +57,7 @@ mapfuncs fig_mapfuncs = {
 /* Internal functions */
 static void set_colour(vhash *object, char *colour);
 static void set_fillcolour(vhash *object, char *colour);
+static void output_handler(char *line);
 
 /* Map functions */
 void
@@ -66,6 +67,10 @@ fig_map_start(void)
     int ylen, width, height, orient;
     vhash *sect, *box;
     viter iter;
+
+    /* Initialize */
+    if (fig != NULL)
+        v_destroy(fig);
 
     /* Allow title space for sections with titles */
     v_iterate(sects, iter) {
@@ -424,8 +429,8 @@ fig_map_link(vhash *link)
 void
 fig_map_finish(void)
 {
-    /* Write figure */
-    fig_write_figure(fig, stdout);
+    fig_set_handler(output_handler);
+    fig_write_figure(fig);
 }
 
 /* Set the colour of an object */
@@ -446,4 +451,10 @@ set_fillcolour(vhash *object, char *colour)
 
     if (sscanf(colour, "%f %f %f", &r, &g, &b) == 3)
         fig_set_fillcolour(object, r, g, b);
+}
+
+static void
+output_handler(char *line)
+{
+    output(line);
 }
