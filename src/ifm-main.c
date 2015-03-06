@@ -584,28 +584,35 @@ get_version(void)
 #endif
 }
 
-char *
-get_format_name(int format)
+/* Return information about an output format */
+int
+get_format_info(int format, char **name, char **desc,
+                int *maps, int *items, int *tasks)
 {
     int i;
 
-    for (i = 0; formats[i].name != NULL; i++)
-        if (i == format)
-            return formats[i].name;
+    for (i = 0; formats[i].name != NULL; i++) {
+        if (i == format) {
+            if (name != NULL)
+                *name = formats[i].name;
 
-    return NULL;
-}
+            if (desc != NULL)
+                *desc = formats[i].desc;
 
-char *
-get_format_desc(int format)
-{
-    int i;
+            if (maps != NULL)
+                *maps = (formats[i].mfunc != NULL);
 
-    for (i = 0; formats[i].name != NULL; i++)
-        if (i == format)
-            return formats[i].desc;
+            if (items != NULL)
+                *items = (formats[i].ifunc != NULL);
 
-    return NULL;
+            if (tasks != NULL)
+                *tasks = (formats[i].tfunc != NULL);
+
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 /* Select an output format */

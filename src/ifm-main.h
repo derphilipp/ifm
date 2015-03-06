@@ -32,8 +32,8 @@ extern int read_input(char *file, int search, int required);
 extern int prepare_output(void);
 extern void write_output(void);
 extern char *get_version(void);
-extern char *get_format_name(int format);
-extern char *get_format_desc(int format);
+extern int get_format_info(int format, char **name, char **desc,
+                           int *maps, int *items, int *tasks);
 extern void do_output(int type, char *fmt, ...);
 extern void yyerror(char *msg);
 
