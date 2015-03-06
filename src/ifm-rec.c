@@ -11,6 +11,7 @@
 #include <vars.h>
 
 #include "ifm-format.h"
+#include "ifm-main.h"
 #include "ifm-map.h"
 #include "ifm-util.h"
 #include "ifm-vars.h"
@@ -44,8 +45,13 @@ rec_task_entry(vhash *task)
 static void
 putline(char *str)
 {
-    while (*str != '\0')
-        putchar(toupper(*str++));
+    static char cmdbuf[BUFSIZ];
+    int i;
 
-    putchar('\n');
+    strcpy(cmdbuf, str);
+    
+    for (i = 0; cmdbuf[i] != '\0'; i++)
+        cmdbuf[i] = toupper(cmdbuf[i]);
+
+    output("%s\n", cmdbuf);
 }

@@ -75,11 +75,17 @@ static char *ps_string(char *str);
 void
 ps_map_start(void)
 {
-    int ylen, c, num_pages, width, height;
-    char *title, *prolog, *file;
+    int ylen, num_pages, width, height;
+    char *title, *prolog, *file, *line;
     FILE *fp = NULL;
     vhash *sect;
     viter iter;
+    V_BUF_DECL;
+
+    /* Initialise */
+    ps_rotate = 0;
+    ps_rotflag = 0;
+    ps_pagenum = 0;
 
     /* Locate prolog file */
     file = var_string("prolog_file");
@@ -123,13 +129,12 @@ ps_map_start(void)
     output("%%%%EndComments\n\n");
 
     /* Print PostScript prolog */
-    if (prolog != NULL && (fp = fopen(prolog, "r")) == NULL)
-        err("can't read '%s'", prolog);
-
-    if (fp != NULL) {
-        while ((c = fgetc(fp)) != EOF)
-            putchar(c);
+    if (prolog != NULL && (fp = fopen(prolog, "r")) != NULL) {
+        while ((line = V_BUF_FGETS(fp)) != NULL)
+            output("%s", line);
         fclose(fp);
+    } else {
+        err("can't read '%s'", prolog);
     }
 
     /* Page variables */
