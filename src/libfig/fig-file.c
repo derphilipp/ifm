@@ -39,6 +39,9 @@ fig_write_figure(vhash *figure)
     vhash *colours;
     viter iter;
 
+    /* Initialize */
+    fig_init_colour();
+
     /* Calculate bounding box */
     fig_calc_bbox(figure);
 

@@ -45,16 +45,24 @@ static char *fontlist[] = {
     NULL
 };
 
+static int nextid = 32;
+
 /* Internal functions */
 static int fig_lookup_colour(vhash *object, float r, float g, float b);
 static int fig_lookup_font(char *name);
+
+/* Initialize colour lookups */
+void
+fig_init_colour(void)
+{
+    nextid = 32;
+}
 
 /* Look up a colour given its RGB values */
 static int
 fig_lookup_colour(vhash *object, float r, float g, float b)
 {
     vhash *figure, *colours;
-    static int nextid = 32;
     char cbuf[20];
     int id;
 

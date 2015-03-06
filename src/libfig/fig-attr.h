@@ -54,6 +54,7 @@ enum {
     FIG_JUSTIFY_LEFT, FIG_JUSTIFY_CENTRE, FIG_JUSTIFY_RIGHT
 };
 
+extern void fig_init_colour(void);
 extern void fig_set_arrow(vhash *object, int forward, int backward);
 extern void fig_set_arrowstyle(vhash *object, int type, int style,
                                float thick, float width, float height);
