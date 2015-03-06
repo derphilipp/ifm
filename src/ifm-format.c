@@ -32,25 +32,25 @@ format formats[] = {
     { "ps", "PostScript",
       NULL, &ps_mapfuncs, NULL, NULL, NULL },
 
-    { "fig", "Fig drawing commands",
+    { "fig", "Xfig drawing",
       NULL, &fig_mapfuncs, NULL, NULL, NULL },
 
-    { "text", "Nicely-formatted ASCII text",
+    { "text", "ASCII text",
       NULL, NULL, &text_itemfuncs, &text_taskfuncs, NULL },
 
     { "rec", "Recording of game commands",
       NULL, NULL, NULL, &rec_taskfuncs, NULL },
 
-    { "dot", "Graph of task dependencies",
+    { "dot", "Task dependency graph",
       NULL, NULL, NULL, &dot_taskfuncs, NULL },
 
-    { "yaml", "YAML maps, items and tasks",
+    { "yaml", "YAML",
       &yaml_outputfuncs, &yaml_mapfuncs, &yaml_itemfuncs, &yaml_taskfuncs, NULL },
 
     { "raw", "Raw ASCII text fields",
       NULL, &raw_mapfuncs, &raw_itemfuncs, &raw_taskfuncs, NULL },
 
-    { "tk", "Tcl/Tk program commands (tkifm)",
+    { "tk", "TkIFM program commands",
       NULL, &tk_mapfuncs, &tk_itemfuncs, &tk_taskfuncs, &tk_errfuncs },
 
     { NULL, NULL, NULL, NULL, NULL, NULL, NULL } /* Terminator */
