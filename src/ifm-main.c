@@ -81,7 +81,7 @@ static struct show_st {
     { "maps", "Show map sections",      show_maps },
     { "vars", "Show defined variables", var_list  },
     { "path", "Show file search path",  show_path },
-    { NULL,   NULL,                NULL }
+    { NULL,   NULL,                     NULL }
 };
 
 /* Main function */
@@ -320,6 +320,16 @@ add_search_dir(char *path, int prepend)
         info("Appending '%s' to search path", path);
         vl_spush(ifm_search, path);
     }
+}
+
+/* Add a style to the style list */
+void
+add_global_style(char *style)
+{
+    if (ifm_styles == NULL)
+        ifm_styles = vl_create();
+
+    vl_spush(ifm_styles, style);
 }
 
 /* Set the output map sections */

@@ -23,6 +23,7 @@ extern vlist *ifm_styles;
 /* Advertised functions */
 extern void initialize(void);
 extern void add_search_dir(char *path, int prepend);
+extern void add_global_style(char *style);
 extern void set_map_sections(char *spec);
 extern void set_variable(char *name, char *value);
 extern void set_output_options(int map, int items, int tasks);
