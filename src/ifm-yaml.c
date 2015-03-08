@@ -95,8 +95,9 @@ yaml_map_section(vhash *sect)
     roomnum = linknum = 0;
 
     output("- name: %s\n", YAML_ATTR(sect, "TITLE"));
-    output("  width: %d\n", vh_iget(sect, "XLEN"));
-    output("  height: %d\n", vh_iget(sect, "YLEN"));
+    output("  size: [%d, %d]\n",
+           vh_iget(sect, "XLEN"),
+           vh_iget(sect, "YLEN"));
 }
 
 void
