@@ -564,7 +564,7 @@ list, the following steps are performed:
      one.  This is to avoid taking a one-way trip before preparing properly.
 
    If there are any safe tasks, the nearest one will be done next
-   regardless of how close an unsafe task is.  If there are no safe task,
+   regardless of how close an unsafe task is.  If there is no safe task,
    the nearest unsafe task will be chosen.
 
 4. If there was a possible task, do it and remove it from the list.  Move
