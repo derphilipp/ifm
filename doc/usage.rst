@@ -103,13 +103,6 @@ Next comes the auxiliary options:
 
    Don't print warnings.
 
-.. cmdoption:: -e, --errors=NUM
-
-   Print this many errors before aborting (default: 10).  If set to zero,
-   print all errors.
-
-   .. versionadded:: 5.2
-
 Finally, here are the information options:
 
 .. cmdoption:: --show=TYPE
