@@ -170,7 +170,7 @@ yaml_map_join(vhash *join)
 
     from = vh_pget(join, "FROM");
     to = vh_pget(join, "TO");
-    output("  - id: %d %d\n", vh_iget(from, "ID"), vh_iget(to, "ID"));
+    output("  - id: [%d, %d]\n", vh_iget(from, "ID"), vh_iget(to, "ID"));
 
     if (vh_iget(join, "ONEWAY"))
         output("    oneway: true\n");
