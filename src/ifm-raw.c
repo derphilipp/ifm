@@ -19,15 +19,6 @@
 #include "ifm-raw.h"
 #include "ifm-vars.h"
 
-/* Internal functions */
-static void raw_init(void);
-
-/* Output function list */
-outputfuncs raw_outputfuncs = {
-    raw_init,
-    NULL
-};
-
 /* Map function list */
 mapfuncs raw_mapfuncs = {
     raw_map_start,
@@ -53,33 +44,17 @@ taskfuncs raw_taskfuncs = {
     NULL
 };
 
-static int count = 0;
-
 /* Map functions */
 void
 raw_map_start(void)
 {
-    char *title;
-
-    if (vh_exists(map, "TITLE"))
-        title = vh_sgetref(map, "TITLE");
-    else
-        title = "Interactive Fiction map";
-
+    char *title = vh_sgetref(map, "TITLE");
     output("title: %s\n", title);
 }
 
 void
 raw_map_section(vhash *sect)
 {
-    char buf[100];
-
-    count++;
-    if (!vh_exists(sect, "TITLE")) {
-        sprintf(buf, "Map section %d", count);
-        vh_sstore(sect, "TITLE", buf);
-    }
-
     output("\nsection: %s\n", vh_sgetref(sect, "TITLE"));
     output("width: %d\n", vh_iget(sect, "XLEN"));
     output("height: %d\n", vh_iget(sect, "YLEN"));
@@ -257,11 +232,4 @@ raw_task_entry(vhash *task)
         v_iterate(notes, iter)
             output("note: %s\n", vl_iter_svalref(iter));
     }
-}
-
-/* Initialise raw output */
-static void
-raw_init(void)
-{
-    count = 0;
 }

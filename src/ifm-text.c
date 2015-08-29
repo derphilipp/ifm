@@ -29,6 +29,17 @@ outputfuncs text_outputfuncs = {
     NULL
 };
 
+/* Map function list */
+mapfuncs text_mapfuncs = {
+    text_map_start,
+    text_map_section,
+    text_map_room,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+};
+
 /* Item function list */
 itemfuncs text_itemfuncs = {
     NULL,
@@ -49,13 +60,43 @@ static int total = 0;
 /* Total distance travelled */
 static int travel = 0;
 
-/* Task/item counts */
+/* Counts of things */
 static int taskcount = 0;
 static int itemcount = 0;
+static int sectcount = 0;
 
 /* Task settings */
 static vhash *lastroom = NULL;
 static int moved = 0;
+
+/* Map functions */
+void
+text_map_start(void)
+{
+    char *title = vh_sgetref(map, "TITLE");
+    output("Map sections for %s\n", title);
+}
+
+void
+text_map_section(vhash *sect)
+{
+    char *title = vh_sgetref(sect, "TITLE");
+    vlist *rooms = vh_pget(sect, "ROOMS");
+    int width = vh_iget(sect, "XLEN");
+    int height = vh_iget(sect, "YLEN");
+
+    output("\n%d (%s) (size: %dx%d, rooms: %d):\n",
+           ++sectcount, title, width, height, vl_length(rooms));
+}
+
+void
+text_map_room(vhash *room)
+{
+    output("   %s (%d, %d)\n",
+           vh_sgetref(room, "DESC"),
+           vh_iget(room, "X"),
+           vh_iget(room, "Y"));
+}
 
 /* Item functions */
 void
@@ -69,10 +110,7 @@ text_item_entry(vhash *item)
     viter iter;
 
     if (itemcount++ == 0) {
-        if (vh_exists(map, "TITLE"))
-            title = vh_sgetref(map, "TITLE");
-        else
-            title = "Interactive Fiction game";
+        title = vh_sgetref(map, "TITLE");
         output("Item list for %s\n", title);
     }
 
@@ -162,10 +200,7 @@ text_task_entry(vhash *task)
     viter iter;
 
     if (taskcount == 0) {
-        if (vh_exists(map, "TITLE"))
-            title = vh_sgetref(map, "TITLE");
-        else
-            title = "Interactive Fiction game";
+        title = vh_sgetref(map, "TITLE");
         output("Task list for %s\n", title);
     }
 
@@ -258,6 +293,7 @@ text_init(void)
 
     taskcount = 0;
     itemcount = 0;
+    sectcount = 0;
 
     lastroom = NULL;
 }

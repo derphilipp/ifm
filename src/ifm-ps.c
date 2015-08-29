@@ -117,10 +117,7 @@ ps_map_start(void)
     num_pages = pack_sections(width, height);
 
     /* Print header */
-    if (vh_exists(map, "TITLE"))
-        title = vh_sgetref(map, "TITLE");
-    else
-        title = "Interactive Fiction map";
+    title = vh_sgetref(map, "TITLE");
 
     output("%%!PS-Adobe-2.0\n");
     output("%%%%Title: %s\n", title);

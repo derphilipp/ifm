@@ -5,7 +5,6 @@
 
 #include "ifm-format.h"
 
-extern outputfuncs raw_outputfuncs;
 extern mapfuncs raw_mapfuncs;
 extern itemfuncs raw_itemfuncs;
 extern taskfuncs raw_taskfuncs;

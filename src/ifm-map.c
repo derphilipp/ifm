@@ -59,6 +59,8 @@ init_map(void)
         v_destroy(map);
 
     map = vh_create();
+    vh_sstore(map, "TITLE", "Interactive Fiction map");
+
     startroom = NULL;
 
     rooms = vl_create();
@@ -556,15 +558,18 @@ setup_sections(void)
     vlist *list, *xpos, *ypos;
     viter i, j, k;
     char *title;
+    V_BUF_DECL;
 
     v_iterate(sects, i) {
         sect = vl_iter_pval(i);
 
         /* Set title */
-        if (sectnames != NULL && vl_length(sectnames) > 0) {
+        if (sectnames != NULL && vl_length(sectnames) > 0)
             title = vl_sshift(sectnames);
-            vh_sstore(sect, "TITLE", title);
-        }
+        else
+            title = V_BUF_SETF("Map section %d", v_iter_count(i) + 1);
+
+        vh_sstore(sect, "TITLE", title);
 
         /* Find width and length of section */
         first = 1;

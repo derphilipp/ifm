@@ -110,13 +110,6 @@ Finally, here are the information options:
    Show one of several types of information, and exit.  The ``TYPE``
    argument can be one of:
 
-   ``maps``
-	   Show a list of all the map sections defined in the input.  This
-	   is useful for finding the numbers of the map sections you want
-	   to print.
-
-	   .. versionadded:: 5.0
-
    ``path``
 	   Show the directories that are searched for library and include
 	   files.
@@ -146,7 +139,7 @@ format.  The table below shows what's available for each format.
     ====== ========== === === ==== === === ==== ===
     Output PostScript Fig Tk  Text Rec Dot YAML Raw
     ====== ========== === === ==== === === ==== ===
-    Map    |X|        |X| |X|              |X|  |X|
+    Map    |X|        |X| |X| |X|          |X|  |X|
     Items                     |X|          |X|  |X|
     Tasks                     |X|  |X| |X| |X|  |X|
     ====== ========== === === ==== === === ==== ===
@@ -211,8 +204,8 @@ But you can control its display by setting variables in the usual way.
 ASCII text (``text``)
 ---------------------
 
-This produces human-readable output for items and tasks.  The output should
-be fairly self-explanatory.
+This produces human-readable output for maps, items and tasks.  The output
+should be fairly self-explanatory.
 
 .. index::
    pair: Recording; Types of output

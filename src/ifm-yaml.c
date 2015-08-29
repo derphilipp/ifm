@@ -69,28 +69,15 @@ static int tasknum = 0;
 void
 yaml_map_start(void)
 {
-    char *title;
-
-    if (vh_exists(map, "TITLE"))
-        title = vh_sgetref(map, "TITLE");
-    else
-        title = "Interactive Fiction map";
-
+    char *title = vh_sgetref(map, "TITLE");
     output("\ntitle: %s\n", yaml_string(title));
 }
 
 void
 yaml_map_section(vhash *sect)
 {
-    char buf[100];
-
     if (sectnum++ == 0)
         output("\nsections:\n");
-
-    if (!vh_exists(sect, "TITLE")) {
-        sprintf(buf, "Map section %d", sectnum);
-        vh_sstore(sect, "TITLE", buf);
-    }
 
     roomnum = linknum = 0;
 

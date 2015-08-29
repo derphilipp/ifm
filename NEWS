@@ -3,7 +3,12 @@ Version 5.5 (unreleased)
 
 * New output format: YAML.
 
+* New output for text format: maps.
+
 * New option: ``-v`` (verbose), which shows more information when running.
+
+* The ``maps`` option of the ``-show`` command has been removed (it's
+  superseded by the new text map output).
 
 * The ``-e`` option (specify max errors before exiting) has been removed.
 

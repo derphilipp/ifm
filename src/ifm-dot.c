@@ -57,10 +57,7 @@ dot_task_start(void)
     font = var_string("task_graph_font");
 
     /* Get title */
-    if (vh_exists(map, "TITLE"))
-        title = vh_sgetref(map, "TITLE");
-    else
-        title = "Interactive Fiction game";
+    title = vh_sgetref(map, "TITLE");
 
     /* Get page size */
     width = (page_width - page_margin) / 2.54;

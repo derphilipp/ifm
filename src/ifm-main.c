@@ -69,7 +69,6 @@ static void (*output_func)(int type, char *msg) = NULL;
 static void print_version(void);
 static int select_format(char *name);
 static void show_info(char *type);
-static void show_maps(void);
 static void show_path(void);
 static void usage(void);
 
@@ -78,7 +77,6 @@ static struct show_st {
     char *name, *desc;
     void (*func)(void);
 } showopts[] = {
-    { "maps", "Show map sections",      show_maps },
     { "vars", "Show defined variables", var_list  },
     { "path", "Show file search path",  show_path },
     { NULL,   NULL,                     NULL }
@@ -710,42 +708,6 @@ show_info(char *type)
         err("ambiguous info type: %s", type);
     else
         showopts[match].func();
-}
-
-/* Print map sections */
-static void
-show_maps(void)
-{
-    int num = 1, xlen, ylen;
-    vlist *rooms;
-    char *title;
-    vhash *sect;
-    viter iter;
-    V_BUF_DECL;
-
-    set_map_vars();
-
-    output("%s\t%s\t%s\t%s\t%s\n",
-           "No.", "Rooms", "Width", "Height", "Name");
-
-    v_iterate(sects, iter) {
-        sect = vl_iter_pval(iter);
-
-        if (vh_exists(sect, "TITLE"))
-            title = vh_sgetref(sect, "TITLE");
-        else
-            title = V_BUF_SETF("Map section %d", num);
-
-        rooms = vh_pget(sect, "ROOMS");
-        xlen = vh_iget(sect, "XLEN");
-        ylen = vh_iget(sect, "YLEN");
-
-        if (show_map_title && vh_exists(sect, "TITLE"))
-            ylen++;
-
-        output("%d\t%d\t%d\t%d\t%s\n",
-               num++, vl_length(rooms), xlen, ylen, title);
-    }
 }
 
 /* Print file search path */
