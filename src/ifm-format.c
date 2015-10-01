@@ -20,6 +20,7 @@
 
 #include "ifm-ps.h"
 #include "ifm-fig.h"
+#include "ifm-svg.h"
 #include "ifm-text.h"
 #include "ifm-tk.h"
 #include "ifm-raw.h"
@@ -34,6 +35,9 @@ format formats[] = {
 
     { "fig", "Xfig drawing",
       NULL, &fig_mapfuncs, NULL, NULL, NULL },
+ 
+    { "svg", "SVG drawing commands",
+      NULL, &svg_mapfuncs, NULL, NULL, NULL },
 
     { "text", "ASCII text",
       &text_outputfuncs, &text_mapfuncs, &text_itemfuncs, &text_taskfuncs, NULL },

@@ -96,6 +96,7 @@ man/Makefile
 progs/Makefile
 src/Makefile
 src/libfig/Makefile
+src/libsvg/Makefile
 src/libvars/Makefile
 tests/Makefile
 win32/Makefile
