@@ -4,29 +4,29 @@ section: Map section 1
 width: 5
 height: 2
 
-room: 5
-name: Treasure Room
-rpos: 0 0
-
-room: 4
-name: Corridor
-rpos: 1 0
-
-room: 3
-name: Corridor
-rpos: 2 1
-
-room: 2
-name: Corridor
-rpos: 3 1
+room: 0
+name: Start
+rpos: 4 1
 
 room: 1
 name: Bottom of Chute
 rpos: 4 0
 
-room: 0
-name: Start
-rpos: 4 1
+room: 2
+name: Corridor
+rpos: 3 1
+
+room: 3
+name: Corridor
+rpos: 2 1
+
+room: 4
+name: Corridor
+rpos: 1 0
+
+room: 5
+name: Treasure Room
+rpos: 0 0
 
 link: 0 1
 lpos: 4 1

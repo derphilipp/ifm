@@ -4,13 +4,13 @@ section: Map section 1
 width: 1
 height: 2
 
-room: 1
-name: Finish
-rpos: 0 0
-
 room: 0
 name: Start
 rpos: 0 1
+
+room: 1
+name: Finish
+rpos: 0 0
 
 link: 0 1
 lpos: 0 1

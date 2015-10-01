@@ -251,12 +251,16 @@ print_map(int dnum, vlist *sections)
 
         if (func->map_room != NULL) {
             list = vh_pget(sect, "ROOMS");
+            list = vl_reverse(list);
+
             v_iterate(list, j) {
                 room = vl_iter_pval(j);
                 set_style_list(vh_pget(room, "STYLE"));
                 set_room_vars();
                 func->map_room(room);
             }
+
+            vl_destroy(list);
         }
 
         if (func->map_link != NULL) {

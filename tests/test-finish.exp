@@ -4,21 +4,21 @@ section: Map section 1
 width: 2
 height: 2
 
-room: 3
-name: Bedroom
-rpos: 1 1
-
-room: 2
-name: Landing
-rpos: 0 1
+room: 0
+name: Lounge
+rpos: 0 0
 
 room: 1
 name: Kitchen
 rpos: 1 0
 
-room: 0
-name: Lounge
-rpos: 0 0
+room: 2
+name: Landing
+rpos: 0 1
+
+room: 3
+name: Bedroom
+rpos: 1 1
 
 link: 0 1
 lpos: 0 0
