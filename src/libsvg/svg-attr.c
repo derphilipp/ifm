@@ -45,41 +45,21 @@ static char *fontlist[] = {
     NULL
 };
 
-static int nextid = 32;
-
 /* Internal functions */
-static int svg_lookup_colour(vhash *object, float r, float g, float b);
+static char *svg_colour(float r, float g, float b);
 static int svg_lookup_font(char *name);
 
-/* Initialize colour lookups */
-void
-svg_init_colour(void)
+/* Return SVG representation of a colour */
+static char *
+svg_colour(float r, float g, float b)
 {
-    nextid = 32;
-}
+    V_BUF_DECL;
 
-/* Look up a colour given its RGB values */
-static int
-svg_lookup_colour(vhash *object, float r, float g, float b)
-{
-    vhash *figure, *colours;
-    char cbuf[20];
-    int id;
+    int ri = (int) (r * 255);
+    int gi = (int) (g * 255);
+    int bi = (int) (b * 255);
 
-    figure = svg_get_figure(object);
-    colours = vh_add_hash(figure, "COLOURS");
-
-    sprintf(cbuf, "#%02x%02x%02x",
-            (int) (r * 255), (int) (g * 255), (int) (b * 255));
-
-    if (vh_exists(colours, cbuf)) {
-        id = vh_iget(colours, cbuf);
-    } else {
-        vh_istore(colours, cbuf, nextid);
-        id = nextid++;
-    }
-
-    return id;
+    return V_BUF_SETF("rgb(%d, %d, %d)", ri, gi, bi);
 }
 
 /* Look up a font ID given its name */
@@ -120,8 +100,8 @@ svg_set_arrowstyle(vhash *object, int type, int style,
 void
 svg_set_colour(vhash *object, float r, float g, float b)
 {
-    int id = svg_lookup_colour(object, r, g, b);
-    vh_istore(object, "PENCOLOUR", id);
+    char *colour = svg_colour(r, g, b);
+    vh_sstore(object, "PENCOLOUR", colour);
 }
 
 /* Set the depth of an object */
@@ -135,8 +115,8 @@ svg_set_depth(vhash *object, int depth)
 void
 svg_set_fillcolour(vhash *object, float r, float g, float b)
 {
-    int id = svg_lookup_colour(object, r, g, b);
-    vh_istore(object, "FILLCOLOUR", id);
+    char *colour = svg_colour(r, g, b);
+    vh_sstore(object, "FILLCOLOUR", colour);
     vh_istore(object, "FILLSTYLE", 20);
 }
 
@@ -190,20 +170,6 @@ svg_set_name(vhash *object, char *fmt, ...)
     char *str;
     V_ALLOCA_FMT(str, fmt);
     vh_sstore(object, "NAME", str);
-}
-
-/* Set the orientation of a figure */
-void
-svg_set_orientation(vhash *figure, int orient)
-{
-    vh_istore(figure, "ORIENTATION", orient);
-}
-
-/* Set the paper size of a figure */
-void
-svg_set_papersize(vhash *figure, char *size)
-{
-    vh_sstore(figure, "PAPERSIZE", size);
 }
 
 /* Set the spline shape of a point */

@@ -21,6 +21,7 @@ testsvg_LDADD = libsvg.a -lvars -lm
 
 test: testsvg
 	./testsvg | tee test.svg
+	inkscape -e test.png -d 200 test.svg
 
 CLEANFILES = test.svg* testsvg
 

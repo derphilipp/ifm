@@ -56,24 +56,6 @@ fig_create(int units, float scale)
     return obj;
 }
 
-/* Create an arc object */
-vhash *
-fig_create_arc(vhash *parent, int subtype, float cx, float cy,
-               float x1, float y1, float x2, float y2, float x3, float y3)
-{
-    vhash *obj;
-
-    obj = fig_create_object(parent, FIG_ARC);
-    vh_istore(obj, "SUBTYPE", subtype);
-
-    fig_create_point(obj, cx, cy);
-    fig_create_point(obj, x1, y1);
-    fig_create_point(obj, x2, y2);
-    fig_create_point(obj, x3, y3);
-
-    return obj;
-}
-
 /* Create a box object */
 vhash *
 fig_create_box(vhash *parent, float x, float y, float width, float height)
@@ -96,19 +78,6 @@ vhash *
 fig_create_compound(vhash *parent)
 {
     return fig_create_object(parent, FIG_COMPOUND);
-}
-
-/* Create an ellipse object */
-vhash *
-fig_create_ellipse(vhash *parent, int subtype)
-{
-    vhash *obj;
-
-    obj = fig_create_object(parent, FIG_ELLIPSE);
-    vh_istore(obj, "SUBTYPE", subtype);
-    /* FINISH ME */
-
-    return obj;
 }
 
 /* Create a line object */
@@ -186,24 +155,6 @@ fig_create_point(vhash *parent, float x, float y)
     vl_fpush(list, num == 0 ? 0.0 : 1.0);
 
     return num;
-}
-
-/* Create a polygon object */
-vhash *
-fig_create_polygon(vhash *parent,
-                   float x1, float y1,
-                   float x2, float y2,
-                   float x3, float y3)
-{
-    vhash *obj;
-
-    obj = fig_create_polyline(parent, FIG_POLYGON);
-
-    fig_create_point(obj, x1, y1);
-    fig_create_point(obj, x2, y2);
-    fig_create_point(obj, x3, y3);
-
-    return obj;
 }
 
 /* Create a polyline object */

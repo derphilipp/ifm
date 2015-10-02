@@ -7,43 +7,22 @@
 #include "svg-object.h"
 #include "svg-util.h"
 
-#define SCALE SVG_RESOLUTION
-
 /* Internal functions */
 static vhash *svg_create_object(vhash *parent, int type);
 
 /* Create a new figure */
 vhash *
-svg_create(int units, float scale)
+svg_create(float width, float height)
 {
-    char *uname = "Unknown";
     vhash *obj;
-
-    switch (units) {
-    case SVG_INCHES:
-        uname = "Inches";
-        break;
-    case SVG_METRIC:
-        uname = "Metric";
-        scale *= 0.375;
-        break;
-    default:
-        svg_fatal("invalid units");
-        break;
-    }
 
     obj = svg_create_object(NULL, SVG_ROOT);
 
-    svg_set_papersize(obj, "A4");
-    svg_set_orientation(obj, SVG_LANDSCAPE);
+    vh_dstore(obj, "WIDTH", width);
+    vh_dstore(obj, "HEIGHT", height);
 
-    vh_istore(obj, "RESOLUTION", SCALE);
-    vh_sstore(obj, "UNITS", uname);
-    vh_dstore(obj, "SCALE", scale);
-
-    vh_istore(obj, "PENCOLOUR", -1);
-    vh_istore(obj, "FILLCOLOUR", -1);
-    vh_istore(obj, "FILLSTYLE", -1);
+    vh_sstore(obj, "PENCOLOUR", "black");
+    vh_sstore(obj, "FILLCOLOUR", "none");
     vh_istore(obj, "LINEWIDTH", 1);
 
     svg_set_font(obj, "Times", 10.0);
@@ -56,37 +35,22 @@ svg_create(int units, float scale)
     return obj;
 }
 
-/* Create an arc object */
-vhash *
-svg_create_arc(vhash *parent, int subtype, float cx, float cy,
-               float x1, float y1, float x2, float y2, float x3, float y3)
-{
-    vhash *obj;
-
-    obj = svg_create_object(parent, SVG_ARC);
-    vh_istore(obj, "SUBTYPE", subtype);
-
-    svg_create_point(obj, cx, cy);
-    svg_create_point(obj, x1, y1);
-    svg_create_point(obj, x2, y2);
-    svg_create_point(obj, x3, y3);
-
-    return obj;
-}
-
 /* Create a box object */
 vhash *
 svg_create_box(vhash *parent, float x, float y, float width, float height)
 {
     vhash *obj;
 
-    obj = svg_create_polyline(parent, SVG_BOX);
+    obj = svg_create_object(parent, SVG_BOX);
 
-    svg_create_point(obj, x, y);
-    svg_create_point(obj, x + width, y);
-    svg_create_point(obj, x + width, y + height);
-    svg_create_point(obj, x, y + height);
-    svg_create_point(obj, x, y);
+    vh_dstore(obj, "X", x);
+    vh_dstore(obj, "Y", y);
+    vh_dstore(obj, "WIDTH", width);
+    vh_dstore(obj, "HEIGHT", height);
+
+    vh_sstore(obj, "PENCOLOUR", "black");
+    vh_sstore(obj, "FILLCOLOUR", "none");
+    vh_istore(obj, "LINEWIDTH", 1);
 
     return obj;
 }
@@ -98,26 +62,13 @@ svg_create_compound(vhash *parent)
     return svg_create_object(parent, SVG_COMPOUND);
 }
 
-/* Create an ellipse object */
-vhash *
-svg_create_ellipse(vhash *parent, int subtype)
-{
-    vhash *obj;
-
-    obj = svg_create_object(parent, SVG_ELLIPSE);
-    vh_istore(obj, "SUBTYPE", subtype);
-    /* FINISH ME */
-
-    return obj;
-}
-
 /* Create a line object */
 vhash *
 svg_create_line(vhash *parent, float x1, float y1, float x2, float y2)
 {
     vhash *obj;
 
-    obj = svg_create_polyline(parent, SVG_LINE);
+    obj = svg_create_polyline(parent);
 
     svg_create_point(obj, x1, y1);
     svg_create_point(obj, x2, y2);
@@ -144,42 +95,18 @@ svg_create_object(vhash *parent, int type)
     return obj;
 }
 
-/* Create a picture object */
-vhash *
-svg_create_picture(vhash *parent,
-                   float x, float y,
-                   float width, float height,
-                   char *file)
-{
-    vhash *obj;
-
-    obj = svg_create_polyline(parent, SVG_PICTURE);
-
-    svg_create_point(obj, x, y);
-    svg_create_point(obj, x + width, y);
-    svg_create_point(obj, x + width, y + height);
-    svg_create_point(obj, x, y + height);
-    svg_create_point(obj, x, y);
-
-    vh_sstore(obj, "PICFILE", file);
-
-    return obj;
-}
-
 /* Add an X,Y point to an object */
 int
 svg_create_point(vhash *parent, float x, float y)
 {
-    vhash *figure = svg_get_figure(parent);
-    float scale = vh_dget(figure, "SCALE") * SCALE;
     vlist *list;
     int num;
 
     list = vh_add_list(parent, "XP");
-    vl_ipush(list, (int) (x * scale));
+    vl_dpush(list, x);
 
     list = vh_add_list(parent, "YP");
-    vl_ipush(list, (int) (y * scale));
+    vl_dpush(list, y);
 
     list = vh_add_list(parent, "SHAPE");
     num = vl_length(list);
@@ -188,44 +115,32 @@ svg_create_point(vhash *parent, float x, float y)
     return num;
 }
 
-/* Create a polygon object */
-vhash *
-svg_create_polygon(vhash *parent,
-                   float x1, float y1,
-                   float x2, float y2,
-                   float x3, float y3)
-{
-    vhash *obj;
-
-    obj = svg_create_polyline(parent, SVG_POLYGON);
-
-    svg_create_point(obj, x1, y1);
-    svg_create_point(obj, x2, y2);
-    svg_create_point(obj, x3, y3);
-
-    return obj;
-}
-
 /* Create a polyline object */
 vhash *
-svg_create_polyline(vhash *parent, int subtype)
+svg_create_polyline(vhash *parent)
 {
     vhash *obj;
 
     obj = svg_create_object(parent, SVG_POLYLINE);
-    vh_istore(obj, "SUBTYPE", subtype);
+
+    vh_sstore(obj, "PENCOLOUR", "black");
+    vh_sstore(obj, "FILLCOLOUR", "none");
+    vh_istore(obj, "LINEWIDTH", 1);
 
     return obj;
 }
 
 /* Create a spline object */
 vhash *
-svg_create_spline(vhash *parent, int subtype)
+svg_create_spline(vhash *parent)
 {
     vhash *obj;
 
     obj = svg_create_object(parent, SVG_SPLINE);
-    vh_istore(obj, "SUBTYPE", subtype);
+
+    vh_sstore(obj, "PENCOLOUR", "black");
+    vh_sstore(obj, "FILLCOLOUR", "none");
+    vh_istore(obj, "LINEWIDTH", 1);
 
     return obj;
 }
@@ -234,8 +149,6 @@ svg_create_spline(vhash *parent, int subtype)
 vhash *
 svg_create_text(vhash *parent, float x, float y, char *fmt, ...)
 {
-    vhash *figure = svg_get_figure(parent);
-    float scale = vh_dget(figure, "SCALE") * SCALE;
     vhash *obj;
     char *str;
 
@@ -243,9 +156,9 @@ svg_create_text(vhash *parent, float x, float y, char *fmt, ...)
 
     V_ALLOCA_FMT(str, fmt);
     vh_sstore(obj, "TEXT", str);
-
-    vh_istore(obj, "X", (int) (x * scale));
-    vh_istore(obj, "Y", (int) (y * scale));
+    vh_sstore(obj, "TEXTANCHOR", "middle");
+    vh_dstore(obj, "X", x);
+    vh_dstore(obj, "Y", y);
 
     return obj;
 }
@@ -257,9 +170,6 @@ svg_create_textbox(vhash *parent,
                    float x, float y, float width, float height,
                    char *fmt, ...)
 {
-    vhash *figure = svg_get_figure(parent);
-    float scale = vh_dget(figure, "SCALE");
-
     float xt = 0.0, yt = 0.0, linegap, offset;
     unsigned int i, nrows, ncols;
     vlist *lines;
@@ -270,8 +180,8 @@ svg_create_textbox(vhash *parent,
 
     /* Reduce font size until it fits the box */
     while (1) {
-        linegap = 1 * fontsize / (POINTS_PER_INCH * scale);
-        ncols = 2.2 * scale * width * POINTS_PER_INCH / fontsize;
+        linegap = 1 * fontsize / POINTS_PER_INCH;
+        ncols = 4 * width * POINTS_PER_INCH / fontsize;
 
         lines = vl_filltext(str, ncols);
         nrows = vl_length(lines);

@@ -17,7 +17,6 @@ int
 main(void)
 {
     vhash *figure, *box, *group, *text, *line, *spline;
-    float width, height;
 
     v_debug(V_DBG_PTRS);
 
@@ -32,7 +31,6 @@ main(void)
     fig_set_name(box, "box around text");
     fig_set_depth(box, 200);
 
-#if 0
     group = fig_create_compound(figure);
     text = fig_create_text(group, 6.0, 6.0, "Hi there");
     box = fig_create_box(group, 3.0, 3.0, 2.0, 2.0);
@@ -53,9 +51,8 @@ main(void)
     fig_set_name(box, "My box");
     fig_set_arrow(line, 1, 0);
     fig_set_arrow(spline, 1, 0);
-#endif
 
-    fig_write_figure(figure, stdout);
+    fig_write_figure(figure);
 
     return 0;
 }

@@ -18,12 +18,14 @@ static void fig_write_object(vhash *object);
 static void fig_write_arrows(vhash *object);
 static void fig_write(char *fmt, ...);
 
+/* Set output stream */
 void
 fig_set_stream(FILE *fp)
 {
     stream = fp;
 }
 
+/* Set output handler function */
 void
 fig_set_handler(void (*func)(char *line))
 {
@@ -74,8 +76,8 @@ static void
 fig_write_object(vhash *object)
 {
     int radius = 1, npoints, type, subtype, pen_style = 0, cap_style = 0;
-    int i, font_flags = 4, direction = 0;
     vlist *objects, *xp, *yp, *shape;
+    int i, font_flags = 4;
     float style_val = 1.0;
     viter iter;
 
@@ -91,10 +93,6 @@ fig_write_object(vhash *object)
         fig_write("# %s\n", vh_sgetref(object, "NAME"));
 
     switch (type) {
-
-    case FIG_ELLIPSE:
-        /* FINISH ME */
-        break;
 
     case FIG_POLYLINE:
         fig_write("%d ", type);
@@ -171,29 +169,6 @@ fig_write_object(vhash *object)
         fig_write("%d ", fig_get_ival(object, "X"));
         fig_write("%d ", fig_get_ival(object, "Y"));
         fig_write("%s\\001\n", fig_get_sval(object, "TEXT"));
-        break;
-
-    case FIG_ARC:
-        fig_write("%d ", type);
-        fig_write("%d ", subtype);
-        fig_write("%d ", fig_get_ival(object, "LINESTYLE"));
-        fig_write("%d ", fig_get_ival(object, "LINEWIDTH"));
-        fig_write("%d ", fig_get_ival(object, "PENCOLOUR"));
-        fig_write("%d ", fig_get_ival(object, "FILLCOLOUR"));
-        fig_write("%d ", fig_get_ival(object, "DEPTH"));
-        fig_write("%d ", pen_style);
-        fig_write("%d ", fig_get_ival(object, "FILLSTYLE"));
-        fig_write("%.3f ", style_val);
-        fig_write("%d ", cap_style);
-        fig_write("%d ", direction);
-        fig_write("%d ", fig_get_ival(object, "ARROW_FORWARD"));
-        fig_write("%d ", fig_get_ival(object, "ARROW_BACKWARD"));
-
-        for (i = 0; i < npoints; i++)
-            fig_write(" %g %g", vl_fget(xp, i), vl_fget(yp, i));
-
-        fig_write("\n");
-        fig_write_arrows(object);
         break;
 
     case FIG_COMPOUND:

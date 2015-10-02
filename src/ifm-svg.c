@@ -63,9 +63,9 @@ static void output_handler(char *line);
 void
 svg_map_start(void)
 {
-    float ratio, tmp, scale = 1.0, xscale, yscale;
-    int ylen, width, height, orient;
+    int ylen, width, height;
     vhash *sect, *box;
+    float ratio;
     viter iter;
 
     /* Initialize */
@@ -84,12 +84,6 @@ svg_map_start(void)
     /* Set room names */
     setup_room_names();
 
-    /* Determine orientation */
-    if (VAR_DEF("page_rotate"))
-        orient = var_int("page_rotate") ? SVG_LANDSCAPE : SVG_PORTRAIT;
-    else
-        orient = SVG_UNDEF;
-
     /* Get initial dimensions, in rooms */
     svg_width = page_width - 2 * page_margin;
     svg_height = page_height - 2 * page_margin;
@@ -102,22 +96,8 @@ svg_map_start(void)
     while (1) {
         svg_debug("trying map size: %d x %d", width, height);
 
-        if (orient != SVG_LANDSCAPE &&
-            pack_sections(width, height) == 1) {
-            orient = SVG_PORTRAIT;
-            svg_debug("using portrait");
+        if (pack_sections(width, height) == 1)
             break;
-        }
-
-        if (orient != SVG_PORTRAIT &&
-            pack_sections(height, width) == 1) {
-            orient = SVG_LANDSCAPE;
-            tmp = page_width;
-            page_width = page_height;
-            page_height = tmp;
-            svg_debug("using landscape");
-            break;
-        }
 
         width++;
         height = (int) (width * ratio) + 1;
@@ -134,13 +114,8 @@ svg_map_start(void)
     }
 
     /* Set dimensions and offsets */
-    if (orient == SVG_PORTRAIT) {
-        svg_width = width * room_size;
-        svg_height = height * room_size;
-    } else {
-        svg_width = height * room_size;
-        svg_height = width * room_size;
-    }
+    svg_width = width * room_size;
+    svg_height = height * room_size;
 
     svg_width += 2 * page_margin;
     svg_height += 2 * page_margin;
@@ -160,19 +135,8 @@ svg_map_start(void)
     svg_debug("page margin: %g", page_margin);
     svg_debug("svg origin: %g x %g", svg_origin_x, svg_origin_y);
 
-    if (var_int("fit_page")) {
-        xscale = (page_width - 2 * page_margin) / svg_width;
-        yscale = (page_height - 2 * page_margin) / svg_height;
-        if (xscale < 1.0 || yscale < 1.0) {
-            scale = V_MIN(xscale, yscale);
-            svg_debug("scaling by %g", scale);
-        }
-    }
-
     /* Initialise figure */
-    svg = svg_create(SVG_METRIC, scale);
-    svg_set_orientation(svg, orient);
-    svg_set_papersize(svg, page_size);
+    svg = svg_create(svg_width, svg_height);
 
     /* Draw page border if required */
     if (show_page_border) {

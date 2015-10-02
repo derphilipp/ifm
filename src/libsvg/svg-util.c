@@ -6,145 +6,46 @@
 #include "svg-object.h"
 #include "svg-util.h"
 
-/* Calculate bounding box of an object */
-int
-svg_calc_bbox(vhash *object)
+/* Attribute key mappings */
+static struct attrmap_st {
+    char *key, *attr;
+} attrmap[] = {
+    { "PENCOLOUR", "stroke" },
+    { "FILLCOLOUR", "fill" },
+    { "LINEWIDTH", "stroke-width" },
+    { "TEXTANCHOR", "text-anchor" },
+
+    /* FINISH ME -- add more here */
+
+    /* Terminator */
+    { NULL, NULL }
+};
+
+/* Get SVG style of an object, or NULL */
+char *
+svg_get_style(vhash *object)
 {
-    int type, bxmin = 0, bxmax = 0, bymin = 0, bymax = 0, width, height;
-    int i, num, xmin, xmax, ymin, ymax, x, y, justify, count = 0;
-    vlist *objects, *xp, *yp;
-    vhash *obj, *figure;
-    float fontsize;
-    viter iter;
-    char *text;
+    static vlist *styles = NULL;
+    char *val, *attr, *key;
+    V_BUF_DECL;
+    int i;
 
-    type = vh_iget(object, "TYPE");
+    vl_init(styles);
 
-    switch (type) {
-
-    case SVG_ROOT:
-    case SVG_COMPOUND:
-        if ((objects = vh_pget(object, "OBJECTS")) == NULL)
-            return 0;
-
-        v_iterate(objects, iter) {
-            obj = vl_iter_pval(iter);
-            if (!svg_calc_bbox(obj))
-                continue;
-
-            xmin = vh_iget(obj, "XMIN");
-            xmax = vh_iget(obj, "XMAX");
-            ymin = vh_iget(obj, "YMIN");
-            ymax = vh_iget(obj, "YMAX");
-
-            if (count++ == 0) {
-                bxmin = xmin;
-                bxmax = xmax;
-                bymin = ymin;
-                bymax = ymax;
-            } else {
-                bxmin = V_MIN(xmin, bxmin);
-                bxmax = V_MAX(xmax, bxmax);
-                bymin = V_MIN(ymin, bymin);
-                bymax = V_MAX(ymax, bymax);
-            }
+    for (i = 0; attrmap[i].key != NULL; i++) {
+        key = attrmap[i].key;
+        attr = attrmap[i].attr;
+        val = vh_sget(object, key);
+        if (strlen(val) > 0) {
+            vl_spush(styles, V_BUF_SETF("%s: %s;", attr, val));
+            svg_debug("%s = %s", attr, val);
         }
-
-        break;
-
-    case SVG_TEXT:
-        x = vh_iget(object, "X");
-        y = vh_iget(object, "Y");
-
-        figure = svg_get_figure(object);
-        fontsize = svg_get_fval(object, "FONTSIZE");
-
-        text = svg_get_sval(object, "TEXT");
-        width = svg_get_width(figure, fontsize) * strlen(text);
-        height = svg_get_height(figure, fontsize);
-        justify = svg_get_ival(object, "JUSTIFY");
-
-        vh_fstore(object, "WIDTH", width);
-        vh_fstore(object, "HEIGHT", height);
-
-        switch (justify) {
-        case SVG_JUSTIFY_LEFT:
-            bxmin = x;
-            bxmax = x + width;
-            break;
-        case SVG_JUSTIFY_CENTRE:
-            bxmin = x - width / 2;
-            bxmax = x + width / 2;
-            break;
-        case SVG_JUSTIFY_RIGHT:
-            bxmin = x - width;
-            bxmax = x;
-            break;
-        }
-
-        bymin = y - height;
-        bymax = y;
-        break;
-
-    default:
-        if ((xp = vh_pget(object, "XP")) == NULL)
-            return 0;
-
-        if ((yp = vh_pget(object, "YP")) == NULL)
-            return 0;
-
-        num = vl_length(xp);
-        for (i = 0; i < num; i++) {
-            x = vl_iget(xp, i);
-            y = vl_iget(yp, i);
-
-            if (count++ == 0) {
-                bxmin = bxmax = x;
-                bymin = bymax = y;
-            } else {
-                bxmin = V_MIN(x, bxmin);
-                bxmax = V_MAX(x, bxmax);
-                bymin = V_MIN(y, bymin);
-                bymax = V_MAX(y, bymax);
-            }
-        }
-
-        break;
     }
 
-    vh_istore(object, "XMIN", bxmin);
-    vh_istore(object, "XMAX", bxmax);
-    vh_istore(object, "YMIN", bymin);
-    vh_istore(object, "YMAX", bymax);
+    if (vl_length(styles) > 0)
+        return vl_join(styles, " ");
 
-    svg_debug("bounding box of %s: %d-%d, %d-%d",
-              vh_exists(object, "NAME") ? vh_sgetref(object, "NAME") : "object",
-              bxmin, bxmax, bymin, bymax);
-
-    return 1;
-}
-
-/* Print a debugging message */
-void
-svg_debug(char *fmt, ...)
-{
-    char *str;
-
-    if (getenv("SVG_DEBUG") != NULL) {
-        V_ALLOCA_FMT(str, fmt);
-        fprintf(stderr, "Svg: %s\n", str);
-    }
-}
-
-/* Print a fatal error and die */
-void
-svg_fatal(char *fmt, ...)
-{
-    char *str;
-
-    V_ALLOCA_FMT(str, fmt);
-    fprintf(stderr, "Svg fatal: %s\n", str);
-    exit(2);
+    return NULL;
 }
 
 /* Get an attribute of an object */
@@ -191,4 +92,27 @@ float
 svg_get_width(vhash *figure, float fontsize)
 {
     return fontsize * SVG_TEXT_WSCALE;
+}
+
+/* Print a debugging message */
+void
+svg_debug(char *fmt, ...)
+{
+    char *str;
+
+    if (getenv("SVG_DEBUG") != NULL) {
+        V_ALLOCA_FMT(str, fmt);
+        fprintf(stderr, "SVG: %s\n", str);
+    }
+}
+
+/* Print a fatal error and die */
+void
+svg_fatal(char *fmt, ...)
+{
+    char *str;
+
+    V_ALLOCA_FMT(str, fmt);
+    fprintf(stderr, "Svg fatal: %s\n", str);
+    exit(2);
 }
