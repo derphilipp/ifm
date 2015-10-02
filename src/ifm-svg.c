@@ -353,9 +353,9 @@ svg_map_link(vhash *link)
     truncate_points(x, y, room_width, room_height);
 
     if (link_spline && np > 2)
-        line = svg_create_spline(svg_section, SVG_OPEN_XSPLINE);
+        line = svg_create_spline(svg_section);
     else
-        line = svg_create_polyline(svg_section, SVG_LINE);
+        line = svg_create_polyline(svg_section);
 
     for (i = 0; i < np; i++) {
         xp = vl_dget(x, i) + 0.5;
