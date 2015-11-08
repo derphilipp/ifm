@@ -308,7 +308,7 @@ With prefix arg, write item list to file instead."
 (defun ifm-show-sections ()
   "Show IFM map sections in another window."
   (interactive)
-  (ifm-run "*IFM map sections*" nil t "-show" "maps" "-"))
+  (ifm-run "*IFM map sections*" nil t "-map" "-format" "text"))
 
 (defun ifm-show-vars ()
   "Show IFM variable list in another window."
